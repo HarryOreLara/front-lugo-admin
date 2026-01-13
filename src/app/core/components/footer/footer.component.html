@@ -1,0 +1,164 @@
+<div class="surface-50 px-4 py-8 md:px-6 lg:px-8">
+  <div class="grid grid-nogutter text-center lg:text-left">
+    <div
+      class="col-12 sm:col-6 md:col-4 lg:col-3 mt-4 flex flex-column align-items-center lg:align-items-start"
+    >
+      <img
+        src="assets/images/blocks/logos/peak-700.svg"
+        class="w-9rem mx-auto lg:mx-0"
+        alt="Peak logo"
+      />
+      <div
+        class="flex align-items-center w-full mt-5 justify-content-center lg:justify-content-start"
+      >
+        <a tabindex="0" class="cursor-pointer mr-3">
+          <i
+            class="pi pi-facebook surface-900 p-1 text-sm border-circle text-0"
+          ></i>
+        </a>
+        <a tabindex="0" class="cursor-pointer mr-3">
+          <i
+            class="pi pi-twitter surface-900 p-1 text-sm border-circle text-0"
+          ></i>
+        </a>
+        <a tabindex="0" class="cursor-pointer mr-3">
+          <i
+            class="pi pi-youtube surface-900 p-1 text-sm border-circle text-0"
+          ></i>
+        </a>
+        <a tabindex="0" class="cursor-pointer">
+          <i
+            class="pi pi-google surface-900 p-1 text-sm border-circle text-0"
+          ></i>
+        </a>
+      </div>
+      <span class="text-600 block mt-4"
+        ><i class="pi pi-phone mr-2"></i>{{ enterpriseNumber }}</span
+      >
+      <a
+        tabindex="0"
+        class="text-600 block mt-4 cursor-pointer hover:text-900 transition-duration-150 select-none w-8rem"
+        ><i class="pi pi-map-marker mr-2"></i>Ubicanos</a
+      >
+    </div>
+    <div class="col-12 sm:col-6 md:col-4 lg:col-3 mt-4 flex flex-column">
+      <span class="text-900 text-xl font-medium block">Empresa</span>
+      <ul class="list-none p-0">
+        <li>
+          <a
+            tabindex="0"
+            routerLink="/about"
+            class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block no-underline"
+            >Acerca de nosotros</a
+          >
+        </li>
+        <li>
+          <a
+            tabindex="0"
+            routerLink="/subsidiary"
+            class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block no-underline"
+            >Locales</a
+          >
+        </li>
+        <li>
+          <a
+            tabindex="0"
+            class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block no-underline"
+            >Delivery</a
+          >
+        </li>
+        <li>
+          <a
+            tabindex="0"
+            class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block no-underline"
+            >Iniciativas</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="col-12 sm:col-6 md:col-4 lg:col-3 mt-4 flex flex-column">
+      <span class="text-900 text-xl font-medium block">Cuentas</span>
+      <ul class="list-none p-0">
+        <li>
+          <a
+            tabindex="0"
+            class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block no-underline"
+            >Administradores</a
+          >
+        </li>
+        <li>
+          <a
+            tabindex="0"
+            class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block no-underline"
+            >Mis Favoritos</a
+          >
+        </li>
+        <li>
+          <a
+            tabindex="0"
+            class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block no-underline"
+            >Mi carrito</a
+          >
+        </li>
+        <li>
+          <a
+            tabindex="0"
+            class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block no-underline"
+            >Deseos</a
+          >
+        </li>
+        <li>
+          <a
+            tabindex="0"
+            class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block no-underline"
+            >Historial de compra</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="col-12 sm:col-6 md:col-4 lg:col-3 mt-4 flex flex-column">
+      <span class="text-900 text-xl font-medium block">Legal</span>
+      <ul class="list-none p-0">
+        <li>
+          <a
+            tabindex="0"
+            routerLink="/privacy-policy"
+            class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block no-underline"
+            >Policitas de privacidad</a
+          >
+        </li>
+        <li>
+          <a
+            tabindex="0"
+            routerLink="/terms-conditions"
+            class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block no-underline"
+            >Terminos y condiciones</a
+          >
+        </li>
+        <li>
+          <a
+            tabindex="0"
+            class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block no-underline"
+            >Información legal</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div
+    class="surface-200 px-4 py-2 md:px-6 lg:px-8 lg:mt-6 flex flex-column lg:flex-row justify-content-between align-items-center"
+  >
+    <div
+      class="col-fixed flex flex-wrap flex-order-1 lg:flex-order-0 text-center lg:text-left"
+    >
+      <span class="text-500">© {{ currentYear }}, Lugo Import.</span>
+    </div>
+    <div class="col-fixed flex align-items-center flex-order-0 lg:flex-order-1">
+      <i class="pi pi-twitter p-1 text-sm text-900 cursor-pointer mr-3"></i>
+      <i class="pi pi-facebook p-1 text-sm text-900 cursor-pointer mr-3"></i>
+      <i class="pi pi-youtube p-1 text-sm text-900 cursor-pointer mr-3"></i>
+      <i class="pi pi-google p-1 text-sm text-900 cursor-pointer mr-3"></i>
+    </div>
+  </div>
+</div>

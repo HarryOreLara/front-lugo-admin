@@ -1,0 +1,68 @@
+<div class="flex min-h-screen align-items-center justify-content-center">
+  <div class="flex w-full md:w-10 lg:w-8 shadow-2 border-round">
+    <div class="surface-section w-full md:w-6 p-6 md:p-8">
+      <div class="mb-5 text-center md:text-left">
+        <img
+          src="assets/signin/signin.jpg"
+          alt="Image"
+          height="50"
+          class="mb-3"
+        />
+        <div class="text-900 text-3xl font-medium mb-3">
+          Bienvenido de vuelta
+        </div>
+        <span class="text-600 font-medium mr-2">No tiene cuenta?</span>
+        <a class="font-medium no-underline text-blue-500 cursor-pointer"
+          >Creela hoy!</a
+        >
+      </div>
+
+      <div>
+        <label for="email2" class="block text-900 font-medium mb-2">Dni</label>
+        <input
+          id="email2"
+          type="text"
+          placeholder="Número DNI"
+          pInputText
+          class="w-full mb-3 p-3"
+        />
+
+        <label for="password2" class="block text-900 font-medium mb-2"
+          >Contraseña</label
+        >
+        <input
+          id="password2"
+          type="password"
+          placeholder="Ingrese su contraseña"
+          pInputText
+          class="w-full mb-3 p-3"
+        />
+
+        <div class="flex align-items-center justify-content-between mb-6">
+          <div class="flex align-items-center">
+            <p-checkbox id="rememberme" [binary]="true" styleClass="mr-2">
+            </p-checkbox>
+            <label for="rememberme">Mantener sesión iniciada</label>
+          </div>
+          <a class="font-medium no-underline text-blue-500 cursor-pointer">
+            Olvidaste la contraseña?
+          </a>
+        </div>
+
+        <button
+          pButton
+          pRipple
+          label="Iniciar Sesión"
+          icon="pi pi-user"
+          class="w-full p-3"
+          (click)="login()"
+        ></button>
+      </div>
+    </div>
+
+    <div
+      class="hidden md:block w-6 bg-no-repeat bg-cover border-round-right"
+      style="background-image: url('assets/signin/signin.jpg')"
+    ></div>
+  </div>
+</div>
