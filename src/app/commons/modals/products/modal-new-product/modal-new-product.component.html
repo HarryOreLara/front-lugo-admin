@@ -1,5 +1,5 @@
 <p-dialog
-  [(visible)]="visible"
+  [(visible)]="visibleModal"
   appendTo="body"
   [modal]="true"
   [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
@@ -16,18 +16,19 @@
     </div>
   </ng-template>
 
-  <form class="surface-ground" >
+  <form class="surface-ground" [formGroup]="productFormPresenter.Form">
     <div class="surface-card p-4 border-round p-fluid">
       <div class="grid formgrid p-fluid">
         <div class="field mb-4 col-12 md:col-12">
-          <label for="company_name" class="font-medium text-900">Nombre</label>
-          <input id="company_name" type="text" pInputText />
+          <label for="name" class="font-medium text-900">Nombre</label>
+          <input id="name" formControlName="name" type="text" pInputText />
         </div>
         <div class="field mb-4 col-12 md:col-3">
           <label for="categories" class="font-medium text-900">Categoria</label>
           <p-dropdown
-            inputId="categories"
-            [options]="countries"
+            inputId="category"
+            [options]="categories"
+            formControlName="category"
             optionLabel="name"
             [filter]="true"
             filterBy="name"
@@ -50,9 +51,10 @@
           <label for="marca" class="font-medium text-900">Marca</label>
           <p-dropdown
             inputId="marca"
-            [options]="countries"
+            [options]="brands"
             optionLabel="name"
             [filter]="true"
+            formControlName="brand"
             filterBy="name"
             [showClear]="true"
             placeholder="Seleccióne una marca"
@@ -106,33 +108,44 @@
         </div>
 
         <div class="field mb-4 col-12 md:col-12">
-          <label for="customer_name" class="font-medium text-900"
+          <label for="description" class="font-medium text-900"
             >Descripción</label
           >
-          <input id="customer_name" type="text" pInputText />
+          <input
+            id="description"
+            formControlName="description"
+            type="text"
+            pInputText
+          />
         </div>
 
         <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
 
         <div class="field mb-4 col-6 md:col-3">
-          <label for="item" class="font-medium text-900">Precio Costo</label>
+          <label for="costPrice" class="font-medium text-900"
+            >Precio Costo</label
+          >
           <div class="flex align-content-center">
             <p-inputNumber
               mode="currency"
-              currency="USD"
-              inputId="item"
+              currency="PEN"
+              formControlName="costPrice"
+              inputId="costPrice"
               type="text"
               class="flex-1"
             ></p-inputNumber>
           </div>
         </div>
         <div class="field mb-4 col-6 md:col-3">
-          <label for="item" class="font-medium text-900">Precio Venta</label>
+          <label for="salePrice" class="font-medium text-900"
+            >Precio Venta</label
+          >
           <div class="flex align-content-center">
             <p-inputNumber
               mode="currency"
-              currency="USD"
-              inputId="item"
+              formControlName="salePrice"
+              currency="PEN"
+              inputId="salePrice"
               type="text"
               class="flex-1"
             ></p-inputNumber>
@@ -140,11 +153,12 @@
         </div>
 
         <div class="field mb-4 col-12 md:col-3">
-          <label for="marca" class="font-medium text-900">Unidad</label>
+          <label for="unit" class="font-medium text-900">Unidad</label>
           <p-dropdown
-            inputId="marca"
+            inputId="unit"
             [options]="countries"
             optionLabel="name"
+            formControlName="unit"
             [filter]="true"
             filterBy="name"
             [showClear]="true"
@@ -185,7 +199,7 @@
           <div class="flex align-content-center">
             <p-inputNumber
               mode="currency"
-              currency="USD"
+              currency="PEN"
               inputId="item"
               type="text"
               class="flex-1"
@@ -194,17 +208,18 @@
         </div>
 
         <div class="field mb-4 col-12 flex align-items-center">
-          <p-checkbox [binary]="true"></p-checkbox>
+          <p-checkbox formControlName="hasIGV" [binary]="true"></p-checkbox>
           <span class="ml-2 text-900">Incluye (IGV 18%)</span>
         </div>
         <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
         <div class="field mb-4 col-12">
-          <label for="notes" class="font-medium text-900"
+          <label for="descriptionFull" class="font-medium text-900"
             >Descripcion detalla de producto</label
           >
           <textarea
             id="descriptionFull"
             pInputTextarea
+            formControlName="descriptionFull"
             [autoResize]="true"
             [rows]="5"
           ></textarea>
@@ -301,14 +316,18 @@
   <ng-template pTemplate="footer">
     <button
       pButton
+      [disabled]="isLoading"
       label="Cancelar"
       class="bg-red-500 border-red-400 hover:bg-red-600"
-      (onClick)="visible = false"
+      (click)="close()"
     ></button>
-    <p-button
+    <button
+      pButton
+      pRipple
       label="Guardar"
-      severity="secondary"
-      (onClick)="visible = false"
-    />
+      [disabled]="productFormPresenter.Invalid || isLoading"
+      type="button"
+      (click)="saveProducts()"
+    ></button>
   </ng-template>
 </p-dialog>

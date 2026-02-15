@@ -5,6 +5,7 @@ import { ListProductsRoutingModule } from './list-products-routing.module';
 import { RouterModule } from '@angular/router';
 import { ProductsPrimengModule } from '@themes/products/products.primeng.module';
 import { FormsModule } from '@angular/forms';
+import { ProductTableModule } from './commons/product-table/product-table.module';
 
 @NgModule({
   declarations: [ListProductsComponent],
@@ -14,6 +15,7 @@ import { FormsModule } from '@angular/forms';
     RouterModule,
     ProductsPrimengModule,
     FormsModule,
+    ProductTableModule
   ],
 })
 export class ListProductsModule {}

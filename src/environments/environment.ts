@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   enterpriseNumber: 925485473,
-  dashboard: '/dashboard'
+  dashboard: '/dashboard',
+  API_URL: 'http://localhost:3000/api',
 };
 
 /*

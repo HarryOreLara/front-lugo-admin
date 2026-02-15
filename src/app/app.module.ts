@@ -11,11 +11,10 @@ import { ModalHostModule } from '@components//host/app-modal-host.module';
 import { AlertHostModule } from '@components//alerts/app-alert-host.module';
 import { DialogModule } from 'primeng/dialog';
 import { ModalNewProductModule } from './commons/modals/products/modal-new-product/modal-new-product.module';
+import { APP_PROVIDERS } from './core/providers/providers';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     DialogModule,
@@ -25,9 +24,9 @@ import { ModalNewProductModule } from './commons/modals/products/modal-new-produ
     DashboardPrimengModule,
     ModalHostModule,
     AlertHostModule,
-    ModalNewProductModule
+    ModalNewProductModule,
   ],
-  providers: [PrimeNGConfig],
-  bootstrap: [AppComponent]
+  providers: [PrimeNGConfig, ...APP_PROVIDERS],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -9,6 +9,7 @@
       "@styles/*": ["src/styles/*"],
       "@class/*": ["src/app/core/class/*"],
       "@components/*": ["src/app/core/components*"],
+      "@patterns/*": ["src/app/core/patterns*"],
       "@constants/*": ["src/app/core/constants/*"],
       "@forms/*": ["src/app/core/forms/*"],
       "@interfaces/*": ["src/app/core/interfaces/*"],
