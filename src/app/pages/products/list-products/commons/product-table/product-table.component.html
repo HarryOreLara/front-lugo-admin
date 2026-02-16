@@ -42,9 +42,7 @@
         </div>
       </th>
 
-
-
-            <th style="min-width: 10rem">
+      <th style="min-width: 10rem">
         <div class="flex align-items-center">
           Categoria
           <p-columnFilter
@@ -71,9 +69,6 @@
         </div>
       </th>
 
-
-
-      
       <th style="min-width: 15rem">
         <div class="flex align-items-center">
           Estado
@@ -138,19 +133,12 @@
         </div>
       </th>
 
-
-
-
       <th style="min-width: 15rem">
         <div class="flex align-items-center">
           Precio
           <p-columnFilter type="text" field="country.name" display="menu" />
         </div>
       </th>
-
-
-
-
 
       <th style="width: 3rem">
         <div class="flex align-items-center">
@@ -166,13 +154,14 @@
         {{ product.name }}
       </td>
       <td>
-        {{ product.prices.salePrice | currencyLugo}}
+        {{ product.prices.salePrice | currencyLugo }}
       </td>
       <td>
         <p-tag
-          [value]="product.status"
-          [severity]="getSeverity(product.status)"
-        />
+          [tagStatus]="product.status"
+          class="text-white"
+          [styleClass]="'text-white'"
+        ></p-tag>
       </td>
       <td>
         {{ product.stock }}
