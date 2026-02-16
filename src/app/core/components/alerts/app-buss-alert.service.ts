@@ -33,7 +33,7 @@ export class AlertBussService {
     // Auto-cerrar después de 5 segundos (opcional)
     setTimeout(() => {
       this.closeById(alertId);
-    }, 5000);
+    }, 3000);
 
     return alertId;
   }

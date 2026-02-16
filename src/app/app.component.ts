@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { AlertHostComponent } from '@components//alerts/app-alert-host.component';
-import { AlertBussService } from '@components//alerts/app-alert.service';
+import { AlertBussService } from '@components//alerts/app-buss-alert.service';
 import { ModalHostComponent } from '@components//host/app-modal-host.component';
 import { ModalService } from '@components//host/app-modal.service';
 import { PrimeNGConfig } from 'primeng/api';

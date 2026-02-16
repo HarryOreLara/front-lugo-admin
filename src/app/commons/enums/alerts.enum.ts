@@ -1,3 +1,4 @@
 export enum ALERTS_ENUM {
-  SUCCESS = 'successAlert',
+  SUCCESS = 'alertSuccess',
+  ERROR = 'alertError',
 }

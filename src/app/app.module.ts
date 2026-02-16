@@ -13,6 +13,8 @@ import { DialogModule } from 'primeng/dialog';
 import { ModalNewProductModule } from './commons/modals/products/modal-new-product/modal-new-product.module';
 import { APP_PROVIDERS } from './core/providers/providers';
 import { ModalNewCategoryModule } from './commons/modals/products/modal-new-category/modal-new-category.module';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from './commons/interceptors/error-interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,9 +28,17 @@ import { ModalNewCategoryModule } from './commons/modals/products/modal-new-cate
     ModalHostModule,
     AlertHostModule,
     ModalNewProductModule,
-    ModalNewCategoryModule
+    ModalNewCategoryModule,
   ],
-  providers: [PrimeNGConfig, ...APP_PROVIDERS],
+  providers: [
+    PrimeNGConfig,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
+    },
+    ...APP_PROVIDERS,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
