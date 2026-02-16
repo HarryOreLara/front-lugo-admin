@@ -25,7 +25,8 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
         switch (error.status) {
-          case 0:
+          case 200:
+          case 201:
             this.alertBussService.openByName(ALERTS_ENUM.SUCCESS, {});
             break;
           default:

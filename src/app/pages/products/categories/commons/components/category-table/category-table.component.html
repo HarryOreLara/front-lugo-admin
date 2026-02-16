@@ -7,7 +7,7 @@
   [loading]="isLoading"
   [paginator]="true"
   [tableStyle]="{ 'min-width': '75rem', 'font-size': '14px' }"
-  [globalFilterFields]="['name', 'code', 'channel']"
+  [globalFilterFields]="['name', 'code', 'channel', 'status']"
 >
   <ng-template pTemplate="caption">
     <div class="flex">
@@ -35,23 +35,29 @@
       </th>
 
       <th style="min-width: 10rem">
-        <div class="flex align-items-center">Balance</div>
+        <div class="flex align-items-center">Descripción</div>
       </th>
       <th style="min-width: 10rem">
-        <div class="flex align-items-center">Status</div>
+        <div class="flex align-items-center">Estado</div>
       </th>
       <th style="min-width: 10rem">
-        <div class="flex align-items-center">Activity</div>
+        <div class="flex align-items-center">Codigo</div>
+      </th>
+      <th style="min-width: 10rem">
+        <div class="flex align-items-center">Canal</div>
       </th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-category>
+  <ng-template pTemplate="body" let-category let-rowIndex="rowIndex">
     <tr>
       <td>
-        {{ category.id }}
+        {{ rowIndex + 1 }}
       </td>
       <td>
         {{ category.name }}
+      </td>
+      <td>
+        {{ category.status }}
       </td>
 
       <td>

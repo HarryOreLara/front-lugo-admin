@@ -3,7 +3,10 @@ import { CategoryRepository } from '../repository/category.repository';
 import { Category } from '@class/category/category.class';
 import { environment } from '@environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { IGenericArrays } from '@interfaces/genericas/IGeneric.interface';
+import {
+  IGeneric,
+  IGenericArrays,
+} from '@interfaces/genericas/IGeneric.interface';
 import { map, Observable } from 'rxjs';
 
 @Injectable({
@@ -31,17 +34,14 @@ export class CategoryRepositoryImpl implements CategoryRepository {
   public findCategoryByName(category: Category): Observable<Category> {
     throw new Error('Method not implemented.');
   }
-  public createCategory(category: Category): Observable<Category> {
+  public createCategory(payload: Category): Observable<Category> {
     const direction = `${this.apiUrl}/category/create`;
 
     return this.http
-      .post<IGenericArrays<Category>>(direction, category)
-      .pipe(
-        map((response: IGenericArrays<Category>) =>
-          Category.fromJson(response),
-        ),
-      );
+      .post<IGeneric<Category>>(direction, payload)
+      .pipe(map((response) => Category.fromJson(response.data)));
   }
+
   public updateCategory(
     id: number,
     entidadInstancia: Category,

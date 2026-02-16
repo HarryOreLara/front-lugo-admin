@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CategoryFormPresenter } from './category.form.presenter';
 import { Category } from '@class/category/category.class';
+import { IChannel } from '@interfaces/index';
+import { CHANNEL_CONSTANT } from '@constants/channel.constant';
 
 @Component({
   selector: 'app-modal-new-category-ui',
@@ -11,6 +13,8 @@ export class ModalNewCategoryComponent {
   @Input() public title: string = 'Nuevo producto';
   @Input() public isLoading: boolean;
   @Input() public visibleModal: boolean;
+
+  public channels: Array<IChannel> = CHANNEL_CONSTANT;
 
   @Output() closeEmit: EventEmitter<void> = new EventEmitter<void>();
 

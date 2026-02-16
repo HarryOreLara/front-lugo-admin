@@ -23,13 +23,22 @@
         </div>
 
         <div class="field mb-4 col-12 md:col-6">
-          <label for="name" class="font-medium text-900">Codigo</label>
-          <input id="name" formControlName="code" type="text" pInputText />
+          <label for="code" class="font-medium text-900">Codigo</label>
+          <input id="code" formControlName="code" type="text" pInputText />
         </div>
 
         <div class="field mb-4 col-12 md:col-6">
-          <label for="name" class="font-medium text-900">Canal</label>
-          <input id="name" formControlName="channel" type="text" pInputText />
+          <label for="channel" class="font-medium text-900">Canal</label>
+          <p-dropdown
+            inputId="channel"
+            [options]="channels"
+            appendTo="body"
+            optionLabel="name"
+            optionValue="id"
+            formControlName="channel"
+            placeholder="Seleccióne una marca"
+          >
+          </p-dropdown>
         </div>
 
         <div class="field mb-4 col-12 md:col-12">
@@ -44,6 +53,10 @@
           />
         </div>
 
+        <div class="field mb-4 col-12 flex align-items-center">
+          <span class="mr-2 text-900">Producto activo</span>
+          <p-checkbox formControlName="isActive" value="true"  [binary]="true"></p-checkbox>
+        </div>
         <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
       </div>
     </div>
@@ -60,6 +73,7 @@
       pButton
       pRipple
       label="Guardar"
+      [disabled]="categoryFormPresenter.Invalid || isLoading"
       type="button"
       (click)="saveCategory()"
     ></button>

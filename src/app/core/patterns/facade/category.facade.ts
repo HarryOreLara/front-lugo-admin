@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Category } from '@class/category/category.class';
 import { CategoryService } from '@service/category/category.service';
-import { BehaviorSubject } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  EMPTY,
+  finalize,
+  Subject,
+  takeUntil,
+  tap,
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +17,10 @@ import { BehaviorSubject } from 'rxjs';
 export class CategoryFacade {
   categories$ = new BehaviorSubject<Category[]>([]);
   category$ = new BehaviorSubject<Category>(new Category());
+  loading$ = new BehaviorSubject<boolean>(false);
+  closeModal$ = new Subject<void>();
+
+  private destroy$ = new Subject<void>();
 
   constructor(private readonly categoryService: CategoryService) {}
 
@@ -19,9 +31,28 @@ export class CategoryFacade {
   }
 
   createCategory(category: Category) {
+    const payload = Category.toJson(category);
+
+    this.loading$.next(true);
+
     this.categoryService
-      .createCategory(category)
-      .subscribe((category) => this.category$.next(category));
+      .createCategory(payload)
+      .pipe(
+        tap((response) => {
+          this.categories$.next([response, ...this.categories$.value]);
+
+          this.closeModal$.next();
+        }),
+        takeUntil(this.destroy$),
+        finalize(() => {
+          this.loading$.next(false);
+        }),
+      )
+      .subscribe((res) => {
+        // const current = this.categories$.value;
+        // this.categories$.next([res, ...current]);
+        // this.closeModal$.next();
+      });
   }
 
   findOneCategory(id: number) {
@@ -29,10 +60,4 @@ export class CategoryFacade {
       .findOneCategory(id)
       .subscribe((category) => this.category$.next(category));
   }
-
-//   updateCategory(category: Category) {
-//     this.categoryService
-//       .updateCategory(category)
-//       .subscribe((category) => this.category$.next(category));
-//   }
 }
