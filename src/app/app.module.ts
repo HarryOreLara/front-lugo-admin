@@ -12,6 +12,7 @@ import { AlertHostModule } from '@components//alerts/app-alert-host.module';
 import { DialogModule } from 'primeng/dialog';
 import { ModalNewProductModule } from './commons/modals/products/modal-new-product/modal-new-product.module';
 import { APP_PROVIDERS } from './core/providers/providers';
+import { ModalNewCategoryModule } from './commons/modals/products/modal-new-category/modal-new-category.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { APP_PROVIDERS } from './core/providers/providers';
     ModalHostModule,
     AlertHostModule,
     ModalNewProductModule,
+    ModalNewCategoryModule
   ],
   providers: [PrimeNGConfig, ...APP_PROVIDERS],
   bootstrap: [AppComponent],

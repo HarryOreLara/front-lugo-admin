@@ -1,0 +1,70 @@
+<p-table
+  #dt1
+  [value]="categories"
+  dataKey="id"
+  [rows]="10"
+  [rowsPerPageOptions]="[10, 25, 50]"
+  [loading]="isLoading"
+  [paginator]="true"
+  [tableStyle]="{ 'min-width': '75rem', 'font-size': '14px' }"
+  [globalFilterFields]="['name', 'code', 'channel']"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex">
+      <p-button
+        label="Limpiar"
+        icon="pi pi-filter-slash"
+        (onClick)="clear(dt1)"
+      />
+      <span class="p-input-icon-left ml-auto">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          type="text"
+          [(ngModel)]="searchValue"
+          (input)="dt1.filterGlobal($event.target, 'contains')"
+          placeholder="Buscar por palabra"
+        />
+      </span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="min-width: 15rem">
+        <div class="flex align-items-center">Nombre</div>
+      </th>
+
+      <th style="min-width: 10rem">
+        <div class="flex align-items-center">Balance</div>
+      </th>
+      <th style="min-width: 10rem">
+        <div class="flex align-items-center">Status</div>
+      </th>
+      <th style="min-width: 10rem">
+        <div class="flex align-items-center">Activity</div>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-category>
+    <tr>
+      <td>
+        {{ category.id }}
+      </td>
+      <td>
+        {{ category.name }}
+      </td>
+
+      <td>
+        {{ category.code }}
+      </td>
+      <td>
+        {{ category.channel }}
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="7">No categorys found.</td>
+    </tr>
+  </ng-template>
+</p-table>

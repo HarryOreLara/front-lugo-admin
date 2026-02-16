@@ -33,6 +33,10 @@ export class ProductRepositoryImpl implements ProductRepository {
   public createProduct(product: Product): Observable<Product> {
     const direction = `${this.apiUrl}/product/create`;
 
+    console.log({
+      product
+    });
+
     return this.http
       .post<IGenericArrays<Product>>(direction, product)
       .pipe(

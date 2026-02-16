@@ -1,0 +1,67 @@
+<p-dialog
+  [(visible)]="visibleModal"
+  appendTo="body"
+  [modal]="true"
+  [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="new-product-dialog"
+>
+  <ng-template pTemplate="header">
+    <div class="inline-flex align-items-center justify-content-center gap-2">
+      <span class="font-bold white-space-nowrap"> Nuevas categorias </span>
+    </div>
+  </ng-template>
+
+  <form class="surface-ground" [formGroup]="categoryFormPresenter.Form">
+    <div class="surface-card p-4 border-round p-fluid">
+      <div class="grid formgrid p-fluid">
+        <div class="field mb-4 col-12 md:col-12">
+          <label for="name" class="font-medium text-900">Nombre</label>
+          <input id="name" formControlName="name" type="text" pInputText />
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="name" class="font-medium text-900">Codigo</label>
+          <input id="name" formControlName="code" type="text" pInputText />
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="name" class="font-medium text-900">Canal</label>
+          <input id="name" formControlName="channel" type="text" pInputText />
+        </div>
+
+        <div class="field mb-4 col-12 md:col-12">
+          <label for="description" class="font-medium text-900"
+            >Descripción</label
+          >
+          <input
+            id="description"
+            formControlName="description"
+            type="text"
+            pInputText
+          />
+        </div>
+
+        <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      [disabled]="isLoading"
+      label="Cancelar"
+      class="bg-red-500 border-red-400 hover:bg-red-600"
+      (click)="close()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Guardar"
+      type="button"
+      (click)="saveCategory()"
+    ></button>
+  </ng-template>
+</p-dialog>
