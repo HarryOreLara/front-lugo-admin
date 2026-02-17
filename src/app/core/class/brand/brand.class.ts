@@ -1,4 +1,4 @@
-import { Channel } from "@enums/channel.enum";
+import { Channel } from '@enums/channel.enum';
 
 export class Brand {
   public id: number;
@@ -14,7 +14,6 @@ export class Brand {
   }
 
   static fromJson(brand: unknown): Brand {
-    console.log({brand});
     const casted = brand as Record<string, unknown>;
 
     return new Brand({

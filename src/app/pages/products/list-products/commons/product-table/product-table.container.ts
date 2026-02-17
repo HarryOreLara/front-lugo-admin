@@ -19,8 +19,6 @@ export class ProductTableContainer implements OnInit {
   ngOnInit(): void {
     this.productFacade.getAllProducts();
 
-    this.products$.subscribe((res)=> {
-      console.log(res);
-    })
+    this.products$.subscribe((res) => {});
   }
 }

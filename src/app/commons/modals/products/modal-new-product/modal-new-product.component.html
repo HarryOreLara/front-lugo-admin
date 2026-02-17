@@ -15,7 +15,6 @@
       </span>
     </div>
   </ng-template>
-
   <form class="surface-ground" [formGroup]="productFormPresenter.Form">
     <div class="surface-card p-4 border-round p-fluid">
       <div class="grid formgrid p-fluid">
@@ -29,22 +28,9 @@
             inputId="category"
             [options]="categories"
             formControlName="category"
-            optionLabel="name"
-            [filter]="true"
-            filterBy="name"
-            [showClear]="true"
+            optionLabel="description"
             placeholder="Seleccióne una categoria"
           >
-            <ng-template let-country pTemplate="item">
-              <div class="flex align-items-center">
-                <img
-                  src="assets/images/blocks/flag/flag_placeholder.png"
-                  [class]="'mr-2 flag flag-' + country.code.toLowerCase()"
-                  style="width: 18px"
-                />
-                <div>{{ country.name }}</div>
-              </div>
-            </ng-template>
           </p-dropdown>
         </div>
         <div class="field mb-4 col-12 md:col-3">

@@ -35,7 +35,6 @@ export class AlertHostComponent {
       Object.assign(cmpRef.instance, data);
     }
 
-    console.log('Alert creado:', { component, data });
     return cmpRef;
   }
 }

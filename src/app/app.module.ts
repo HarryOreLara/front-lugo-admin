@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,11 @@ import { APP_PROVIDERS } from './core/providers/providers';
 import { ModalNewCategoryModule } from './commons/modals/products/modal-new-category/modal-new-category.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './commons/interceptors/error-interceptor';
+import {
+  initParameters,
+  ParameterService,
+} from '@states/parameters/parameter.service';
+import { LugoStateService } from '@states/lugo-state/lugo-state.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +37,12 @@ import { ErrorInterceptor } from './commons/interceptors/error-interceptor';
   ],
   providers: [
     PrimeNGConfig,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initParameters,
+      deps: [ParameterService, LugoStateService],
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,

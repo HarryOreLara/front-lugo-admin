@@ -3,6 +3,7 @@ import { Brand } from '@class/brand/brand.class';
 import { Category } from '@class/category/category.class';
 import { Product } from '@class/index';
 import { ModalService } from '@components//host/app-modal.service';
+import { Parameter } from '@interfaces/parameter/paramter.interface';
 import { ProductsFormPresenter } from 'src/app/commons/modals/products/modal-new-product/products-form.presenter';
 
 @Component({
@@ -14,8 +15,8 @@ export class ModalNewProductComponent {
   @Input() public title: string = 'Nuevo producto';
   @Input() public isLoading: boolean;
   @Input() public visibleModal: boolean;
-  @Input() public brands: Array<Brand>;
-  @Input() public categories: Array<Category>;
+  @Input() public brands: Array<Parameter>;
+  @Input() public categories: Array<Parameter>;
 
   public countries: any = [];
 
