@@ -3,13 +3,11 @@ import { Brand } from '@class/brand/brand.class';
 import { Category } from '@class/category/category.class';
 import { Product } from '@class/index';
 import { ModalService } from '@components//host/app-modal.service';
+import { ParameterNode } from '@enums/parameters.enum';
 import { Parameter } from '@interfaces/parameter/paramter.interface';
 import { ProductFacade } from '@patterns//facade/product.facade';
 import { LugoStateService } from '@states/lugo-state/lugo-state.service';
-import {
-  ParameterNode,
-  ParameterService,
-} from '@states/parameters/parameter.service';
+import { ParameterService } from '@states/parameters/parameter.service';
 import { Observable, Subject } from 'rxjs';
 
 @Component({
@@ -35,7 +33,10 @@ export class ModalNewProductContainer implements OnInit {
   }
 
   public initParameters() {
-     this.categories = this.lugoStateService.getSnapshot<Array<Parameter>>(ParameterNode.CATEGORIES) ?? [];
+    this.categories =
+      this.lugoStateService.getSnapshot<Array<Parameter>>(
+        ParameterNode.CATEGORIES,
+      ) ?? [];
 
     this.brands$ = this.lugoStateService.get<Parameter[]>(ParameterNode.BRANDS);
   }

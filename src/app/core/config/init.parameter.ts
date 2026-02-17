@@ -1,25 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 import { ParameterNode } from '@enums/parameters.enum';
-import { environment } from '@environments/environment';
 import { LugoStateService } from '@states/lugo-state/lugo-state.service';
-import { Observable } from 'rxjs';
+import { ParameterService } from '@states/parameters/parameter.service';
 import { firstValueFrom } from 'rxjs';
-
-@Injectable({
-  providedIn: 'root',
-})
-export class ParameterService {
-  private apiUrl = environment.API_URL;
-
-  constructor(private http: HttpClient) {}
-
-  getAllParameters(): Observable<any> {
-    const direction = `${this.apiUrl}/parameter/getAllParameters`;
-
-    return this.http.get(direction);
-  }
-}
 
 export function initParameters(
   parametersService: ParameterService,
@@ -31,7 +13,10 @@ export function initParameters(
         parametersService.getAllParameters(),
       );
 
-      Object.entries(response.data).forEach(([key, value]) => {
+      console.log({
+        response,
+      });
+      Object.entries(response).forEach(([key, value]) => {
         state.set(key, value);
       });
     } catch {
