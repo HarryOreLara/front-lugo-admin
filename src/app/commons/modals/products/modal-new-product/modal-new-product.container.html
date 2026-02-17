@@ -2,7 +2,7 @@
   [title]="title"
   [isLoading]="(isLoading$ | async)!"
   [visibleModal]="visibleModal"
-  [brands]="(brands$ | async)!"
+  [brands]="brands"
   [categories]="categories"
   (closeEmit)="close()"
   (saveProductEmit)="saveProduct($event)"

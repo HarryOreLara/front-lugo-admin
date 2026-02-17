@@ -27,6 +27,7 @@
           <p-dropdown
             inputId="category"
             [options]="categories"
+            optionValue="id"
             formControlName="category"
             optionLabel="description"
             placeholder="Seleccióne una categoria"
@@ -38,23 +39,11 @@
           <p-dropdown
             inputId="marca"
             [options]="brands"
-            optionLabel="name"
-            [filter]="true"
+            optionLabel="description"
+            optionValue="id"
             formControlName="brand"
-            filterBy="name"
-            [showClear]="true"
             placeholder="Seleccióne una marca"
           >
-            <ng-template let-country pTemplate="item">
-              <div class="flex align-items-center">
-                <img
-                  src="assets/images/blocks/flag/flag_placeholder.png"
-                  [class]="'mr-2 flag flag-' + country.code.toLowerCase()"
-                  style="width: 18px"
-                />
-                <div>{{ country.name }}</div>
-              </div>
-            </ng-template>
           </p-dropdown>
         </div>
         <div class="field mb-4 col-12 md:col-3">

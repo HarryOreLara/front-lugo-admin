@@ -20,7 +20,7 @@ export class ModalNewProductContainer implements OnInit {
   public visibleModal: boolean = true;
 
   public categories: Array<Parameter>;
-  public brands$: Observable<Parameter[]>;
+  public brands: Array<Parameter>;
 
   public constructor(
     public readonly modalService: ModalService,
@@ -38,7 +38,10 @@ export class ModalNewProductContainer implements OnInit {
         ParameterNode.CATEGORIES,
       ) ?? [];
 
-    this.brands$ = this.lugoStateService.get<Parameter[]>(ParameterNode.BRANDS);
+    this.brands =
+      this.lugoStateService.getSnapshot<Array<Parameter>>(
+        ParameterNode.BRANDS,
+      ) ?? [];
   }
   public saveProduct(product: Product) {
     this.productFacade.saveProductFc(product);
