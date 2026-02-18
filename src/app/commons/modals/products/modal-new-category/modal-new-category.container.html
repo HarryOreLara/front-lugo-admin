@@ -1,6 +1,8 @@
 <app-modal-new-category-ui
   [isLoading]="(isLoading$ | async)!"
+  [category]="category"
   [visibleModal]="visibleModal"
   (closeEmit)="close()"
   (saveCategoryEmit)="saveCategory($event)"
+  (updateCategoryEmit)="updateCategory($event)"
 ></app-modal-new-category-ui>

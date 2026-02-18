@@ -40,6 +40,10 @@ export class ModalNewCategoryContainer implements OnInit, OnDestroy {
     this.categoryFacade.createCategory(category);
   }
 
+  public updateCategory({ category, id,}: { category: Category; id: number; }): void {
+    this.categoryFacade.updateCategory(category, id);
+  }
+
   public close() {
     this.modalService.close();
   }

@@ -48,6 +48,9 @@ export class CategoryFormPresenter extends StepPresenter<Category> {
   }
 
   public updateForm(category: Category) {
+    console.log({
+      category
+    });
     this.form.patchValue(category)
   }
 }

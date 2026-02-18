@@ -42,11 +42,14 @@ export class CategoryRepositoryImpl implements CategoryRepository {
       .pipe(map((response) => Category.fromJson(response.data)));
   }
 
-  public updateCategory(
-    id: number,
-    entidadInstancia: Category,
-  ): Observable<Category> {
-    throw new Error('Method not implemented.');
+  public updateCategory(id: number, category: Category): Observable<Category> {
+    const direction = `${this.apiUrl}/category/update`;
+
+    return this.http
+      .patch<IGeneric<Category>>(direction, category, {
+        params: { id },
+      })
+      .pipe(map((response) => Category.fromJson(response.data)));
   }
   public deleteCategory(id: number): Observable<Category> {
     throw new Error('Method not implemented.');

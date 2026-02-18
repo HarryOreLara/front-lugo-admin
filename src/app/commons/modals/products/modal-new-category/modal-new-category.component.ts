@@ -12,6 +12,7 @@ import { CHANNEL_CONSTANT } from '@constants/channel.constant';
 export class ModalNewCategoryComponent {
   @Input() public isLoading: boolean;
   @Input() public visibleModal: boolean;
+  @Input() category: Category;
 
   public channels: Array<IChannel> = CHANNEL_CONSTANT;
 
@@ -19,6 +20,11 @@ export class ModalNewCategoryComponent {
 
   @Output() saveCategoryEmit: EventEmitter<Category> =
     new EventEmitter<Category>();
+
+  @Output() updateCategoryEmit: EventEmitter<{
+    category: Category;
+    id: number;
+  }> = new EventEmitter<{ category: Category; id: number }>();
   public constructor(
     public readonly categoryFormPresenter: CategoryFormPresenter,
   ) {
@@ -31,6 +37,13 @@ export class ModalNewCategoryComponent {
 
   public saveCategory() {
     this.saveCategoryEmit.emit(this.categoryFormPresenter.Form.getRawValue());
+  }
+
+  public updateCategory() {
+    this.updateCategoryEmit.emit({
+      category: this.categoryFormPresenter.Form.getRawValue(),
+      id: this.category.id!,
+    });
   }
 
   public createControls() {

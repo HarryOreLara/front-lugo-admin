@@ -1,15 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Category } from '@class/category/category.class';
 import { CategoryService } from '@service/category/category.service';
-import {
-  BehaviorSubject,
-  catchError,
-  EMPTY,
-  finalize,
-  Subject,
-  takeUntil,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, finalize, Subject, takeUntil, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -48,16 +40,36 @@ export class CategoryFacade {
           this.loading$.next(false);
         }),
       )
-      .subscribe((res) => {
-        // const current = this.categories$.value;
-        // this.categories$.next([res, ...current]);
-        // this.closeModal$.next();
-      });
+      .subscribe();
   }
 
   findOneCategory(id: number) {
     this.categoryService
       .findOneCategory(id)
       .subscribe((category) => this.category$.next(category));
+  }
+
+  updateCategory(category: Category, id: number) {
+    const payload = Category.toJson(category);
+
+    this.categoryService
+      .updateCategory(id, payload)
+      .pipe(
+        tap((updatedCategory) => {
+          const updatedList = this.categories$.value.map((category) =>
+            category.id === id ? { ...category, ...updatedCategory } : category,
+          );
+
+          this.categories$.next(updatedList);
+
+          this.closeModal$.next();
+        }),
+
+        takeUntil(this.destroy$),
+        finalize(() => {
+          this.loading$.next(false);
+        }),
+      )
+      .subscribe();
   }
 }
