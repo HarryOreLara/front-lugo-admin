@@ -73,15 +73,33 @@
         {{ category.channel }}
       </td>
       <td>
-        <div>
+        <!-- action-menu.component.html -->
+        <div class="action-menu-container">
           <button
+            #menuButton
             pButton
             pRipple
+            type="button"
             icon="pi pi-ellipsis-v"
-            class="p-button-text p-button-plain p-button-rounded"
-            (click)="cag.toggle($event)"
+            class="p-button-text p-button-rounded"
+            (click)="overlayPanel.toggle($event)"
+            aria-haspopup="true"
+            aria-label="Opciones"
           ></button>
-          <p-menu #cag [popup]="true" [model]="items" appendTo="body"></p-menu>
+
+          <p-overlayPanel #overlayPanel [appendTo]="'body'" (onHide)="onHide()">
+            <div class="custom-menu">
+              <button class="custom-menu-item">
+                <i class="pi pi-pen-to-square"></i>
+                <span>Actualizar</span>
+              </button>
+
+              <button class="custom-menu-item danger">
+                <i class="pi pi-trash"></i>
+                <span>Eliminar</span>
+              </button>
+            </div>
+          </p-overlayPanel>
         </div>
       </td>
     </tr>

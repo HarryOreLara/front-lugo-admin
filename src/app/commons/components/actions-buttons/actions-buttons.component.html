@@ -1,0 +1,27 @@
+<!-- action-menu.component.html -->
+<div class="action-menu-container" #menuContainer>
+  <button
+    #menuButton
+    pButton
+    pRipple
+    type="button"
+    icon="pi pi-ellipsis-v"
+    class="p-button-text p-button-rounded"
+    (click)="toggle($event)"
+    [attr.aria-expanded]="visible"
+    aria-label="Opciones"
+    aria-haspopup="true"
+  ></button>
+
+  <div *ngIf="visible" class="menu">
+    <button class="menu-item" (click)="onUpdate()">
+      <i class="pi pi-pencil"></i>
+      <span>Actualizar</span>
+    </button>
+
+    <button class="menu-item danger" (click)="onDelete()">
+      <i class="pi pi-trash"></i>
+      <span>Eliminar</span>
+    </button>
+  </div>
+</div>

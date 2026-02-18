@@ -19,7 +19,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { SliderModule } from 'primeng/slider';
 import { CheckboxModule } from 'primeng/checkbox';
-
+import { OverlayModule } from 'primeng/overlay';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 @NgModule({
   exports: [
     StyleClassModule,
@@ -37,10 +38,12 @@ import { CheckboxModule } from 'primeng/checkbox';
     MenuModule,
     DialogModule,
     RippleModule,
+    OverlayPanelModule,
     TabViewModule,
     InputNumberModule,
     SliderModule,
-    CheckboxModule
+    CheckboxModule,
+    OverlayModule,
   ],
 })
 export class ProductsPrimengModule {}
