@@ -1,3 +1,4 @@
+// app-modal-host.component.ts
 import {
   Component,
   EnvironmentInjector,
@@ -22,14 +23,17 @@ export class ModalHostComponent {
 
   add<T extends object>(component: Type<T>, data?: Partial<T>) {
     this.container.clear();
-    const cmpRef = this.container.createComponent<T>(component, {
+
+    const componentRef = this.container.createComponent<T>(component, {
       environmentInjector: this.injector,
     });
 
     if (data) {
-      Object.assign(cmpRef.instance, data);
+      Object.assign(componentRef.instance, data);
     }
 
-    return cmpRef;
+    componentRef.changeDetectorRef.detectChanges();
+
+    return componentRef;
   }
 }

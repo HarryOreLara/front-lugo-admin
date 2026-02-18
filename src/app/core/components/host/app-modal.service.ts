@@ -1,5 +1,5 @@
+// app-modal.service.ts
 import { Injectable } from '@angular/core';
-
 import { MODAL_REGISTRY } from './modal-registry';
 import { ModalHostComponent } from './app-modal-host.component';
 
@@ -13,7 +13,7 @@ export class ModalService {
     this.host = host;
   }
 
-  openByName(name: string, data?: object) {
+  openByName<T extends object>(name: string, data?: T) {
     if (!this.host) throw new Error('ModalHost not registered');
     const component = MODAL_REGISTRY[name];
     if (!component) throw new Error(`Modal "${name}" no está registrado`);

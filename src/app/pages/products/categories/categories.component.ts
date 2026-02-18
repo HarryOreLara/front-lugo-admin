@@ -14,9 +14,6 @@ export class CategoriesComponent {
   public ngOnInit() {}
 
   public newCategory() {
-    this.modalService.openByName(MODELS_ENUM.MODAL_NEW_CATEGORY, {
-      title: 'Centralizado',
-      message: 'Test',
-    });
+    this.modalService.openByName(MODELS_ENUM.MODAL_NEW_CATEGORY, {});
   }
 }

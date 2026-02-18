@@ -11,17 +11,12 @@
 >
   <ng-template pTemplate="caption">
     <div class="flex">
-      <p-button
-        label="Limpiar"
-        icon="pi pi-filter-slash"
-        (onClick)="clear(dt1)"
-      />
+      <p-button label="Limpiar" icon="pi pi-filter-slash" />
       <span class="p-input-icon-left ml-auto">
         <i class="pi pi-search"></i>
         <input
           pInputText
           type="text"
-          [(ngModel)]="searchValue"
           (input)="dt1.filterGlobal($event.target, 'contains')"
           placeholder="Buscar por palabra"
         />
@@ -87,14 +82,20 @@
             aria-label="Opciones"
           ></button>
 
-          <p-overlayPanel #overlayPanel [appendTo]="'body'" (onHide)="onHide()">
+          <p-overlayPanel #overlayPanel [appendTo]="'body'">
             <div class="custom-menu">
-              <button class="custom-menu-item">
+              <button
+                class="custom-menu-item"
+                (click)="updateCategory(category)"
+              >
                 <i class="pi pi-pen-to-square"></i>
                 <span>Actualizar</span>
               </button>
 
-              <button class="custom-menu-item danger">
+              <button
+                class="custom-menu-item danger"
+                (click)="deleteCategory(category)"
+              >
                 <i class="pi pi-trash"></i>
                 <span>Eliminar</span>
               </button>

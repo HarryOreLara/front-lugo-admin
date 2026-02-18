@@ -46,4 +46,8 @@ export class CategoryFormPresenter extends StepPresenter<Category> {
     this.isActive.addValidators([Validators.required]);
     this.form?.updateValueAndValidity();
   }
+
+  public updateForm(category: Category) {
+    this.form.patchValue(category)
+  }
 }

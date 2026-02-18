@@ -10,7 +10,6 @@ import { CHANNEL_CONSTANT } from '@constants/channel.constant';
   styleUrls: ['./modal-new-category.component.css'],
 })
 export class ModalNewCategoryComponent {
-  @Input() public title: string = 'Nuevo producto';
   @Input() public isLoading: boolean;
   @Input() public visibleModal: boolean;
 
