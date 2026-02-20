@@ -154,7 +154,7 @@
         {{ product.name }}
       </td>
       <td>
-        {{ product.prices.salePrice | currencyLugo }}
+        {{ product.prices[0].salePrice | currencyLugo }}
       </td>
       <td>
         <p-tag

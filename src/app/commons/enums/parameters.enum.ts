@@ -1,4 +1,5 @@
 export enum ParameterNode {
   CATEGORIES = 'PARAM_CATEGORIES_NODE',
   BRANDS = 'PARAM_BRANDS_NODE',
+  COLORS = 'PARAM_COLORS_NODE',
 }

@@ -30,10 +30,7 @@ export class ProductsFormPresenter extends StepPresenter<Product> {
   createdAt: FormControl;
   updatedAt: FormControl;
 
-  costPrice: FormControl;
-  salePrice: FormControl;
-
-  hasIGV: FormControl;
+  prices: FormControl;
 
   public constructor(private readonly fb: FormBuilder) {
     super();
@@ -52,38 +49,52 @@ export class ProductsFormPresenter extends StepPresenter<Product> {
     this.isActive = new FormControl(null);
     this.createdAt = new FormControl(null);
     this.updatedAt = new FormControl(null);
-    this.costPrice = new FormControl(null);
-    this.salePrice = new FormControl(null);
-    this.hasIGV = new FormControl(null);
+    this.prices = new FormControl(null);
   }
 
-  public createForm(): void {
-    this.initForm();
-    this.createValidators();
-
+  public createForm(product?: Product): void {
     this.form = this.fb.group({
-      sku: this.sku,
-      name: this.name,
-      description: this.description,
-      descriptionFull: this.descriptionFull,
-      category: this.category,
-      brand: this.brand,
-      stock: this.stock,
-      minStock: this.minStock,
-      unit: this.unit,
-      isActive: this.isActive,
-      createdAt: this.createdAt,
-      updatedAt: this.updatedAt,
-      costPrice: this.costPrice,
-      salePrice: this.salePrice,
-      hasIGV: this.hasIGV,
+      sku: [product?.sku ?? null, Validators.required],
+      barcode: [product?.barcode ?? null],
+      qrCode: [product?.qrCode ?? null],
+      name: [product?.name ?? null, Validators.required],
+      description: [product?.description ?? null, Validators.required],
+      descriptionFull: [product?.descriptionFull ?? null],
+      stock: [product?.stock ?? 0],
+      minStock: [product?.minStock ?? 0],
+      maxStock: [product?.maxStock ?? 0],
+      unit: [product?.unit ?? null],
+      images: this.fb.array(
+        product?.images?.map((img) => this.fb.control(img)) ?? [],
+      ),
+      imageMajor: [product?.imageMajor ?? null],
+      category: this.fb.group({
+        id: [product?.category?.id ?? null],
+        name: [product?.category?.name ?? null],
+      }),
+      brand: this.fb.group({
+        id: [product?.brand?.id ?? null],
+        name: [product?.brand?.name ?? null],
+      }),
+      // prices: this.fb.group({
+      //   channel: [product?.prices?.channel ?? 0],
+      //   costPrice: [product?.prices?.costPrice ?? 0],
+      //   salePrice: [product?.prices?.salePrice ?? 0],
+      //   taxRate: [product?.prices?.taxRate ?? 0],
+      //   validFrom: [product?.prices?.validFrom ?? 0],
+      //   validTo: [product?.prices?.validTo ?? 0],
+      // }),
+      status: [product?.status ?? null],
+      isActive: [product?.isActive ?? true],
+      createdAt: [product?.createdAt ?? new Date()],
+      updatedAt: [product?.updatedAt ?? new Date()],
     });
   }
 
   public createValidators() {
     this.sku = new FormControl(null, [Validators.required]);
     ((this.name = new FormControl(null)), [Validators.required]);
-    this.description = new FormControl(null);
+    this.description = new FormControl(null, [Validators.required]);
     this.descriptionFull = new FormControl(null);
     this.category = new FormControl(null);
     this.brand = new FormControl(null);
@@ -93,8 +104,6 @@ export class ProductsFormPresenter extends StepPresenter<Product> {
     this.isActive = new FormControl(null);
     this.createdAt = new FormControl(null);
     this.updatedAt = new FormControl(null);
-    this.costPrice = new FormControl(null);
-    this.salePrice = new FormControl(null);
-    this.hasIGV = new FormControl(null);
+    this.prices = new FormControl(null);
   }
 }

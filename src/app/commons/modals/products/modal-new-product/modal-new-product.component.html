@@ -47,26 +47,14 @@
           </p-dropdown>
         </div>
         <div class="field mb-4 col-12 md:col-3">
-          <label for="marca" class="font-medium text-900">Color</label>
+          <label for="color" class="font-medium text-900">Color</label>
           <p-dropdown
-            inputId="marca"
-            [options]="countries"
-            optionLabel="name"
-            [filter]="true"
-            filterBy="name"
-            [showClear]="true"
+            inputId="color"
+            [options]="colors"
+            optionValue="id"
+            optionLabel="description"
             placeholder="Seleccione un color"
           >
-            <ng-template let-country pTemplate="item">
-              <div class="flex align-items-center">
-                <img
-                  src="assets/images/blocks/flag/flag_placeholder.png"
-                  [class]="'mr-2 flag flag-' + country.code.toLowerCase()"
-                  style="width: 18px"
-                />
-                <div>{{ country.name }}</div>
-              </div>
-            </ng-template>
           </p-dropdown>
         </div>
         <div class="field mb-4 col-6 md:col-3">

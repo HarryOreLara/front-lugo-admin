@@ -21,6 +21,7 @@ export class ModalNewProductContainer implements OnInit {
 
   public categories: Array<Parameter>;
   public brands: Array<Parameter>;
+  public colors: Array<Parameter>;
 
   public constructor(
     public readonly modalService: ModalService,
@@ -41,6 +42,11 @@ export class ModalNewProductContainer implements OnInit {
     this.brands =
       this.lugoStateService.getSnapshot<Array<Parameter>>(
         ParameterNode.BRANDS,
+      ) ?? [];
+
+    this.colors =
+      this.lugoStateService.getSnapshot<Array<Parameter>>(
+        ParameterNode.COLORS,
       ) ?? [];
   }
   public saveProduct(product: Product) {

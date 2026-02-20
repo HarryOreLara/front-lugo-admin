@@ -22,7 +22,7 @@ export class Product {
   public isActive: boolean;
   public createdAt: Date;
   public updatedAt: Date;
-  public prices: ProductPrice;
+  public prices: Array<ProductPrice>;
 
   public constructor(product: Partial<Product> = {}) {
     this.id = product.id ?? 0;
@@ -44,7 +44,7 @@ export class Product {
     this.isActive = product.isActive ?? true;
     this.createdAt = product.createdAt ?? new Date();
     this.updatedAt = product.updatedAt ?? new Date();
-    this.prices = product.prices ?? new ProductPrice();
+    this.prices = product.prices ?? [];
   }
 
   static fromJson(product: unknown): Product {
@@ -70,7 +70,9 @@ export class Product {
       isActive: casted['isActive'] as boolean,
       createdAt: casted['createdAt'] as Date,
       updatedAt: casted['updatedAt'] as Date,
-      prices: ProductPrice.fromJson(casted['prices']),
+      prices: (casted['prices'] as Array<ProductPrice>).map((res) =>
+        ProductPrice.fromJson(res),
+      ),
     });
   }
 }

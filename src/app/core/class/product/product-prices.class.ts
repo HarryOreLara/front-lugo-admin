@@ -19,8 +19,9 @@ export class ProductPrice {
     this.validTo = productPrice.validTo ?? new Date();
   }
 
-  static fromJson(product: unknown): ProductPrice {
-    const casted = product as Record<string, unknown>;
+
+  static fromJson(productPrice: unknown): ProductPrice {
+    const casted = productPrice as Record<string, unknown>;
 
     return new ProductPrice({
       id: casted['id'] as number,

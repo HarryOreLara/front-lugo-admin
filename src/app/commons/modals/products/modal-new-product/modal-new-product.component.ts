@@ -17,6 +17,7 @@ export class ModalNewProductComponent {
   @Input() public visibleModal: boolean;
   @Input() public brands: Array<Parameter>;
   @Input() public categories: Array<Parameter>;
+  @Input() public colors: Array<Parameter>;
 
   public countries: any = [];
 
