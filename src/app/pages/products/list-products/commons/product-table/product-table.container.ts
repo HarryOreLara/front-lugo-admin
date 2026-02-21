@@ -8,7 +8,6 @@ import { BehaviorSubject, Subject } from 'rxjs';
   templateUrl: './product-table.container.html',
 })
 export class ProductTableContainer implements OnInit {
-  // public products: Array<Product> = [];
   public products$ = new BehaviorSubject<Product[]>([]);
   public isLoading$: Subject<boolean> = new Subject<boolean>();
 
@@ -18,7 +17,5 @@ export class ProductTableContainer implements OnInit {
 
   ngOnInit(): void {
     this.productFacade.getAllProducts();
-
-    this.products$.subscribe((res) => {});
   }
 }

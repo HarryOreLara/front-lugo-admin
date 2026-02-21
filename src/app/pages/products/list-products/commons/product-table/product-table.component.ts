@@ -9,8 +9,8 @@ import { Table } from 'primeng/table';
   styleUrls: ['./product-table.component.css'],
 })
 export class ProductTableComponent {
-  @Input() products: Array<Product>;
   @Input() isLoading: boolean;
+  @Input() products: Array<Product>;
 
   searchValue: string = '';
   representatives!: any[];

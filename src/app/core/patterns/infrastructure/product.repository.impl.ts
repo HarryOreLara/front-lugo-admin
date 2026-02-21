@@ -3,9 +3,10 @@ import { map } from 'rxjs/operators';
 import { ProductRepository } from '../repository/product.repository';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
-import { IGenericArrays } from '@interfaces/genericas/IGeneric.interface';
+import { IGeneric, IGenericArrays } from '@interfaces/genericas/IGeneric.interface';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { IProductRquest } from 'src/app/commons/modals/products/modal-new-product/modals/product-request.modal';
 
 @Injectable({
   providedIn: 'root',
@@ -30,13 +31,13 @@ export class ProductRepositoryImpl implements ProductRepository {
   findProductById(id: number): Observable<Product> {
     throw new Error('Method not implemented.');
   }
-  public createProduct(product: Product): Observable<Product> {
-    const direction = `${this.apiUrl}/product/create`;
+  public createProduct(product: IProductRquest): Observable<Product> {
+    const direction = `${this.apiUrl}/product/createProduct`;
 
     return this.http
-      .post<IGenericArrays<Product>>(direction, product)
+      .post<IGeneric<Product>>(direction, product)
       .pipe(
-        map((response: IGenericArrays<Product>) => Product.fromJson(response)),
+        map((response: IGeneric<Product>) => Product.fromJson(response.data)),
       );
   }
   updateProduct(id: number, entidadInstancia: Product): Observable<Product> {

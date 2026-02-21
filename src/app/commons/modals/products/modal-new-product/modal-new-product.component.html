@@ -22,7 +22,7 @@
           <label for="name" class="font-medium text-900">Nombre</label>
           <input id="name" formControlName="name" type="text" pInputText />
         </div>
-        <div class="field mb-4 col-12 md:col-3">
+        <div class="field mb-4 col-12 md:col-4">
           <label for="categories" class="font-medium text-900">Categoria</label>
           <p-dropdown
             inputId="category"
@@ -34,7 +34,7 @@
           >
           </p-dropdown>
         </div>
-        <div class="field mb-4 col-12 md:col-3">
+        <div class="field mb-4 col-12 md:col-4">
           <label for="marca" class="font-medium text-900">Marca</label>
           <p-dropdown
             inputId="marca"
@@ -46,29 +46,19 @@
           >
           </p-dropdown>
         </div>
-        <div class="field mb-4 col-12 md:col-3">
+        <div class="field mb-4 col-12 md:col-4">
           <label for="color" class="font-medium text-900">Color</label>
           <p-dropdown
             inputId="color"
             [options]="colors"
             optionValue="id"
+            formControlName="color"
             optionLabel="description"
             placeholder="Seleccione un color"
           >
           </p-dropdown>
         </div>
-        <div class="field mb-4 col-6 md:col-3">
-          <label for="item" class="font-medium text-900">Peso</label>
-          <div class="flex align-content-center">
-            <p-inputNumber
-              mode="currency"
-              currency="USD"
-              inputId="item"
-              type="text"
-              class="flex-1"
-            ></p-inputNumber>
-          </div>
-        </div>
+
 
         <div class="field mb-4 col-12 md:col-12">
           <label for="description" class="font-medium text-900"
@@ -84,97 +74,117 @@
 
         <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
 
-        <div class="field mb-4 col-6 md:col-3">
-          <label for="costPrice" class="font-medium text-900"
-            >Precio Costo</label
-          >
-          <div class="flex align-content-center">
-            <p-inputNumber
-              mode="currency"
-              currency="PEN"
-              formControlName="costPrice"
-              inputId="costPrice"
-              type="text"
-              class="flex-1"
-            ></p-inputNumber>
-          </div>
-        </div>
-        <div class="field mb-4 col-6 md:col-3">
-          <label for="salePrice" class="font-medium text-900"
-            >Precio Venta</label
-          >
-          <div class="flex align-content-center">
-            <p-inputNumber
-              mode="currency"
-              formControlName="salePrice"
-              currency="PEN"
-              inputId="salePrice"
-              type="text"
-              class="flex-1"
-            ></p-inputNumber>
-          </div>
-        </div>
-
-        <div class="field mb-4 col-12 md:col-3">
+        <div class="field mb-4 col-12 md:col-4">
           <label for="unit" class="font-medium text-900">Unidad</label>
           <p-dropdown
             inputId="unit"
-            [options]="countries"
-            optionLabel="name"
+            [options]="units"
+            optionValue="id"
+            optionLabel="description"
             formControlName="unit"
-            [filter]="true"
-            filterBy="name"
-            [showClear]="true"
             placeholder="Seleccióne una unidad"
           >
-            <ng-template let-country pTemplate="item">
-              <div class="flex align-items-center">
-                <img
-                  src="assets/images/blocks/flag/flag_placeholder.png"
-                  [class]="'mr-2 flag flag-' + country.code.toLowerCase()"
-                  style="width: 18px"
-                />
-                <div>{{ country.name }}</div>
-              </div>
-            </ng-template>
           </p-dropdown>
         </div>
 
-        <div class="field mb-4 col-6 md:col-3">
+        <div class="field mb-4 col-6 md:col-4">
           <label for="item" class="font-medium text-900"
             >Cantidad por unidad</label
           >
           <div class="flex align-content-center">
             <p-inputNumber
-              mode="currency"
-              currency="USD"
-              inputId="item"
-              type="text"
+              inputId="locale-us"
+              mode="decimal"
+              locale="en-US"
+              [minFractionDigits]="2"
+              formControlName="unitAmount"
+              inputId="minmaxfraction"
               class="flex-1"
             ></p-inputNumber>
           </div>
         </div>
 
-        <div class="field mb-4 col-6 md:col-3">
+        <div class="field mb-4 col-6 md:col-4">
           <label for="item" class="font-medium text-900"
             >Cantidad por caja</label
           >
           <div class="flex align-content-center">
             <p-inputNumber
-              mode="currency"
-              currency="PEN"
-              inputId="item"
-              type="text"
+              inputId="locale-us"
+              mode="decimal"
+              locale="en-US"
+              formControlName="quantityBox"
+              [minFractionDigits]="2"
+              inputId="minmaxfraction"
               class="flex-1"
             ></p-inputNumber>
           </div>
         </div>
 
-        <div class="field mb-4 col-12 flex align-items-center">
-          <p-checkbox formControlName="hasIGV" [binary]="true"></p-checkbox>
-          <span class="ml-2 text-900">Incluye (IGV 18%)</span>
-        </div>
         <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
+
+        <div formArrayName="prices" class="col-12">
+          <div
+            *ngFor="
+              let price of productFormPresenter.pricesArray.controls;
+              let i = index
+            "
+            [formGroupName]="i"
+            class="grid align-items-end mb-3"
+          >
+            <div class="col-12 md:col-3">
+              <label class="font-medium text-900">Canal</label>
+              <input pInputText formControlName="channel" readonly />
+            </div>
+
+            <div class="col-12 md:col-3">
+              <label class="font-medium text-900">Precio Costo</label>
+
+              <div class="flex align-content-center">
+                <p-inputNumber
+                  mode="currency"
+                  currency="PEN"
+                  formControlName="costPrice"
+                  inputId="item"
+                  type="text"
+                  class="flex-1"
+                ></p-inputNumber>
+              </div>
+            </div>
+
+            <div class="col-12 md:col-3">
+              <label class="font-medium text-900">Precio Venta</label>
+
+              <div class="flex align-content-center">
+                <p-inputNumber
+                  mode="currency"
+                  currency="PEN"
+                  formControlName="salePrice"
+                  inputId="item"
+                  type="text"
+                  class="flex-1"
+                ></p-inputNumber>
+              </div>
+            </div>
+
+            <div class="col-12 md:col-3">
+              <label class="font-medium text-900">IGV %</label>
+
+              <div class="flex align-content-center">
+                <p-inputNumber
+                  suffix="%"
+                  formControlName="taxRate"
+                  inputId="item"
+                  type="text"
+                  class="flex-1"
+                ></p-inputNumber>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
+
         <div class="field mb-4 col-12">
           <label for="descriptionFull" class="font-medium text-900"
             >Descripcion detalla de producto</label
@@ -188,91 +198,6 @@
           ></textarea>
         </div>
         <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
-      </div>
-    </div>
-
-    <div class="surface-card">
-      <div class="grid">
-        <div class="col-12 md:col-6 lg:col-3">
-          <div class="surface-card shadow-2 p-3 border-round">
-            <div class="flex justify-content-between mb-3">
-              <div>
-                <span class="block text-500 font-medium mb-3"
-                  >Stock actual</span
-                >
-                <div class="text-900 font-medium text-xl">152</div>
-              </div>
-              <div
-                class="flex align-items-center justify-content-center bg-blue-100 border-round"
-                style="width: 2.5rem; height: 2.5rem"
-              >
-                <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
-              </div>
-            </div>
-            <span class="text-green-500 font-medium">24 new </span>
-            <span class="text-500">since last visit</span>
-          </div>
-        </div>
-        <div class="col-12 md:col-6 lg:col-3">
-          <div class="surface-card shadow-2 p-3 border-round">
-            <div class="flex justify-content-between mb-3">
-              <div>
-                <span class="block text-500 font-medium mb-3"
-                  >Stock entrante</span
-                >
-                <div class="text-900 font-medium text-xl">$2.100</div>
-              </div>
-              <div
-                class="flex align-items-center justify-content-center bg-orange-100 border-round"
-                style="width: 2.5rem; height: 2.5rem"
-              >
-                <i class="pi pi-map-marker text-orange-500 text-xl"></i>
-              </div>
-            </div>
-            <span class="text-green-500 font-medium">%52+ </span>
-            <span class="text-500">since last week</span>
-          </div>
-        </div>
-        <div class="col-12 md:col-6 lg:col-3">
-          <div class="surface-card shadow-2 p-3 border-round">
-            <div class="flex justify-content-between mb-3">
-              <div>
-                <span class="block text-500 font-medium mb-3"
-                  >Precio total actual</span
-                >
-                <div class="text-900 font-medium text-xl">28441</div>
-              </div>
-              <div
-                class="flex align-items-center justify-content-center bg-cyan-100 border-round"
-                style="width: 2.5rem; height: 2.5rem"
-              >
-                <i class="pi pi-inbox text-cyan-500 text-xl"></i>
-              </div>
-            </div>
-            <span class="text-green-500 font-medium">520 </span>
-            <span class="text-500">newly registered</span>
-          </div>
-        </div>
-        <div class="col-12 md:col-6 lg:col-3">
-          <div class="surface-card shadow-2 p-3 border-round">
-            <div class="flex justify-content-between mb-3">
-              <div>
-                <span class="block text-500 font-medium mb-3"
-                  >Precio total calculado</span
-                >
-                <div class="text-900 font-medium text-xl">152 Unread</div>
-              </div>
-              <div
-                class="flex align-items-center justify-content-center bg-purple-100 border-round"
-                style="width: 2.5rem; height: 2.5rem"
-              >
-                <i class="pi pi-comment text-purple-500 text-xl"></i>
-              </div>
-            </div>
-            <span class="text-green-500 font-medium">85 </span>
-            <span class="text-500">responded</span>
-          </div>
-        </div>
       </div>
     </div>
   </form>

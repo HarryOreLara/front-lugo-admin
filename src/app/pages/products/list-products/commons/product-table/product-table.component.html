@@ -2,8 +2,8 @@
   #dt1
   [value]="products"
   dataKey="id"
-  [rows]="10"
-  [rowsPerPageOptions]="[10, 25, 50]"
+  [rows]="30"
+  [rowsPerPageOptions]="[30, 60, 90]"
   [loading]="isLoading"
   [paginator]="true"
   [tableStyle]="{ 'min-width': '75rem', 'font-size': '14px' }"
@@ -97,19 +97,6 @@
                 (onChange)="filter($event.value)"
                 optionLabel="name"
               >
-                <ng-template let-option pTemplate="item">
-                  <div class="inline-block vertical-align-middle">
-                    <img
-                      [alt]="option.label"
-                      src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
-                        option.image
-                      }}"
-                      width="24"
-                      class="vertical-align-middle"
-                    />
-                    <span class="ml-1 mt-1">{{ option.name }}</span>
-                  </div>
-                </ng-template>
               </p-multiSelect>
             </ng-template>
           </p-columnFilter>
@@ -154,7 +141,11 @@
         {{ product.name }}
       </td>
       <td>
-        {{ product.prices[0].salePrice | currencyLugo }}
+        {{
+          product.prices.length === 0
+            ? 0
+            : (product.prices[0].salePrice | currencyLugo)
+        }}
       </td>
       <td>
         <p-tag

@@ -9,6 +9,7 @@ import { ProductFacade } from '@patterns//facade/product.facade';
 import { LugoStateService } from '@states/lugo-state/lugo-state.service';
 import { ParameterService } from '@states/parameters/parameter.service';
 import { Observable, Subject } from 'rxjs';
+import { IProductForm } from './modals/product-form.modal';
 
 @Component({
   selector: 'app-modal-new-product',
@@ -22,6 +23,7 @@ export class ModalNewProductContainer implements OnInit {
   public categories: Array<Parameter>;
   public brands: Array<Parameter>;
   public colors: Array<Parameter>;
+  public units: Array<Parameter>;
 
   public constructor(
     public readonly modalService: ModalService,
@@ -48,10 +50,20 @@ export class ModalNewProductContainer implements OnInit {
       this.lugoStateService.getSnapshot<Array<Parameter>>(
         ParameterNode.COLORS,
       ) ?? [];
+
+    this.units =
+      this.lugoStateService.getSnapshot<Array<Parameter>>(
+        ParameterNode.UNITS,
+      ) ?? [];
   }
-  public saveProduct(product: Product) {
+
+
+  
+  public saveProduct(product: IProductForm) {
     this.productFacade.saveProductFc(product);
   }
+
+
 
   public close() {
     this.modalService.close();

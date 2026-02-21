@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { Product } from '@class/index';
 import { ProductRepository } from '@patterns//repository/product.repository';
 import { Observable } from 'rxjs';
+import { IProductRquest } from 'src/app/commons/modals/products/modal-new-product/modals/product-request.modal';
 import { PRODUCT_REPOSITORY } from 'src/app/commons/tokens/product.token';
 
 @Injectable({
@@ -21,7 +22,7 @@ export class ProductService {
     return this.productRepository.findProductById(id);
   }
 
-  saveProduct(product: Product): Observable<Product> {
+  saveProduct(product: IProductRquest): Observable<Product> {
     return this.productRepository.createProduct(product);
   }
 

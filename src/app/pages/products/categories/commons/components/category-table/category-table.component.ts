@@ -2,9 +2,6 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Category } from '@class/category/category.class';
 import { ModalService } from '@components//host/app-modal.service';
 import { MODELS_ENUM } from '@enums/models.enum';
-import { MenuItem } from 'primeng/api';
-import { Menu } from 'primeng/menu';
-import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-category-table-ui',
@@ -14,7 +11,7 @@ import { Table } from 'primeng/table';
 // category-table.component.ts
 export class CategoryTableComponent {
   @Input() public isLoading: boolean;
-  @Input() public categories: Array<Category> = [];
+  @Input() public categories: Array<Category>;
 
   constructor(private readonly modalService: ModalService) {}
 
