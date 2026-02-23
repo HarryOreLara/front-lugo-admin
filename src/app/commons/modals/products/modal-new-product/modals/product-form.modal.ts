@@ -11,6 +11,7 @@ export interface IProductForm {
   prices: Array<IProductPriceForm>;
   status: string;
   isActive: boolean;
+  useSamePrice: boolean;
 }
 
 export interface IProductPriceForm {

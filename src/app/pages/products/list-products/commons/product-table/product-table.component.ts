@@ -21,10 +21,8 @@ export class ProductTableComponent {
   @Output() changeChannelEmit: EventEmitter<Channel> =
     new EventEmitter<Channel>();
 
-  representatives!: any[];
-  activityValues: number[] = [0, 100];
-
-  constructor() {}
+  @Output() updateProductEmit: EventEmitter<Product> =
+    new EventEmitter<Product>();
 
   changeChannelSearch({ value }: { value: Channel }) {
     console.log({ value });
@@ -37,8 +35,9 @@ export class ProductTableComponent {
   }
 
   public updateProduct(product: Product) {
-    // this.modalService.openByName(MODELS_ENUM.MODAL_NEW_CATEGORY, {
-    //   category: category,
+    this.updateProductEmit.emit(product);
+    // this.modalService.openByName(MODELS_ENUM.MODAL_NEW_PRODUCT, {
+    //   product: product,
     // });
   }
 

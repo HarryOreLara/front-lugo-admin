@@ -8,6 +8,8 @@ import {
 } from '@angular/forms';
 import { StepPresenter } from '@states/forms/step.presenter';
 import { IProductForm } from './modals/product-form.modal';
+import { Product } from '@class/index';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +28,11 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
   status: FormControl;
   isActive: FormControl;
 
+  ///Cntroladores
+  useSamePrice: FormControl;
+
+  private firstPriceSub?: Subscription;
+
   public constructor(private readonly fb: FormBuilder) {
     super();
   }
@@ -43,6 +50,8 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
     this.prices = new FormControl(null);
     this.status = new FormControl(null);
     this.isActive = new FormControl(null);
+
+    this.useSamePrice = new FormControl(null);
   }
   public createForm(product?: IProductForm): void {
     this.form = this.fb.group({
@@ -63,7 +72,10 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
       ),
       status: [product?.status ?? null],
       isActive: [product?.isActive ?? true],
+      useSamePrice: [false],
     });
+
+    this.listenUseSamePrice();
   }
 
   private getDefaultPrices() {
@@ -94,7 +106,67 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
     this.brand = new FormControl(null);
     this.unit = new FormControl(null);
     this.isActive = new FormControl(null);
+    this.useSamePrice = new FormControl(null);
     this.status = new FormControl(null);
     this.prices = new FormControl(null);
+  }
+
+  public updateForm(product: Product) {
+    this.form.patchValue({
+      ...product,
+      category: product.category.id,
+      brand: product.brand.id,
+      color: product.color.id,
+    });
+  }
+
+  private listenUseSamePrice() {
+    const useSamePriceControl = this.form.get('useSamePrice');
+
+    useSamePriceControl?.valueChanges.subscribe((useSame: boolean) => {
+      if (useSame) {
+        this.enableOnlyFirstPrice();
+        this.listenFirstPriceChanges();
+      } else {
+        this.enableAllPrices();
+      }
+    });
+  }
+  private listenFirstPriceChanges() {
+    if (this.firstPriceSub) {
+      this.firstPriceSub.unsubscribe();
+    }
+
+    const firstGroup = this.pricesArray.at(0);
+
+    this.firstPriceSub = firstGroup.valueChanges.subscribe((value) => {
+      this.pricesArray.controls.forEach((group, index) => {
+        if (index > 0) {
+          group.patchValue(
+            {
+              costPrice: value.costPrice,
+              salePrice: value.salePrice,
+              taxRate: value.taxRate,
+            },
+            { emitEvent: false },
+          );
+        }
+      });
+    });
+  }
+  private enableOnlyFirstPrice() {
+    this.pricesArray.controls.forEach((group, index) => {
+      if (index === 0) {
+        group.enable({ emitEvent: false });
+      } else {
+        group.disable({ emitEvent: false });
+      }
+    });
+  }
+
+  private enableAllPrices() {
+    this.pricesArray.controls.forEach((group) => {
+      group.enable({ emitEvent: false });
+    });
   }
 }

@@ -32,11 +32,11 @@ export class ProductFacade {
       .pipe(
         tap((response) => {
           console.log({
-            response
+            response,
           });
 
           console.log({
-            estado: this.products$.value
+            estado: this.products$.value,
           });
           this.products$.next([response, ...this.products$.value]);
 
@@ -49,16 +49,7 @@ export class ProductFacade {
       )
       .subscribe();
   }
-
-  obtenerProduct(id: number) {
-    this.productService
-      .findOneProduct(id)
-      .subscribe((product) => this.product$.next(product));
+  findOneProduct(id: number) {
+    return this.productService.findOneProduct(id);
   }
-
-  // actualizarProduct(product: Product) {
-  //   this.productService
-  //     .actualizarProduct(product)
-  //     .subscribe((product) => this.product$.next(product));
-  // }
 }

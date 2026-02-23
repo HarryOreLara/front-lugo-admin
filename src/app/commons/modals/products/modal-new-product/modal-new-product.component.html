@@ -11,7 +11,7 @@
   <ng-template pTemplate="header">
     <div class="inline-flex align-items-center justify-content-center gap-2">
       <span class="font-bold white-space-nowrap">
-        Nuevo Lote de Productos
+        {{ product ? "Actualizar producto" : "Nuevo lote de productos" }}
       </span>
     </div>
   </ng-template>
@@ -59,7 +59,6 @@
           </p-dropdown>
         </div>
 
-
         <div class="field mb-4 col-12 md:col-12">
           <label for="description" class="font-medium text-900"
             >Descripción</label
@@ -72,7 +71,7 @@
           />
         </div>
 
-        <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
+        <!-- <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
 
         <div class="field mb-4 col-12 md:col-4">
           <label for="unit" class="font-medium text-900">Unidad</label>
@@ -119,7 +118,7 @@
               class="flex-1"
             ></p-inputNumber>
           </div>
-        </div>
+        </div> -->
 
         <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
 
@@ -139,48 +138,56 @@
 
             <div class="col-12 md:col-3">
               <label class="font-medium text-900">Precio Costo</label>
-
               <div class="flex align-content-center">
                 <p-inputNumber
-                  mode="currency"
-                  currency="PEN"
                   formControlName="costPrice"
-                  inputId="item"
-                  type="text"
-                  class="flex-1"
-                ></p-inputNumber>
+                  inputId="locale-us"
+                  mode="decimal"
+                  locale="en-US"
+                  [minFractionDigits]="2"
+                />
               </div>
             </div>
 
             <div class="col-12 md:col-3">
               <label class="font-medium text-900">Precio Venta</label>
-
               <div class="flex align-content-center">
                 <p-inputNumber
-                  mode="currency"
-                  currency="PEN"
                   formControlName="salePrice"
-                  inputId="item"
-                  type="text"
-                  class="flex-1"
-                ></p-inputNumber>
+                  inputId="locale-us"
+                  mode="decimal"
+                  locale="en-US"
+                  [minFractionDigits]="2"
+                />
               </div>
             </div>
 
             <div class="col-12 md:col-3">
-              <label class="font-medium text-900">IGV %</label>
+              <label class="font-medium text-900">IGV (%)</label>
 
               <div class="flex align-content-center">
                 <p-inputNumber
                   suffix="%"
                   formControlName="taxRate"
-                  inputId="item"
-                  type="text"
-                  class="flex-1"
-                ></p-inputNumber>
+                  inputId="locale-us"
+                  mode="decimal"
+                  locale="en-US"
+                  [minFractionDigits]="2"
+                />
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="field mb-4 mt-4 col-12 flex align-items-center">
+          <span class="mr-2 text-900"
+            >Usar el mismo precio para todos los canales?</span
+          >
+          <p-checkbox
+            value="true"
+            formControlName="useSamePrice"
+            [binary]="true"
+          ></p-checkbox>
         </div>
 
         <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
@@ -212,10 +219,10 @@
     <button
       pButton
       pRipple
-      label="Guardar"
+      [label]="product ? 'Actualizar' : 'Guardar'"
       [disabled]="productFormPresenter.Invalid || isLoading"
       type="button"
-      (click)="saveProducts()"
+      (click)="product ? updateProduct() : saveProduct()"
     ></button>
   </ng-template>
 </p-dialog>

@@ -13,18 +13,15 @@ export class ModalNewCategoryComponent {
   @Input() public isLoading: boolean;
   @Input() public visibleModal: boolean;
   @Input() category: Category;
-
-  public channels: Array<IParameterEnum> = CHANNEL_CONSTANT;
-
   @Output() closeEmit: EventEmitter<void> = new EventEmitter<void>();
-
   @Output() saveCategoryEmit: EventEmitter<Category> =
-    new EventEmitter<Category>();
-
+  new EventEmitter<Category>();
   @Output() updateCategoryEmit: EventEmitter<{
     category: Category;
     id: number;
   }> = new EventEmitter<{ category: Category; id: number }>();
+  public channels: Array<IParameterEnum> = CHANNEL_CONSTANT;
+
   public constructor(
     public readonly categoryFormPresenter: CategoryFormPresenter,
   ) {

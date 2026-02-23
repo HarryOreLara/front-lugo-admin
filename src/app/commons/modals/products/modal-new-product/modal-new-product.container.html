@@ -1,10 +1,11 @@
 <app-modal-new-product-ui
-  [title]="title"
+  
   [isLoading]="(isLoading$ | async)!"
   [visibleModal]="visibleModal"
   [brands]="brands"
   [categories]="categories"
   [colors]="colors"
+  [product]="product"
   [units]="units"
   (closeEmit)="close()"
   (saveProductEmit)="saveProduct($event)"

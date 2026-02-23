@@ -1,6 +1,7 @@
 import { Category } from '@class/category/category.class';
 import { ProductPrice } from './product-prices.class';
 import { Brand } from '@class/brand/brand.class';
+import { Color } from '@class/color/color.class';
 
 export class Product {
   public id: number;
@@ -18,6 +19,7 @@ export class Product {
   public imageMajor: string;
   public category: Category;
   public brand: Brand;
+  public color: Color;
   public status: string;
   public isActive: boolean;
   public createdAt: Date;
@@ -40,6 +42,7 @@ export class Product {
     this.imageMajor = product.imageMajor ?? '';
     this.category = product.category ?? new Category();
     this.brand = product.brand ?? new Brand();
+    this.color = product.color ?? new Color();
     this.status = product.status ?? '';
     this.isActive = product.isActive ?? true;
     this.createdAt = product.createdAt ?? new Date();
@@ -66,6 +69,7 @@ export class Product {
       imageMajor: casted['imageMajor'] as string,
       category: Category.fromJson(casted['category']),
       brand: Brand.fromJson(casted['brand']),
+      color: Color.fromJson(casted['color']),
       status: casted['status'] as string,
       isActive: casted['isActive'] as boolean,
       createdAt: casted['createdAt'] as Date,
@@ -75,7 +79,4 @@ export class Product {
       ),
     });
   }
-
-   
-  
 }

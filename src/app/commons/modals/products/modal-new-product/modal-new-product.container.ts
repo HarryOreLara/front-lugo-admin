@@ -6,13 +6,16 @@ import { ProductFacade } from '@patterns//facade/product.facade';
 import { LugoStateService } from '@states/lugo-state/lugo-state.service';
 import { Subject } from 'rxjs';
 import { IProductForm } from './modals/product-form.modal';
+import { Product } from '@class/index';
+import { ProductsFormPresenter } from './products-form.presenter';
 
 @Component({
   selector: 'app-modal-new-product',
   templateUrl: './modal-new-product.container.html',
 })
 export class ModalNewProductContainer implements OnInit {
-  @Input() title: string = 'Nuevo producto';
+  @Input() product: Product;
+  private destroy$ = new Subject<void>();
   public isLoading$: Subject<boolean> = new Subject<boolean>();
   public visibleModal: boolean = true;
 
@@ -25,10 +28,22 @@ export class ModalNewProductContainer implements OnInit {
     public readonly modalService: ModalService,
     private readonly productFacade: ProductFacade,
     private readonly lugoStateService: LugoStateService,
-  ) {}
+    private readonly productPresenter: ProductsFormPresenter,
+  ) {
+    this.isLoading$ = productFacade.loading$;
+  }
 
   public ngOnInit(): void {
     this.initParameters();
+
+    console.log('ModalNewCategoryContainer - INIT');
+    console.log('Categoría recibida:', this.product);
+
+    if (this.product) {
+      this.productPresenter.updateForm(this.product);
+    } else {
+      console.log('Es creación');
+    }
   }
 
   public initParameters() {
@@ -59,5 +74,10 @@ export class ModalNewProductContainer implements OnInit {
 
   public close() {
     this.modalService.close();
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
