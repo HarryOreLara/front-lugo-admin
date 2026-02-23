@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Parameter } from '@interfaces/parameter/paramter.interface';
+import { Parameter } from '@interfaces/parameter/parameter.interface';
 import { ProductsFormPresenter } from 'src/app/commons/modals/products/modal-new-product/products-form.presenter';
 import { IProductForm } from './modals/product-form.modal';
 

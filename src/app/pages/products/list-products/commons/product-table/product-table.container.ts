@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '@class/index';
+import { Parameter } from '@class/parameter/paramter.class';
+import { CHANNEL_CONSTANT } from '@constants/channel.constant';
+import { STATUS_CONSTANT } from '@constants/status.constant';
+import { Channel } from '@enums/channel.enum';
+import { ParameterNode } from '@enums/parameters.enum';
+import { IParameterEnum } from '@interfaces/index';
 import { ProductFacade } from '@patterns//facade/product.facade';
+import { LugoStateService } from '@states/lugo-state/lugo-state.service';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
@@ -10,12 +17,38 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class ProductTableContainer implements OnInit {
   public products$ = new BehaviorSubject<Product[]>([]);
   public isLoading$: Subject<boolean> = new Subject<boolean>();
+  public categories: Array<Parameter>;
+  public brands: Array<Parameter>;
+  public channels: IParameterEnum[] = [];
+  public status: IParameterEnum[] = [];
 
-  public constructor(public readonly productFacade: ProductFacade) {
+  public constructor(
+    public readonly productFacade: ProductFacade,
+    private readonly lugoStateService: LugoStateService,
+  ) {
     this.products$ = productFacade.products$;
   }
 
   ngOnInit(): void {
-    this.productFacade.getAllProducts();
+    this.initParameters();
+    this.channels = CHANNEL_CONSTANT;
+    this.status = STATUS_CONSTANT;
+    this.productFacade.getAllProducts(Channel.WEB);
+  }
+
+  public initParameters() {
+    this.categories =
+      this.lugoStateService.getSnapshot<Array<Parameter>>(
+        ParameterNode.CATEGORIES,
+      ) ?? [];
+
+    this.brands =
+      this.lugoStateService.getSnapshot<Array<Parameter>>(
+        ParameterNode.BRANDS,
+      ) ?? [];
+  }
+
+  changeChannel(channel: Channel) {
+    this.productFacade.getAllProducts(channel);
   }
 }

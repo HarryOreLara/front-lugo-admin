@@ -1,4 +1,9 @@
 <app-product-table-ui
   [products]="(products$ | async)!"
+  [channels]="channels"
+  [status]="status"
   [isLoading]="(isLoading$ | async)!"
+  [brands]="brands"
+  [categories]="categories"
+  (changeChannelEmit)="changeChannel($event)"
 ></app-product-table-ui>

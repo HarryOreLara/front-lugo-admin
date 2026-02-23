@@ -3,10 +3,14 @@ import { map } from 'rxjs/operators';
 import { ProductRepository } from '../repository/product.repository';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
-import { IGeneric, IGenericArrays } from '@interfaces/genericas/IGeneric.interface';
+import {
+  IGeneric,
+  IGenericArrays,
+} from '@interfaces/genericas/IGeneric.interface';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IProductRquest } from 'src/app/commons/modals/products/modal-new-product/modals/product-request.modal';
+import { Channel } from '@enums/channel.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -16,11 +20,15 @@ export class ProductRepositoryImpl implements ProductRepository {
 
   constructor(private readonly http: HttpClient) {}
 
-  public getAllProduct(page: number, size: number): Observable<Product[]> {
+  public getAllProduct(
+    page: number,
+    size: number,
+    channel: Channel,
+  ): Observable<Product[]> {
     const direction = `${this.apiUrl}/product/getAll`;
 
     return this.http
-      .get<IGenericArrays<Product[]>>(direction)
+      .get<IGenericArrays<Product[]>>(direction, { params: {channel} })
       .pipe(
         map((response: IGenericArrays<Product[]>) =>
           response.data.map((product) => Product.fromJson(product)),

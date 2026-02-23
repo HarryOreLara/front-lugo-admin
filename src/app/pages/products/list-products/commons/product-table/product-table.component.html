@@ -9,28 +9,49 @@
   [tableStyle]="{ 'min-width': '75rem', 'font-size': '14px' }"
   [globalFilterFields]="[
     'name',
-    'country.name',
-    'representative.name',
-    'status',
+    'category.name',
+    'brand.name',
+    'prices[0].salePrice',
   ]"
+  currentPageReportTemplate="Mostrando {last} productos de {totalRecords}"
 >
   <ng-template pTemplate="caption">
-    <div class="flex">
-      <p-button
-        label="Limpiar"
-        icon="pi pi-filter-slash"
-        (onClick)="clear(dt1)"
-      />
-      <span class="p-input-icon-left ml-auto">
-        <i class="pi pi-search"></i>
-        <input
-          pInputText
-          type="text"
-          [(ngModel)]="searchValue"
-          (input)="dt1.filterGlobal($event.target, 'contains')"
-          placeholder="Buscar por palabra"
-        />
-      </span>
+    <div class="flex align-items-center justify-content-between">
+      <!-- IZQUIERDA -->
+      <div>
+        <button
+          pButton
+          label="Limpiar"
+          class="p-button-outlined w-10rem"
+          icon="pi pi-filter-slash"
+          (click)="clear(dt1)"
+        ></button>
+      </div>
+
+      <!-- DERECHA -->
+      <div class="flex align-items-center gap-3">
+        <p-dropdown
+          inputId="channel"
+          [options]="channels"
+          optionLabel="name"
+          (onChange)="changeChannelSearch($event)"
+          optionValue="id"
+          [showClear]="true"
+          placeholder="Canal"
+          styleClass="w-15rem"
+        >
+        </p-dropdown>
+
+        <span class="p-input-icon-left w-20rem">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Buscar..."
+          />
+        </span>
+      </div>
     </div>
   </ng-template>
   <ng-template pTemplate="header">
@@ -44,36 +65,21 @@
 
       <th style="min-width: 10rem">
         <div class="flex align-items-center">
-          Categoria
+          Precio
           <p-columnFilter
-            field="activity"
-            matchMode="between"
+            type="numeric"
+            field="prices[0].salePrice"
             display="menu"
-            [showMatchModes]="false"
-            [showOperator]="false"
-            [showAddButton]="false"
-          >
-            <ng-template pTemplate="filter" let-filter="filterCallback">
-              <p-slider
-                [(ngModel)]="activityValues"
-                [range]="true"
-                (onSlideEnd)="filter($event.values)"
-                styleClass="m-3"
-              />
-              <div class="flex align-items-center px-2">
-                <span>{{ activityValues[0] }}</span>
-                <span>{{ activityValues[1] }}</span>
-              </div>
-            </ng-template>
-          </p-columnFilter>
+            currency="PEN"
+          />
         </div>
       </th>
 
-      <th style="min-width: 15rem">
+      <th style="min-width: 10rem">
         <div class="flex align-items-center">
           Estado
           <p-columnFilter
-            field="representative"
+            field="status"
             matchMode="in"
             display="menu"
             [showMatchModes]="false"
@@ -82,7 +88,7 @@
           >
             <ng-template pTemplate="header">
               <div class="px-3 pt-3 pb-0">
-                <span class="font-bold">Agent Picker</span>
+                <span class="font-bold">Seleccione un estado</span>
               </div>
             </ng-template>
             <ng-template
@@ -90,48 +96,143 @@
               let-value
               let-filter="filterCallback"
             >
-              <p-multiSelect
-                [ngModel]="value"
-                [options]="representatives"
-                placeholder="Any"
-                (onChange)="filter($event.value)"
+              <p-dropdown
+                inputId="status"
+                [options]="status"
                 optionLabel="name"
+                optionValue="id"
+                [showClear]="true"
+                placeholder="Seleccione"
               >
-              </p-multiSelect>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+        </div>
+      </th>
+      <th style="min-width: 8rem">
+        <div class="flex align-items-center">
+          Stock
+          <p-columnFilter
+            type="numeric"
+            field="stock"
+            display="menu"
+            currency="PEN"
+          />
+        </div>
+      </th>
+      <th style="min-width: 12rem">
+        <div class="flex align-items-center">
+          Sku
+          <p-columnFilter type="text" field="name" display="menu" />
+        </div>
+      </th>
+
+      <th style="min-width: 10rem">
+        <div class="flex align-items-center">
+          Categoria
+          <p-columnFilter
+            field="category"
+            matchMode="in"
+            display="menu"
+            [showMatchModes]="false"
+            [showOperator]="false"
+            [showAddButton]="false"
+          >
+            <ng-template pTemplate="header">
+              <div class="px-3 pt-3 pb-0">
+                <span class="font-bold">Seleccione una categoria</span>
+              </div>
+            </ng-template>
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+              <p-dropdown
+                inputId="category"
+                [options]="categories"
+                optionLabel="description"
+                optionValue="id"
+                [showClear]="true"
+                placeholder="Seleccione"
+              >
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+        </div>
+      </th>
+
+      <th style="min-width: 10rem">
+        <div class="flex align-items-center">
+          Marca
+          <p-columnFilter
+            field="brand"
+            matchMode="in"
+            display="menu"
+            [showMatchModes]="false"
+            [showOperator]="false"
+            [showAddButton]="false"
+          >
+            <ng-template pTemplate="header">
+              <div class="px-3 pt-3 pb-0">
+                <span class="font-bold">Seleccione una marca</span>
+              </div>
+            </ng-template>
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+              <p-dropdown
+                inputId="brand"
+                [options]="brands"
+                optionLabel="description"
+                optionValue="id"
+                [showClear]="true"
+                placeholder="Seleccione"
+              >
+              </p-dropdown>
             </ng-template>
           </p-columnFilter>
         </div>
       </th>
       <th style="min-width: 10rem">
         <div class="flex align-items-center">
-          Stock
-          <p-columnFilter type="date" field="date" display="menu" />
+          Canal
+
+          <p-columnFilter
+            field="channel"
+            matchMode="in"
+            display="menu"
+            [showMatchModes]="false"
+            [showOperator]="false"
+            [showAddButton]="false"
+          >
+            <ng-template pTemplate="header">
+              <div class="px-3 pt-3 pb-0">
+                <span class="font-bold">Seleccione un canal</span>
+              </div>
+            </ng-template>
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+              <p-dropdown
+                inputId="channel"
+                [options]="channels"
+                optionLabel="name"
+                optionValue="id"
+                [showClear]="true"
+                placeholder="Seleccione"
+              >
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
         </div>
       </th>
       <th style="min-width: 10rem">
-        <div class="flex align-items-center">
-          Sku
-          <p-columnFilter
-            type="numeric"
-            field="balance"
-            display="menu"
-            currency="USD"
-          />
-        </div>
-      </th>
-
-      <th style="min-width: 15rem">
-        <div class="flex align-items-center">
-          Precio
-          <p-columnFilter type="text" field="country.name" display="menu" />
-        </div>
-      </th>
-
-      <th style="width: 3rem">
-        <div class="flex align-items-center">
-          Marca
-          <p-columnFilter type="boolean" field="verified" display="menu" />
-        </div>
+        <div class="flex align-items-center">Acciones</div>
       </th>
     </tr>
   </ng-template>
@@ -165,6 +266,44 @@
       </td>
       <td>
         {{ product.brand.name }}
+      </td>
+      <td>
+        {{
+          product.prices.length === 0 ? "NINGUNO" : product.prices[0].channel
+        }}
+      </td>
+      <td>
+        <!-- action-menu.component.html -->
+        <div class="action-menu-container">
+          <button
+            #menuButton
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-ellipsis-v"
+            class="p-button-text p-button-rounded"
+            (click)="overlayPanel.toggle($event)"
+            aria-haspopup="true"
+            aria-label="Opciones"
+          ></button>
+
+          <p-overlayPanel #overlayPanel [appendTo]="'body'">
+            <div class="custom-menu">
+              <button class="custom-menu-item" (click)="updateProduct(product)">
+                <i class="pi pi-pen-to-square"></i>
+                <span>Actualizar</span>
+              </button>
+
+              <button
+                class="custom-menu-item danger"
+                (click)="deleteProduct(product)"
+              >
+                <i class="pi pi-trash"></i>
+                <span>Eliminar</span>
+              </button>
+            </div>
+          </p-overlayPanel>
+        </div>
       </td>
     </tr>
   </ng-template>

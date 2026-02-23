@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '@class/index';
-import { Status } from '@enums/status.enum';
+import { Parameter } from '@class/parameter/paramter.class';
+import { Channel } from '@enums/channel.enum';
+import { IParameterEnum } from '@interfaces/index';
 import { Table } from 'primeng/table';
 
 @Component({
@@ -11,25 +13,36 @@ import { Table } from 'primeng/table';
 export class ProductTableComponent {
   @Input() isLoading: boolean;
   @Input() products: Array<Product>;
+  @Input() channels: Array<IParameterEnum>;
+  @Input() status: Array<IParameterEnum>;
+  @Input() public brands: Array<Parameter>;
+  @Input() public categories: Array<Parameter>;
 
-  searchValue: string = '';
+  @Output() changeChannelEmit: EventEmitter<Channel> =
+    new EventEmitter<Channel>();
+
   representatives!: any[];
   activityValues: number[] = [0, 100];
-  statuses!: any[];
 
   constructor() {}
 
-  clear(table: Table) {
-    table.clear();
-    this.searchValue = '';
+  changeChannelSearch({ value }: { value: Channel }) {
+    console.log({ value });
+    if (value === null) return;
+    this.changeChannelEmit.emit(value);
   }
 
-  getSeverity(status: string) {
-    switch (status) {
-      case Status.ACTIVE:
-        return 'success';
-      default:
-        return 'danger';
-    }
+  clear(table: Table) {
+    table.clear();
+  }
+
+  public updateProduct(product: Product) {
+    // this.modalService.openByName(MODELS_ENUM.MODAL_NEW_CATEGORY, {
+    //   category: category,
+    // });
+  }
+
+  public deleteProduct(product: Product) {
+    console.log('Eliminar categoría:', product);
   }
 }

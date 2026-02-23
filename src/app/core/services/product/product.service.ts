@@ -1,5 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { Product } from '@class/index';
+import { Channel } from '@enums/channel.enum';
 import { ProductRepository } from '@patterns//repository/product.repository';
 import { Observable } from 'rxjs';
 import { IProductRquest } from 'src/app/commons/modals/products/modal-new-product/modals/product-request.modal';
@@ -14,8 +15,8 @@ export class ProductService {
     private readonly productRepository: ProductRepository,
   ) {}
 
-  getAllProducts(): Observable<Product[]> {
-    return this.productRepository.getAllProduct(1, 10);
+  getAllProducts(channel: Channel): Observable<Product[]> {
+    return this.productRepository.getAllProduct(1, 10, channel);
   }
 
   findOneProduct(id: number): Observable<Product> {

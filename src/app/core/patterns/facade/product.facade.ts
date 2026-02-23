@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Product } from '@class/index';
+import { Channel } from '@enums/channel.enum';
 import { ProductService } from '@service/product/product.service';
 import { BehaviorSubject, finalize, Subject, takeUntil, tap } from 'rxjs';
 import { createProductMapper } from 'src/app/commons/modals/products/modal-new-product/mapper/product.mapper';
@@ -17,9 +18,9 @@ export class ProductFacade {
 
   constructor(private readonly productService: ProductService) {}
 
-  getAllProducts() {
+  getAllProducts(channel: Channel) {
     this.productService
-      .getAllProducts()
+      .getAllProducts(channel)
       .subscribe((products) => this.products$.next(products));
   }
 
