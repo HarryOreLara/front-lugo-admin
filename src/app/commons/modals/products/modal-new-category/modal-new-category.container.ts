@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Category } from '@class/category/category.class';
 import { ModalService } from '@components//host/app-modal.service';
 import { CategoryFacade } from '@patterns//facade/category.facade';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { CategoryFormPresenter } from './category.form.presenter';
 
 @Component({
@@ -34,13 +34,25 @@ export class ModalNewCategoryContainer implements OnInit, OnDestroy {
     } else {
       console.log('Es creación');
     }
+
+    this.categoryFacade.closeModal$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.close();
+      });
   }
 
   public saveCategory(category: Category) {
     this.categoryFacade.createCategory(category);
   }
 
-  public updateCategory({ category, id,}: { category: Category; id: number; }): void {
+  public updateCategory({
+    category,
+    id,
+  }: {
+    category: Category;
+    id: number;
+  }): void {
     this.categoryFacade.updateCategory(category, id);
   }
 

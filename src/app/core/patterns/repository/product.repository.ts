@@ -7,6 +7,6 @@ export interface ProductRepository {
   getAllProduct(page: number, size: number, channel: Channel): Observable<Product[]>;
   findProductById(id: number): Observable<Product>;
   createProduct(product: IProductRquest): Observable<Product>;
-  updateProduct(id: number, product: Product): Observable<Product>;
+  updateProduct(id: number, product: IProductRquest): Observable<Product>;
   deleteProduct(id: number): Observable<Product>;
 }

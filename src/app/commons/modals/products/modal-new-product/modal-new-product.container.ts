@@ -4,7 +4,7 @@ import { ParameterNode } from '@enums/parameters.enum';
 import { Parameter } from '@interfaces/parameter/parameter.interface';
 import { ProductFacade } from '@patterns//facade/product.facade';
 import { LugoStateService } from '@states/lugo-state/lugo-state.service';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { IProductForm } from './modals/product-form.modal';
 import { Product } from '@class/index';
 import { ProductsFormPresenter } from './products-form.presenter';
@@ -44,6 +44,12 @@ export class ModalNewProductContainer implements OnInit {
     } else {
       console.log('Es creación');
     }
+
+    this.productFacade.closeModal$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.close();
+      });
   }
 
   public initParameters() {
@@ -70,6 +76,10 @@ export class ModalNewProductContainer implements OnInit {
 
   public saveProduct(product: IProductForm) {
     this.productFacade.saveProductFc(product);
+  }
+
+  public updateProduct({ product, id }: { product: IProductForm; id: number }) {
+    this.productFacade.updateProductFc(product, id);
   }
 
   public close() {

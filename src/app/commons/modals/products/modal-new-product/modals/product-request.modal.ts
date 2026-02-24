@@ -7,9 +7,9 @@ export interface IProductRquest {
   brandId: number;
   colorId: number;
   description: string;
-  unitId: number;
-  unitAmount: number;
-  quantityBox: number;
+  // unitId: number;
+  // unitAmount: number;
+  // quantityBox: number;
   descriptionFull: string;
   prices: Array<IProductPriceRequest>;
   status: string;

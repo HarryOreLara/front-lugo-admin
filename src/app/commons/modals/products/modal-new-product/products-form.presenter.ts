@@ -20,9 +20,9 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
   brand: FormControl;
   color: FormControl;
   description: FormControl;
-  unit: FormControl;
-  unitAmount: FormControl;
-  quantityBox: FormControl;
+  // unit: FormControl;
+  // unitAmount: FormControl;
+  // quantityBox: FormControl;
   descriptionFull: FormControl;
   prices: FormControl;
   status: FormControl;
@@ -44,9 +44,9 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
     this.category = new FormControl(null);
     this.brand = new FormControl(null);
     this.color = new FormControl(null);
-    this.unit = new FormControl(null);
-    this.unitAmount = new FormControl(null);
-    this.quantityBox = new FormControl(null);
+    // this.unit = new FormControl(null);
+    // this.unitAmount = new FormControl(null);
+    // this.quantityBox = new FormControl(null);
     this.prices = new FormControl(null);
     this.status = new FormControl(null);
     this.isActive = new FormControl(null);
@@ -61,9 +61,9 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
       color: [product?.color ?? null, Validators.required],
       description: [product?.description ?? null, Validators.required],
       descriptionFull: [product?.descriptionFull ?? null],
-      unit: [product?.unit ?? null],
-      unitAmount: [product?.unitAmount ?? null],
-      quantityBox: [product?.quantityBox ?? null],
+      // unit: [product?.unit ?? null],
+      // unitAmount: [product?.unitAmount ?? null],
+      // quantityBox: [product?.quantityBox ?? null],
       prices: this.fb.array(
         (product?.prices?.length
           ? product.prices
@@ -104,7 +104,7 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
     this.category = new FormControl(null);
     this.color = new FormControl(null);
     this.brand = new FormControl(null);
-    this.unit = new FormControl(null);
+    // this.unit = new FormControl(null);
     this.isActive = new FormControl(null);
     this.useSamePrice = new FormControl(null);
     this.status = new FormControl(null);

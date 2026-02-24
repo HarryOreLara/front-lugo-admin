@@ -25,7 +25,7 @@ export class ProductRepositoryImpl implements ProductRepository {
     size: number,
     channel: Channel,
   ): Observable<Product[]> {
-    const direction = `${this.apiUrl}/product/getAll`;
+    const direction = `${this.apiUrl}/product/getAllProducts`;
 
     return this.http
       .get<IGenericArrays<Product[]>>(direction, { params: { channel } })
@@ -54,8 +54,18 @@ export class ProductRepositoryImpl implements ProductRepository {
         map((response: IGeneric<Product>) => Product.fromJson(response.data)),
       );
   }
-  updateProduct(id: number, entidadInstancia: Product): Observable<Product> {
-    throw new Error('Method not implemented.');
+  public updateProduct(
+    id: number,
+    product: IProductRquest,
+  ): Observable<Product> {
+    const direction = `${this.apiUrl}/product/updateProduct`;
+
+    console.log({product});
+    return this.http
+      .patch<IGeneric<Product>>(direction, product, { params: { id } })
+      .pipe(
+        map((response: IGeneric<Product>) => Product.fromJson(response.data)),
+      );
   }
   deleteProduct(id: number): Observable<Product> {
     throw new Error('Method not implemented.');

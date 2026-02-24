@@ -4,9 +4,9 @@ export interface IProductForm {
   brand: number;
   color: number;
   description: string;
-  unit: number;
-  unitAmount: number;
-  quantityBox: number;
+  // unit: number;
+  // unitAmount: number;
+  // quantityBox: number;
   descriptionFull: string;
   prices: Array<IProductPriceForm>;
   status: string;

@@ -27,6 +27,8 @@ export class ProductFacade {
   saveProductFc(product: IProductForm) {
     const productMapper = createProductMapper(product);
 
+    this.loading$.next(true);
+
     this.productService
       .saveProduct(productMapper)
       .pipe(
@@ -51,5 +53,31 @@ export class ProductFacade {
   }
   findOneProduct(id: number) {
     return this.productService.findOneProduct(id);
+  }
+
+  updateProductFc(product: IProductForm, id: number) {
+    const productMapper = createProductMapper(product);
+
+    this.loading$.next(true);
+
+    this.productService
+      .updateProduct(id, productMapper)
+      .pipe(
+        tap((updateProduct) => {
+          const updatedList = this.products$.value.map((product) =>
+            product.id === id ? { ...product, ...updateProduct } : product,
+          );
+
+          this.products$.next(updatedList);
+
+          this.closeModal$.next();
+        }),
+
+        takeUntil(this.destroy$),
+        finalize(() => {
+          this.loading$.next(false);
+        }),
+      )
+      .subscribe();
   }
 }

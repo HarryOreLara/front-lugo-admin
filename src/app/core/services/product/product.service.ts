@@ -27,7 +27,7 @@ export class ProductService {
     return this.productRepository.createProduct(product);
   }
 
-  actualizarProduct(id: number, product: Product): Observable<Product> {
+  updateProduct(id: number, product: IProductRquest): Observable<Product> {
     return this.productRepository.updateProduct(id, product);
   }
 

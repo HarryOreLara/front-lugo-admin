@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Category } from '@class/category/category.class';
 import { ModalService } from '@components//host/app-modal.service';
 import { MODELS_ENUM } from '@enums/models.enum';

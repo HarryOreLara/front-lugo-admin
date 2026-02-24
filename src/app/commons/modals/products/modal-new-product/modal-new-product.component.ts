@@ -20,6 +20,10 @@ export class ModalNewProductComponent {
 
   @Output() saveProductEmit: EventEmitter<IProductForm> =
     new EventEmitter<IProductForm>();
+  @Output() updateProductEmit: EventEmitter<{
+    product: IProductForm;
+    id: number;
+  }> = new EventEmitter<{ product: IProductForm; id: number }>();
   @Output() closeEmit: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(public readonly productFormPresenter: ProductsFormPresenter) {
@@ -31,7 +35,10 @@ export class ModalNewProductComponent {
   }
 
   public updateProduct() {
-    console.log("UPDATE");
+    this.updateProductEmit.emit({
+      product: this.productFormPresenter.Form.getRawValue(),
+      id: this.product.id,
+    });
   }
 
   public close() {

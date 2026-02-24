@@ -1,5 +1,4 @@
 <app-modal-new-product-ui
-  
   [isLoading]="(isLoading$ | async)!"
   [visibleModal]="visibleModal"
   [brands]="brands"
@@ -9,4 +8,5 @@
   [units]="units"
   (closeEmit)="close()"
   (saveProductEmit)="saveProduct($event)"
+  (updateProductEmit)="updateProduct($event)"
 ></app-modal-new-product-ui>

@@ -7,11 +7,10 @@ import { BehaviorSubject, finalize, Subject, takeUntil, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class CategoryFacade {
-  categories$ = new BehaviorSubject<Category[]>([]);
-  category$ = new BehaviorSubject<Category>(new Category());
-  loading$ = new BehaviorSubject<boolean>(false);
-  closeModal$ = new Subject<void>();
-
+  public categories$ = new BehaviorSubject<Category[]>([]);
+  public category$ = new BehaviorSubject<Category>(new Category());
+  public loading$ = new BehaviorSubject<boolean>(false);
+  public closeModal$ = new Subject<void>();
   private destroy$ = new Subject<void>();
 
   constructor(private readonly categoryService: CategoryService) {}
@@ -51,6 +50,8 @@ export class CategoryFacade {
 
   updateCategory(category: Category, id: number) {
     const payload = Category.toJson(category);
+
+    this.loading$.next(true);
 
     this.categoryService
       .updateCategory(id, payload)
