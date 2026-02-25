@@ -4,7 +4,7 @@ export interface IProductForm {
   brand: number;
   color: number;
   description: string;
-  // unit: number;
+  stock: number;
   // unitAmount: number;
   // quantityBox: number;
   descriptionFull: string;

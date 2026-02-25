@@ -7,7 +7,7 @@ export interface IProductRquest {
   brandId: number;
   colorId: number;
   description: string;
-  // unitId: number;
+  stock: number;
   // unitAmount: number;
   // quantityBox: number;
   descriptionFull: string;

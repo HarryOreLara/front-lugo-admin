@@ -14,7 +14,7 @@ export const createProductMapper = (
     brandId: productForm.brand,
     colorId: productForm.color,
     description: productForm.description,
-    // unitId: productForm.unit,
+    stock: productForm.stock,
     // unitAmount: productForm.unitAmount,
     // quantityBox: productForm.quantityBox,
     descriptionFull: productForm.descriptionFull,

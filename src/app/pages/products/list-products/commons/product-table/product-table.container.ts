@@ -38,7 +38,7 @@ export class ProductTableContainer implements OnInit {
     this.initParameters();
     this.channels = CHANNEL_CONSTANT;
     this.status = STATUS_CONSTANT;
-    this.productFacade.getAllProducts(Channel.WEB);
+    this.productFacade.getAllProducts(Channel.PHYSICAL);
   }
 
   public initParameters() {
