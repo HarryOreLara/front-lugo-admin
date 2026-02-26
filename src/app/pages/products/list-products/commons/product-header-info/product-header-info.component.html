@@ -1,0 +1,66 @@
+<div class="grid mt-4 mb-4">
+  <div class="col-12 md:col-6 lg:col-4">
+    <div class="surface-card shadow-2 p-3 border-round">
+      <div class="flex justify-content-between mb-3">
+        <div>
+          <span class="block text-500 font-medium mb-3"
+            >Total de productos</span
+          >
+          <div class="text-900 font-medium text-xl">{{ products.length }}</div>
+        </div>
+        <div
+          class="flex align-items-center justify-content-center bg-blue-100 border-round"
+          style="width: 2.5rem; height: 2.5rem"
+        >
+          <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
+        </div>
+      </div>
+      <span class="text-green-500 font-medium">5 nuevos </span>
+      <span class="text-500">en el ultimo mes</span>
+    </div>
+  </div>
+  <div class="col-12 md:col-6 lg:col-4">
+    <div class="surface-card shadow-2 p-3 border-round">
+      <div class="flex justify-content-between mb-3">
+        <div>
+          <span class="block text-500 font-medium mb-3"
+            >Productos con Stock Bajo</span
+          >
+          <div class="text-900 font-medium text-xl">
+            {{ isLowStockProducts }}
+          </div>
+        </div>
+        <div
+          class="flex align-items-center justify-content-center bg-orange-100 border-round"
+          style="width: 2.5rem; height: 2.5rem"
+        >
+          <i class="pi pi-map-marker text-orange-500 text-xl"></i>
+        </div>
+      </div>
+      <span class="text-green-500 font-medium">1% </span>
+      <span class="text-500">Porcentaje de todo el stock</span>
+    </div>
+  </div>
+  <div class="col-12 md:col-6 lg:col-4">
+    <div class="surface-card shadow-2 p-3 border-round">
+      <div class="flex justify-content-between mb-3">
+        <div>
+          <span class="block text-500 font-medium mb-3"
+            >Precio total de todos los productos</span
+          >
+          <div class="text-900 font-medium text-xl">
+            {{ totalInventoryValue | currencyLugo }}
+          </div>
+        </div>
+        <div
+          class="flex align-items-center justify-content-center bg-cyan-100 border-round"
+          style="width: 2.5rem; height: 2.5rem"
+        >
+          <i class="pi pi-inbox text-cyan-500 text-xl"></i>
+        </div>
+      </div>
+      <span class="text-green-500 font-medium">Tienda Fisica </span>
+      <span class="text-500"></span>
+    </div>
+  </div>
+</div>

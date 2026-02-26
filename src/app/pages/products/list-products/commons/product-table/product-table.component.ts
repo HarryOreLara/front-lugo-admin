@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '@class/index';
 import { Parameter } from '@class/parameter/paramter.class';
+import { ModalService } from '@components//host/app-modal.service';
 import { Channel } from '@enums/channel.enum';
+import { MODELS_ENUM } from '@enums/models.enum';
 import { IParameterEnum } from '@interfaces/index';
 import { Table } from 'primeng/table';
 
@@ -24,6 +26,8 @@ export class ProductTableComponent {
   @Output() updateProductEmit: EventEmitter<Product> =
     new EventEmitter<Product>();
 
+  public constructor(private readonly modalService: ModalService) {}
+
   changeChannelSearch({ value }: { value: Channel }) {
     console.log({ value });
     if (value === null) return;
@@ -43,5 +47,12 @@ export class ProductTableComponent {
 
   public deleteProduct(product: Product) {
     console.log('Eliminar categoría:', product);
+  }
+
+  public newProduct() {
+    this.modalService.openByName(MODELS_ENUM.MODAL_NEW_PRODUCT, {
+      title: 'Centralizado',
+      message: 'Test',
+    });
   }
 }

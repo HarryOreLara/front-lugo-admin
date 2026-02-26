@@ -1,33 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Product } from '@class/index';
 import { ModalService } from '@components//host/app-modal.service';
-import { MODELS_ENUM } from '@enums/models.enum';
-import { Table } from 'primeng/table';
+import { Channel } from '@enums/channel.enum';
+import { ProductFacade } from '@patterns//facade/product.facade';
+import { LugoStateService } from '@states/lugo-state/lugo-state.service';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-list-products',
   templateUrl: './list-products.component.html',
   styleUrls: ['./list-products.component.css'],
 })
-export class ListProductsComponent {
+export class ListProductsComponent implements OnInit {
+  public products$ = new BehaviorSubject<Product[]>([]);
+  public product$ = new BehaviorSubject<Product>(new Product());
+  public isLoading$: Subject<boolean> = new Subject<boolean>();
 
-  representatives!: any[];
-
-  statuses!: any[];
-
-  loading: boolean = false;
-
-  activityValues: number[] = [0, 100];
-
-  searchValue: string | undefined;
-
-  constructor(private readonly modalService: ModalService) {}
-  ngOnInit() {}
-
-  public newLoteProduct() {
-    this.modalService.openByName(MODELS_ENUM.MODAL_NEW_PRODUCT, {
-      title: 'Centralizado',
-      message: 'Test',
-    });
+  public constructor(public readonly productFacade: ProductFacade) {
+    this.products$ = productFacade.products$;
+    this.product$ = productFacade.product$;
   }
 
+  ngOnInit(): void {
+    this.productFacade.getAllProducts(Channel.PHYSICAL);
+  }
 }

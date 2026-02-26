@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '@class/index';
 import { Parameter } from '@class/parameter/paramter.class';
 import { ModalService } from '@components//host/app-modal.service';
@@ -17,8 +17,8 @@ import { BehaviorSubject, Subject, tap } from 'rxjs';
   templateUrl: './product-table.container.html',
 })
 export class ProductTableContainer implements OnInit {
-  public products$ = new BehaviorSubject<Product[]>([]);
-  public product$ = new BehaviorSubject<Product>(new Product());
+  @Input() public products$ = new BehaviorSubject<Product[]>([]);
+  @Input() public product$ = new BehaviorSubject<Product>(new Product());
   public isLoading$: Subject<boolean> = new Subject<boolean>();
   public categories: Array<Parameter>;
   public brands: Array<Parameter>;
@@ -30,15 +30,15 @@ export class ProductTableContainer implements OnInit {
     private readonly lugoStateService: LugoStateService,
     private readonly modalService: ModalService,
   ) {
-    this.products$ = productFacade.products$;
-    this.product$ = productFacade.product$;
+    // this.products$ = productFacade.products$;
+    // this.product$ = productFacade.product$;
   }
 
   ngOnInit(): void {
     this.initParameters();
     this.channels = CHANNEL_CONSTANT;
     this.status = STATUS_CONSTANT;
-    this.productFacade.getAllProducts(Channel.PHYSICAL);
+    // this.productFacade.getAllProducts(Channel.PHYSICAL);
   }
 
   public initParameters() {

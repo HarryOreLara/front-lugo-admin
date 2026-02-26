@@ -21,15 +21,12 @@
       <div>
         <button
           pButton
-          label="Limpiar"
-          class="p-button-outlined w-10rem"
+          pRipple
           icon="pi pi-filter-slash"
           (click)="clear(dt1)"
+          class="p-button mr-2"
         ></button>
-      </div>
 
-      <!-- DERECHA -->
-      <div class="flex align-items-center gap-3">
         <p-dropdown
           inputId="channel"
           [options]="channels"
@@ -39,6 +36,7 @@
           [showClear]="true"
           placeholder="Canal"
           styleClass="w-15rem"
+          class="mr-2"
         >
         </p-dropdown>
 
@@ -47,10 +45,24 @@
           <input
             pInputText
             type="text"
+            class="w-20rem"
             (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
             placeholder="Buscar..."
           />
         </span>
+      </div>
+
+      <!-- DERECHA -->
+      <div class="flex align-items-center gap-3">
+        <div>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-plus"
+            (click)="newProduct()"
+            class="p-button mr-2"
+          ></button>
+        </div>
       </div>
     </div>
   </ng-template>
@@ -309,7 +321,7 @@
   </ng-template>
   <ng-template pTemplate="emptymessage">
     <tr>
-      <td colspan="7">No products found.</td>
+      <td colspan="7">No se encontraron productos.</td>
     </tr>
   </ng-template>
 </p-table>
