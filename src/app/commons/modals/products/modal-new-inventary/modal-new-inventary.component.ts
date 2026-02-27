@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { Product } from '@class/index';
+import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 
 @Component({
   selector: 'app-modal-new-inventary-ui',
@@ -8,14 +10,26 @@ import { Component, Input } from '@angular/core';
 export class ModalNewInventaryComponent {
   @Input() public visibleModal: boolean;
   @Input() public isLoading: boolean;
+  @Input() products: Array<Product> = [];
 
-  selectedValue: any;
-  selectedValue2: any;
-  public animal: any;
+  public selectedProduct!: Product;
+  public filteredProducts: Product[] = [];
 
+  public animal: number;
 
-  saveInventary(){}
+  saveInventary() {
+    console.log(this.selectedProduct);
+  }
 
+  close() {}
 
-  close(){}
+  filterProducts(event: AutoCompleteCompleteEvent) {
+    const query = event.query.toLowerCase();
+
+    this.filteredProducts = this.products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(query) ||
+        product.sku?.toLowerCase().includes(query),
+    );
+  }
 }
