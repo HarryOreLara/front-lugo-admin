@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Product } from '@class/index';
+import { InventaryMovementType } from '@enums/inventary-movement.enum';
+import { IParameterEnum } from '@interfaces/index';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 
 @Component({
@@ -10,12 +13,22 @@ import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 export class ModalNewInventaryComponent {
   @Input() public visibleModal: boolean;
   @Input() public isLoading: boolean;
-  @Input() products: Array<Product> = [];
-
+  @Input() public products: Array<Product> = [];
+  @Input() public inventaryMovementsType: IParameterEnum[];
   public selectedProduct!: Product;
   public filteredProducts: Product[] = [];
 
   public animal: number;
+
+  public selectedMovement!: string;
+  movementTypeControl = new FormControl<string | null>(null);
+  ngOnInit() {
+    this.movementTypeControl.setValue(InventaryMovementType.INBOUND);
+  }
+
+  getSelectedMovementType() {
+    return this.movementTypeControl.value;
+  }
 
   saveInventary() {
     console.log(this.selectedProduct);
