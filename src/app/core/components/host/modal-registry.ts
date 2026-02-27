@@ -1,5 +1,6 @@
 import { Type } from '@angular/core';
 import { ModalNewCategoryContainer } from 'src/app/commons/modals/products/modal-new-category/modal-new-category.container';
+import { ModalNewInventaryContainer } from 'src/app/commons/modals/products/modal-new-inventary/modal-new-inventary.container';
 import { ModalNewProductContainer } from 'src/app/commons/modals/products/modal-new-product/modal-new-product.container';
 
 export const MODAL_REGISTRY: Record<string, Type<object>> = {
@@ -7,4 +8,5 @@ export const MODAL_REGISTRY: Record<string, Type<object>> = {
   // nuevaCategoria:NuevaCategoria
   modalNewProduct: ModalNewProductContainer,
   modalNewCategory: ModalNewCategoryContainer,
+  modalNewInventary: ModalNewInventaryContainer,
 };

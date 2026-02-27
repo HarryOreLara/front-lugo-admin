@@ -1,0 +1,378 @@
+<p-dialog
+  [(visible)]="visibleModal"
+  appendTo="body"
+  [modal]="true"
+  [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
+  [style]="{ width: '70vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="new-category-dialog"
+>
+  <ng-template pTemplate="header">
+    <div class="inline-flex align-items-center justify-content-center gap-2">
+      <span class="font-bold white-space-nowrap">
+        Nuevo Movimiento de Invetario
+      </span>
+    </div>
+  </ng-template>
+
+  <div class="grid -mr-3 -ml-3">
+    <div class="col-12 lg:col-8 p-4">
+      <div class="surface-card grid formgrid p-fluid border-round shadow-2 p-4">
+        <div
+          class="col-12 mb-2 flex flex-column lg:flex-row align-items-center justify-content-between"
+        >
+          <div class="text-900 font-medium text-xl">Detalle de movimiento</div>
+        </div>
+
+        <p-divider class="w-full px-2 mb-3"></p-divider>
+
+        <div class="col-12 field mb-4 md:col-12">
+          <label for="categories" class="font-medium text-900"
+            >Producto / SKU</label
+          >
+          <p-dropdown
+            inputId="category"
+            [options]="[]"
+            optionValue="id"
+            optionLabel="description"
+            placeholder="Seleccióne una categoria"
+          >
+          </p-dropdown>
+        </div>
+
+        <div class="col-12 md:col-4 lg:col-4">
+          <div
+            class="surface-card border-2 p-5 mb-3 border-round align-items-start md:align-items-center md:justify-content-between cursor-pointer"
+            (click)="animal = 0"
+            [ngClass]="{
+              'surface-border': animal !== 0,
+              'border-primary': animal === 0,
+            }"
+          >
+            <div class="flex align-items-start mr-0 md:mr-8">
+              <div>
+                <div
+                  class="font-medium mb-2"
+                  [ngClass]="{ 'text-primary-600': animal === 0 }"
+                >
+                  Owl
+                </div>
+                <div class="flex flex-grow gap-2">
+                  <span
+                    class="p-1 border-round surface-100"
+                    [ngClass]="{ 'text-primary-600': animal === 0 }"
+                    >Entrada
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 md:col-4 lg:col-4">
+          <div
+            class="surface-card border-2 p-5 mb-3 border-round align-items-start md:align-items-center md:justify-content-between cursor-pointer"
+            (click)="animal = 1"
+            [ngClass]="{
+              'surface-border': animal !== 1,
+              'border-primary': animal === 1,
+            }"
+          >
+            <div class="flex align-items-start mr-0 md:mr-8">
+              <div>
+                <div
+                  class="font-medium mb-2"
+                  [ngClass]="{ 'text-primary-600': animal === 1 }"
+                >
+                  Ajuste
+                </div>
+                <div class="flex flex-grow gap-2">
+                  <span
+                    class="p-1 border-round surface-100"
+                    [ngClass]="{ 'text-primary-600': animal === 1 }"
+                    >Ajuste
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 md:col-4 lg:col-4">
+          <div
+            class="surface-card border-2 p-5 mb-3 border-round align-items-start md:align-items-center md:justify-content-between cursor-pointer"
+            (click)="animal = 2"
+            [ngClass]="{
+              'surface-border': animal !== 2,
+              'border-primary': animal === 2,
+            }"
+          >
+            <div class="flex align-items-start mr-0 md:mr-8">
+              <div>
+                <div
+                  class="font-medium mb-2"
+                  [ngClass]="{ 'text-primary-600': animal === 2 }"
+                >
+                  Sheep
+                </div>
+                <div class="flex flex-grow gap-2">
+                  <span
+                    class="p-1 border-round surface-100"
+                    [ngClass]="{ 'text-primary-600': animal === 2 }"
+                    >Salida
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="quantity" class="font-medium text-900">Cantidad</label>
+          <div class="flex align-content-center">
+            <p-inputNumber
+              inputId="locale-us"
+              mode="decimal"
+              locale="en-US"
+              [minFractionDigits]="2"
+              inputId="minmaxfraction"
+              class="flex-1"
+            ></p-inputNumber>
+          </div>
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="reference" class="font-medium text-900"
+            >Referencia / Id Pedido</label
+          >
+          <input id="reference" type="text" pInputText />
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="unitCost" class="font-medium text-900"
+            >Costo unitario</label
+          >
+          <div class="flex align-content-center">
+            <p-inputNumber
+              inputId="locale-us"
+              mode="decimal"
+              locale="en-US"
+              [minFractionDigits]="2"
+              inputId="minmaxfraction"
+              class="flex-1"
+            ></p-inputNumber>
+          </div>
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="totalCost" class="font-medium text-900"
+            >Costo total</label
+          >
+          <div class="flex align-content-center">
+            <p-inputNumber
+              inputId="locale-us"
+              mode="decimal"
+              locale="en-US"
+              [minFractionDigits]="2"
+              inputId="minmaxfraction"
+              class="flex-1"
+            ></p-inputNumber>
+          </div>
+        </div>
+
+        <div class="field mb-4 col-12">
+          <label for="description" class="font-medium text-900"
+            >Razon o motivo</label
+          >
+          <textarea
+            id="description"
+            pInputTextarea
+            [autoResize]="true"
+            [rows]="5"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 lg:col-4 p-4">
+      <div class="surface-card border-round shadow-2 p-5">
+        <!-- <div
+          class="flex justify-content-between align-items-center border-bottom-1 pb-3 surface-border"
+        >
+          <span class="text-900 font-medium text-lg lg:text-xl"
+            ><i class="pi pi-shopping-cart text-xl mr-2"></i>Vista previa
+            </span
+          >
+        </div> -->
+        <!-- 
+        <div class="py-2 mt-3 border-bottom-1 surface-border">
+          <div class="flex justify-content-between align-items-center mb-3">
+            <span class="text-900">Stock actual</span>
+            <span class="text-900">31 uds</span>
+          </div>
+          <div class="flex justify-content-between align-items-center mb-3">
+            <span class="text-900">Variacion</span>
+            <span class="text-900">+12 uds</span>
+          </div>
+          <div class="flex justify-content-between align-items-center mb-3">
+            <span class="text-900">Sotck resultante</span>
+            <span class="text-900 font-bold">54 uds</span>
+          </div>
+        </div>
+
+                  <span class="text-900 font-medium text-lg lg:text-xl"
+            ><i class="pi pi-shopping-cart text-xl mr-2"></i>IMPACTO FINANCIERO
+            </span
+          >
+
+        <div class="py-2 mt-3 border-bottom-1 surface-border">
+          <div class="flex justify-content-between align-items-center mb-3">
+            <span class="text-900">Inversión Actual</span>
+            <span class="text-900">S./ 14,500.00</span>
+          </div>
+          <div class="flex justify-content-between align-items-center mb-3">
+            <span class="text-900">Ajuste de Costo</span>
+            <span class="text-900">+S./ 1,200.00</span>
+          </div>
+          <div class="flex justify-content-between align-items-center mb-3">
+            <span class="text-900">Nuevo Valor Total</span>
+            <span class="text-900 font-bold">S./ 15,700.00</span>
+          </div>
+        </div> -->
+
+        <div class="flex align-items-center justify-content-between mb-4">
+          <div class="text-900 font-medium text-xl">Vista previa</div>
+        </div>
+
+        <ul class="p-0 mx-0 mt-0 mb-4 list-none">
+          <li
+            class="flex align-items-center justify-content-between py-2 border-bottom-1 surface-border"
+          >
+            <div class="flex align-items-center">
+              <div
+                class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0"
+              >
+                <i class="pi pi-dollar text-xl text-blue-500"></i>
+              </div>
+
+              <span class="text-900">Stock actual</span>
+            </div>
+
+            <span class="text-2xl font-bold">31 uds</span>
+          </li>
+
+          <li class="flex align-items-center justify-content-between py-2">
+            <div class="flex align-items-center">
+              <div
+                class="w-3rem h-3rem flex align-items-center justify-content-center bg-orange-100 border-circle mr-3 flex-shrink-0"
+              >
+                <i class="pi pi-download text-xl text-orange-500"></i>
+              </div>
+
+              <span class="text-900">Variación</span>
+            </div>
+
+            <span class="text-xl font-bold text-green-500">+12 uds</span>
+          </li>
+
+          <li class="flex align-items-center justify-content-between py-2">
+            <div class="flex align-items-center">
+              <div
+                class="w-3rem h-3rem flex align-items-center justify-content-center bg-orange-100 border-circle mr-3 flex-shrink-0"
+              >
+                <i class="pi pi-download text-xl text-orange-500"></i>
+              </div>
+
+              <span class="text-900">Stock resultante</span>
+            </div>
+
+            <span class="text-3xl font-bold text-orange-500">54 uds</span>
+          </li>
+        </ul>
+
+        <span class="block text-600 font-medium mt-5 mb-3"
+          >IMPACTO FINANCIERO</span
+        >
+
+        <ul class="p-0 mx-0 mt-0 mb-4 list-none">
+          <li class="flex align-items-center justify-content-between py-2">
+            <div class="flex align-items-center">
+              <div
+                class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0"
+              >
+                <i class="pi pi-dollar text-xl text-blue-500"></i>
+              </div>
+
+              <span class="text-900">Inversion Actual</span>
+            </div>
+
+            <span class="text-xl font-bold">S./ 14,500.00</span>
+          </li>
+
+          <li
+            class="flex align-items-center justify-content-between py-2 border-bottom-1 surface-border mb-4"
+          >
+            <div class="flex align-items-center">
+              <div
+                class="w-3rem h-3rem flex align-items-center justify-content-center bg-pink-100 border-circle mr-3 flex-shrink-0"
+              >
+                <i class="pi pi-question text-xl text-pink-500"></i>
+              </div>
+
+              <span class="text-900">Ajuste de Costo</span>
+            </div>
+
+            <span class="text-900 font-bold text-green-500">+S./ 1,200.00</span>
+          </li>
+
+          <li class="flex align-items-center justify-content-between py-2">
+            <div class="flex align-items-center">
+              <div
+                class="w-3rem h-3rem flex align-items-center justify-content-center bg-green-100 border-circle mr-3 flex-shrink-0"
+              >
+                <i class="pi pi-arrow-up text-xl text-green-500"></i>
+              </div>
+
+              <span class="text-900">Nuevo Valor Total</span>
+            </div>
+
+            <span class="text-xl font-bold">S./ 15,700.00</span>
+          </li>
+        </ul>
+
+        <div
+          class="flex align-items-start p-4 bg-yellow-100 border-round border-1 border-yellow-300"
+        >
+          <i
+            class="pi pi-exclamation-triangle text-yellow-900 text-2xl mr-3"
+          ></i>
+          <div class="mr-3">
+            <div class="text-yellow-900 font-medium text-900 mb-2 line-height-1">
+              Advertencia
+            </div>
+            <p class="m-0 p-0 text-yellow-700 mb-3 font-light">
+              Este movimiento actualizara el Costo Promedio Ponderado de este
+              producto de form automática
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      [disabled]="isLoading"
+      label="Cancelar"
+      class="bg-red-500 border-red-400 hover:bg-red-600"
+      (click)="close()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Guardar"
+      [disabled]="isLoading"
+      type="button"
+      (click)="saveInventary()"
+    ></button>
+  </ng-template>
+</p-dialog>

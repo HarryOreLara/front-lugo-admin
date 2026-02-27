@@ -1,0 +1,288 @@
+<p-table
+  #dt1
+  [value]="inventories"
+  dataKey="id"
+  [rows]="30"
+  [rowsPerPageOptions]="[30, 60, 90]"
+  [loading]="isLoading"
+  [paginator]="true"
+  [tableStyle]="{ 'min-width': '75rem', 'font-size': '14px' }"
+  [globalFilterFields]="['name']"
+  currentPageReportTemplate="Mostrando {last} movimientos de {totalRecords}"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <!-- IZQUIERDA -->
+      <div>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-filter-slash"
+          (click)="clear(dt1)"
+          class="p-button mr-2"
+        ></button>
+<!-- 
+        <p-dropdown
+          inputId="channel"
+          [options]="channels"
+          optionLabel="name"
+          (onChange)="changeChannelSearch($event)"
+          optionValue="id"
+          [showClear]="true"
+          placeholder="Canal"
+          styleClass="w-15rem"
+          class="mr-2"
+        >
+        </p-dropdown> -->
+
+        <span class="p-input-icon-left w-20rem">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            class="w-20rem"
+            (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Buscar..."
+          /> 
+        </span>
+      </div>
+
+      <div class="flex align-items-center gap-3">
+        <div>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-plus"
+            (click)="newInventary()"
+            class="p-button mr-2"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="min-width: 15rem">
+        <div class="flex align-items-center">
+          Nombre
+          <p-columnFilter type="text" field="name" display="menu" />
+        </div>
+      </th>
+
+      <th style="min-width: 10rem">
+        <div class="flex align-items-center">
+          Precio
+          <p-columnFilter
+            type="numeric"
+            field="prices[0].salePrice"
+            display="menu"
+            currency="PEN"
+          />
+        </div>
+      </th>
+
+      <th style="min-width: 10rem">
+        <div class="flex align-items-center">
+          Estado
+          <p-columnFilter
+            field="status"
+            matchMode="in"
+            display="menu"
+            [showMatchModes]="false"
+            [showOperator]="false"
+            [showAddButton]="false"
+          >
+            <ng-template pTemplate="header">
+              <div class="px-3 pt-3 pb-0">
+                <span class="font-bold">Seleccione un estado</span>
+              </div>
+            </ng-template>
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+              <!-- <p-dropdown
+                inputId="status"
+                [options]="status"
+                optionLabel="name"
+                optionValue="id"
+                [showClear]="true"
+                placeholder="Seleccione"
+              >
+              </p-dropdown> -->
+            </ng-template>
+          </p-columnFilter>
+        </div>
+      </th>
+      <th style="min-width: 8rem">
+        <div class="flex align-items-center">
+          Stock
+          <p-columnFilter
+            type="numeric"
+            field="stock"
+            display="menu"
+            currency="PEN"
+          />
+        </div>
+      </th>
+      <th style="min-width: 12rem">
+        <div class="flex align-items-center">
+          Sku
+          <p-columnFilter type="text" field="name" display="menu" />
+        </div>
+      </th>
+
+      <th style="min-width: 10rem">
+        <div class="flex align-items-center">
+          Categoria
+          <p-columnFilter
+            field="category"
+            matchMode="in"
+            display="menu"
+            [showMatchModes]="false"
+            [showOperator]="false"
+            [showAddButton]="false"
+          >
+            <ng-template pTemplate="header">
+              <div class="px-3 pt-3 pb-0">
+                <span class="font-bold">Seleccione una categoria</span>
+              </div>
+            </ng-template>
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+              <!-- <p-dropdown
+                inputId="category"
+                [options]="categories"
+                optionLabel="description"
+                optionValue="id"
+                [showClear]="true"
+                placeholder="Seleccione"
+              >
+              </p-dropdown> -->
+            </ng-template>
+          </p-columnFilter>
+        </div>
+      </th>
+
+      <th style="min-width: 10rem">
+        <div class="flex align-items-center">
+          Marca
+          <p-columnFilter
+            field="brand"
+            matchMode="in"
+            display="menu"
+            [showMatchModes]="false"
+            [showOperator]="false"
+            [showAddButton]="false"
+          >
+            <ng-template pTemplate="header">
+              <div class="px-3 pt-3 pb-0">
+                <span class="font-bold">Seleccione una marca</span>
+              </div>
+            </ng-template>
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+              <!-- <p-dropdown
+                inputId="brand"
+                [options]="brands"
+                optionLabel="description"
+                optionValue="id"
+                [showClear]="true"
+                placeholder="Seleccione"
+              >
+              </p-dropdown> -->
+            </ng-template>
+          </p-columnFilter>
+        </div>
+      </th>
+      <th style="min-width: 10rem">
+        <div class="flex align-items-center">
+          Canal
+
+          <p-columnFilter
+            field="channel"
+            matchMode="in"
+            display="menu"
+            [showMatchModes]="false"
+            [showOperator]="false"
+            [showAddButton]="false"
+          >
+            <ng-template pTemplate="header">
+              <div class="px-3 pt-3 pb-0">
+                <span class="font-bold">Seleccione un canal</span>
+              </div>
+            </ng-template>
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+              <!-- <p-dropdown
+                inputId="channel"
+                [options]="channels"
+                optionLabel="name"
+                optionValue="id"
+                [showClear]="true"
+                placeholder="Seleccione"
+              >
+              </p-dropdown> -->
+            </ng-template>
+          </p-columnFilter>
+        </div>
+      </th>
+      <th style="min-width: 10rem">
+        <div class="flex align-items-center">Acciones</div>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <td>
+        {{ product.name }}
+      </td>
+      <td>
+        {{
+          product.prices.length === 0
+            ? 0
+            : (product.prices[0].salePrice | currencyLugo)
+        }}
+      </td>
+      <!-- <td>
+        <p-tag
+          [tagStatus]="product.status"
+          class="text-white"
+          [styleClass]="'text-white'"
+        ></p-tag>
+      </td> -->
+      <td>
+        {{ product.stock }}
+      </td>
+      <td>
+        {{ product.sku }}
+      </td>
+      <td>
+        {{ product.category.name }}
+      </td>
+      <td>
+        {{ product.brand.name }}
+      </td>
+      <td>
+        {{
+          product.prices.length === 0 ? "NINGUNO" : product.prices[0].channel
+        }}
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="7">No se encontraron productos.</td>
+    </tr>
+  </ng-template>
+</p-table>
