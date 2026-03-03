@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { Product } from '@class/index';
-import { InventaryMovementType } from '@enums/inventary-movement.enum';
 import { IParameterEnum } from '@interfaces/index';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { InventaryFormPresenter } from './inventary-form.presenter';
 
 @Component({
   selector: 'app-modal-new-inventary-ui',
@@ -15,23 +14,18 @@ export class ModalNewInventaryComponent {
   @Input() public isLoading: boolean;
   @Input() public products: Array<Product> = [];
   @Input() public inventaryMovementsType: IParameterEnum[];
-  public selectedProduct!: Product;
   public filteredProducts: Product[] = [];
 
-  public animal: number;
-
-  public selectedMovement!: string;
-  movementTypeControl = new FormControl<string | null>(null);
-  ngOnInit() {
-    this.movementTypeControl.setValue(InventaryMovementType.INBOUND);
+  constructor(public readonly inventaryFormPresenter: InventaryFormPresenter) {
+    this.createControls();
   }
 
-  getSelectedMovementType() {
-    return this.movementTypeControl.value;
-  }
+  ngOnInit() {}
 
   saveInventary() {
-    console.log(this.selectedProduct);
+    console.log({
+      formulario: this.inventaryFormPresenter.Form.getRawValue(),
+    });
   }
 
   close() {}
@@ -44,5 +38,9 @@ export class ModalNewInventaryComponent {
         product.name.toLowerCase().includes(query) ||
         product.sku?.toLowerCase().includes(query),
     );
+  }
+
+  public createControls() {
+    this.inventaryFormPresenter.createForm();
   }
 }

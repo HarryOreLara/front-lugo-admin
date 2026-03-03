@@ -16,7 +16,7 @@
     </div>
   </ng-template>
 
-  <div class="grid -mr-3 -ml-3">
+  <form class="grid -mr-3 -ml-3" [formGroup]="inventaryFormPresenter.Form">
     <div class="col-12 lg:col-8 p-4">
       <div class="surface-card grid formgrid p-fluid border-round shadow-2 p-4">
         <div
@@ -31,8 +31,8 @@
           <label class="font-medium text-900"> Producto / SKU </label>
 
           <p-autoComplete
-            [(ngModel)]="selectedProduct"
             [suggestions]="filteredProducts"
+            formControlName="product"
             (completeMethod)="filterProducts($event)"
             field="name"
             placeholder="Buscar producto..."
@@ -47,10 +47,12 @@
         >
           <div
             class="surface-card border-2 border-round p-5 cursor-pointer flex flex-column align-items-center justify-content-center transition-all transition-duration-200"
-            (click)="movementTypeControl.setValue(item.id)"
+            (click)="inventaryFormPresenter.typeInventary.setValue(item.id)"
             [ngClass]="[
-              movementTypeControl.value !== item.id ? 'surface-border' : '',
-              movementTypeControl.value === item.id
+              inventaryFormPresenter.typeInventary.value !== item.id
+                ? 'surface-border'
+                : '',
+              inventaryFormPresenter.typeInventary.value === item.id
                 ? 'shadow-2 border-' + item.color + '-500'
                 : '',
             ]"
@@ -58,10 +60,10 @@
             <div
               class="w-3rem h-3rem flex align-items-center justify-content-center border-circle mb-3"
               [ngClass]="[
-                movementTypeControl.value !== item.id
+                inventaryFormPresenter.typeInventary.value !== item.id
                   ? 'bg-' + item.color + '-100'
                   : '',
-                movementTypeControl.value === item.id
+                inventaryFormPresenter.typeInventary.value === item.id
                   ? 'bg-' + item.color + '-600'
                   : '',
               ]"
@@ -69,10 +71,12 @@
               <i
                 class="pi {{ item.icon }} text-2xl"
                 [ngClass]="[
-                  movementTypeControl.value !== item.id
+                  inventaryFormPresenter.typeInventary.value !== item.id
                     ? 'text-' + item.color + '-500'
                     : '',
-                  movementTypeControl.value === item.id ? 'text-white' : '',
+                  inventaryFormPresenter.typeInventary.value === item.id
+                    ? 'text-white'
+                    : '',
                 ]"
               ></i>
             </div>
@@ -80,8 +84,10 @@
             <span
               class="text-lg font-medium"
               [ngClass]="[
-                movementTypeControl.value !== item.id ? 'text-900' : '',
-                movementTypeControl.value === item.id
+                inventaryFormPresenter.typeInventary.value !== item.id
+                  ? 'text-900'
+                  : '',
+                inventaryFormPresenter.typeInventary.value === item.id
                   ? 'text-' + item.color + '-700'
                   : '',
               ]"
@@ -91,85 +97,6 @@
           </div>
         </div>
 
-        <!-- 
-        <div class="col-12 md:col-4 mb-4">
-          <div
-            class="surface-card border-2 border-round p-5 cursor-pointer flex flex-column align-items-center justify-content-center transition-all transition-duration-200"
-            (click)="animal = 1"
-            [ngClass]="{
-              'surface-border': animal !== 1,
-              'border-orange-500 shadow-2': animal === 1,
-            }"
-          >
-            
-            <div
-              class="w-3rem h-3rem flex align-items-center justify-content-center border-circle mb-3"
-              [ngClass]="{
-                'bg-orange-100': animal !== 1,
-                'bg-orange-500': animal === 1,
-              }"
-            >
-              <i
-                class="pi pi-arrow-right-arrow-left text-2xl"
-                [ngClass]="{
-                  'text-orange-500': animal !== 1,
-                  'text-white': animal === 1,
-                }"
-              ></i>
-            </div>
-
-            
-            <span
-              class="text-lg font-medium"
-              [ngClass]="{
-                'text-900': animal !== 1,
-                'text-orange-500': animal === 1,
-              }"
-            >
-              Ajuste
-            </span>
-          </div>
-        </div>
-
-        <div class="col-12 md:col-4 mb-4">
-          <div
-            class="surface-card border-2 border-round p-5 cursor-pointer flex flex-column align-items-center justify-content-center transition-all transition-duration-200"
-            (click)="animal = 2"
-            [ngClass]="{
-              'surface-border': animal !== 2,
-              'border-red-500 shadow-2': animal === 2,
-            }"
-          >
-            
-            <div
-              class="w-3rem h-3rem flex align-items-center justify-content-center border-circle mb-3"
-              [ngClass]="{
-                'bg-red-100': animal !== 2,
-                'bg-red-500': animal === 2,
-              }"
-            >
-              <i
-                class="pi pi-arrow-down-right text-2xl"
-                [ngClass]="{
-                  'text-red-500': animal !== 2,
-                  'text-white': animal === 2,
-                }"
-              ></i>
-            </div>
-
-            
-            <span
-              class="text-lg font-medium"
-              [ngClass]="{
-                'text-900': animal !== 2,
-                'text-red-500': animal === 2,
-              }"
-            >
-              Salida
-            </span>
-          </div>
-        </div> -->
-
         <div class="field mb-4 col-12 md:col-6">
           <label for="quantity" class="font-medium text-900">Cantidad</label>
           <div class="flex align-content-center">
@@ -177,6 +104,7 @@
               inputId="locale-us"
               mode="decimal"
               locale="en-US"
+              formControlName="quantity"
               [minFractionDigits]="2"
               inputId="minmaxfraction"
               class="flex-1"
@@ -188,7 +116,12 @@
           <label for="reference" class="font-medium text-900"
             >Referencia / Id Pedido</label
           >
-          <input id="reference" type="text" pInputText />
+          <input
+            id="reference"
+            type="text"
+            formControlName="reference"
+            pInputText
+          />
         </div>
 
         <div class="field mb-4 col-12 md:col-6">
@@ -200,6 +133,7 @@
               inputId="locale-us"
               mode="decimal"
               locale="en-US"
+              formControlName="unitCost"
               [minFractionDigits]="2"
               inputId="minmaxfraction"
               class="flex-1"
@@ -215,6 +149,7 @@
             <p-inputNumber
               inputId="locale-us"
               mode="decimal"
+              formControlName="totalCost"
               locale="en-US"
               [minFractionDigits]="2"
               inputId="minmaxfraction"
@@ -224,11 +159,12 @@
         </div>
 
         <div class="field mb-4 col-12">
-          <label for="description" class="font-medium text-900"
+          <label for="reason" class="font-medium text-900"
             >Razon o motivo</label
           >
           <textarea
-            id="description"
+            id="reason"
+            formControlName="reason"
             pInputTextarea
             [autoResize]="true"
             [rows]="5"
@@ -358,7 +294,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </form>
 
   <ng-template pTemplate="footer">
     <button

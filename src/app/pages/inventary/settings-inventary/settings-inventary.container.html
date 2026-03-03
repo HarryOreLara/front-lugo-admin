@@ -1,1 +1,3 @@
-<app-settings-inventary-ui></app-settings-inventary-ui>
+<app-settings-inventary-ui
+  [inventaryMovements]="(inventaryMovements$ | async)!"
+></app-settings-inventary-ui>

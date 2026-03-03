@@ -5,6 +5,7 @@ import { SettingsInventaryTableContainer } from './settings-inventary-table.cont
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedPipesModule } from '@pipes/shared.pipes.module';
 import { InventaryPrimengModule } from '@themes/inventary/inventary.primeng.module';
+import { SharedDirectiveModule } from '@directives/shared-directives.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { InventaryPrimengModule } from '@themes/inventary/inventary.primeng.modu
     FormsModule,
     ReactiveFormsModule,
     SharedPipesModule,
+    SharedDirectiveModule
   ],
   exports: [SettingsInventaryTableContainer],
 })
