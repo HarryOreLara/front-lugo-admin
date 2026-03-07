@@ -13,9 +13,6 @@ export function initParameters(
         parametersService.getAllParameters(),
       );
 
-      console.log({
-        response,
-      });
       Object.entries(response).forEach(([key, value]) => {
         state.set(key, value);
       });

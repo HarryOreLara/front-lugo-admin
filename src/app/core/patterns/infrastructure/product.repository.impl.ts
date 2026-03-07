@@ -60,7 +60,6 @@ export class ProductRepositoryImpl implements ProductRepository {
   ): Observable<Product> {
     const direction = `${this.apiUrl}/product/updateProduct`;
 
-    console.log({product});
     return this.http
       .patch<IGeneric<Product>>(direction, product, { params: { id } })
       .pipe(

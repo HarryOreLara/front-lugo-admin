@@ -2,4 +2,7 @@
   [visibleModal]="visibleModal"
   [products]="(products$ | async)!"
   [inventaryMovementsType]="inventaryMovementsType"
+  (closeEmit)="close()"
+  (saveInventaryEmit)="saveInventaryMovement($event)"
+
 ></app-modal-new-inventary-ui>

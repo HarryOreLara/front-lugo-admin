@@ -1,5 +1,6 @@
 import { InventaryMovement } from '@class/inventary-movement/inventary-movement.class';
 import { Observable } from 'rxjs';
+import { IInventaryMovementRequest } from 'src/app/commons/modals/products/modal-new-inventary/models/inventary-movement-request.model';
 
 export interface InventaryMovementRepository {
   getAllInventaryMovement(
@@ -8,7 +9,7 @@ export interface InventaryMovementRepository {
   ): Observable<InventaryMovement[]>;
   findInventaryMovementById(id: number): Observable<InventaryMovement>;
   createInventaryMovement(
-    inventaryMovement: InventaryMovement,
+    iventaryMovementRequest: IInventaryMovementRequest,
   ): Observable<InventaryMovement>;
   updateInventaryMovement(
     id: number,

@@ -4,7 +4,11 @@ import { InventaryMovement } from '@class/inventary-movement/inventary-movement.
 import { map, Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { IGenericArrays } from '@interfaces/genericas/IGeneric.interface';
+import {
+  IGeneric,
+  IGenericArrays,
+} from '@interfaces/genericas/IGeneric.interface';
+import { IInventaryMovementRequest } from 'src/app/commons/modals/products/modal-new-inventary/models/inventary-movement-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -29,14 +33,21 @@ export class InventaryMovementRepositoryImpl implements InventaryMovementReposit
       );
   }
 
-  
   findInventaryMovementById(id: number): Observable<InventaryMovement> {
     throw new Error('Method not implemented.');
   }
   createInventaryMovement(
-    inventaryMovement: InventaryMovement,
+    inventaryMovementRequest: IInventaryMovementRequest,
   ): Observable<InventaryMovement> {
-    throw new Error('Method not implemented.');
+    const direction = `${this.apiUrl}/inventory-movement/create`;
+
+    return this.http
+      .post<IGeneric<InventaryMovement>>(direction, inventaryMovementRequest)
+      .pipe(
+        map((response: IGeneric<InventaryMovement>) =>
+          InventaryMovement.fromJson(response.data),
+        ),
+      );
   }
   updateInventaryMovement(
     id: number,

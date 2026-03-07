@@ -1,7 +1,8 @@
+import { Product } from '@class/index';
 import { InventaryMovementType } from '@enums/inventary-movement.enum';
 
 export interface IInventaryForm {
-  product: number;
+  product: Product;
   typeInventary: InventaryMovementType;
   quantity: number;
   reference: string;

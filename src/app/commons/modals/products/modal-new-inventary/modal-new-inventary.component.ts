@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '@class/index';
 import { IParameterEnum } from '@interfaces/index';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 import { InventaryFormPresenter } from './inventary-form.presenter';
+import { IInventaryForm } from './models/inventary.model';
 
 @Component({
   selector: 'app-modal-new-inventary-ui',
@@ -14,6 +15,11 @@ export class ModalNewInventaryComponent {
   @Input() public isLoading: boolean;
   @Input() public products: Array<Product> = [];
   @Input() public inventaryMovementsType: IParameterEnum[];
+
+  @Output() saveInventaryEmit: EventEmitter<IInventaryForm> =
+    new EventEmitter<IInventaryForm>();
+  @Output() closeEmit: EventEmitter<void> = new EventEmitter<void>();
+
   public filteredProducts: Product[] = [];
 
   constructor(public readonly inventaryFormPresenter: InventaryFormPresenter) {
@@ -23,12 +29,12 @@ export class ModalNewInventaryComponent {
   ngOnInit() {}
 
   saveInventary() {
-    console.log({
-      formulario: this.inventaryFormPresenter.Form.getRawValue(),
-    });
+    this.saveInventaryEmit.emit(this.inventaryFormPresenter.Form.getRawValue());
   }
 
-  close() {}
+  public close() {
+    this.closeEmit.emit();
+  }
 
   filterProducts(event: AutoCompleteCompleteEvent) {
     const query = event.query.toLowerCase();

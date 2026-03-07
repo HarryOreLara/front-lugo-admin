@@ -29,7 +29,6 @@ export class ProductTableComponent {
   public constructor(private readonly modalService: ModalService) {}
 
   changeChannelSearch({ value }: { value: Channel }) {
-    console.log({ value });
     if (value === null) return;
     this.changeChannelEmit.emit(value);
   }

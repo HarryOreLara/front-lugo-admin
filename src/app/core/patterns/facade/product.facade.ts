@@ -33,13 +33,6 @@ export class ProductFacade {
       .saveProduct(productMapper)
       .pipe(
         tap((response) => {
-          console.log({
-            response,
-          });
-
-          console.log({
-            estado: this.products$.value,
-          });
           this.products$.next([response, ...this.products$.value]);
 
           this.closeModal$.next();

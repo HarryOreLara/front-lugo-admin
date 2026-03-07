@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { InventaryMovement } from '@class/inventary-movement/inventary-movement.class';
 import { InventaryMovementService } from '@service/inventary/inventary-movement.service';
-import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, finalize, Subject, takeUntil, tap } from 'rxjs';
+import { createInventaryMovementMapper } from 'src/app/commons/modals/products/modal-new-inventary/mapper/inventary-movement.mapper';
+import { IInventaryForm } from 'src/app/commons/modals/products/modal-new-inventary/models/inventary.model';
 
 @Injectable({
   providedIn: 'root',
@@ -23,10 +25,29 @@ export class InventaryMovementFacade {
     this.inventaryMovementService
       .getAllInventaryMovements()
       .pipe(takeUntil(this.destroy$))
-      .subscribe((inventaries) => {
-        console.log({
-          inventaries
-        });
-        this.inventaryMovements$.next(inventaries)});
+      .subscribe((inventaries) => this.inventaryMovements$.next(inventaries));
+  }
+
+  saveInventaryMovement(inventaryForm: IInventaryForm) {
+    const inventaryMapper = createInventaryMovementMapper(inventaryForm);
+    this.loading$.next(true);
+
+    this.inventaryMovementService
+      .createInventaryMovement(inventaryMapper)
+      .pipe(
+        tap((response) => {
+          this.inventaryMovements$.next([
+            response,
+            ...this.inventaryMovements$.value,
+          ]);
+
+          this.closeModal$.next();
+        }),
+        takeUntil(this.destroy$),
+        finalize(() => {
+          this.loading$.next(false);
+        }),
+      )
+      .subscribe();
   }
 }

@@ -32,9 +32,6 @@ export class InventaryMovement {
   }
 
   static fromJson(inventaryMovement: unknown): InventaryMovement {
-    console.log({
-      inventaryMovement,
-    });
     const casted = inventaryMovement as Record<string, unknown>;
 
     return new InventaryMovement({

@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { InventaryMovement } from '@class/inventary-movement/inventary-movement.class';
 import { InventaryMovementRepository } from '@patterns//repository/inventary-movement.repository';
 import { Observable } from 'rxjs';
+import { IInventaryMovementRequest } from 'src/app/commons/modals/products/modal-new-inventary/models/inventary-movement-request.model';
 import { INVENTARY_MOVEMENT_REPOSITORY } from 'src/app/commons/tokens/inventary.token';
 
 @Injectable({
@@ -18,10 +19,10 @@ export class InventaryMovementService {
   }
 
   createInventaryMovement(
-    inventaryMovement: InventaryMovement,
+    iventaryMovementRequest: IInventaryMovementRequest,
   ): Observable<InventaryMovement> {
     return this.inventaryMovementRepository.createInventaryMovement(
-      inventaryMovement,
+      iventaryMovementRequest,
     );
   }
 }

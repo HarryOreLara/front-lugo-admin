@@ -23,7 +23,7 @@ export class TagInventaryMovementDirective implements OnInit {
       case InventaryMovementType.INBOUND:
         return { value: 'ENTRADA', severity: 'success' };
       case InventaryMovementType.OUTBOUND:
-        return { value: 'SALIDA', severity: 'sanger' };
+        return { value: 'SALIDA', severity: 'danger' };
       default:
         return { value: 'AJUSTE', severity: 'warning' };
     }

@@ -1,5 +1,3 @@
-
-
 export class Parameter {
   public id: number;
   public channel: string;
@@ -14,7 +12,6 @@ export class Parameter {
   }
 
   static fromJson(parameter: unknown): Parameter {
-    console.log({parameter});
     const casted = parameter as Record<string, unknown>;
 
     return new Parameter({
