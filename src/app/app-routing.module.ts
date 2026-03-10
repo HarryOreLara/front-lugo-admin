@@ -17,21 +17,28 @@ const routes: Routes = [
         path: '',
         loadChildren: () =>
           import('./pages/dashboard/dashboard.module').then(
-            (m) => m.DashboardModule
+            (m) => m.DashboardModule,
           ),
       },
       {
         path: 'products',
         loadChildren: () =>
           import('./pages/products/products.module').then(
-            (m) => m.ProductsModule
+            (m) => m.ProductsModule,
           ),
       },
       {
         path: 'inventary',
         loadChildren: () =>
           import('./pages/inventary/inventary.module').then(
-            (m) => m.InventaryModule
+            (m) => m.InventaryModule,
+          ),
+      },
+      {
+        path: 'purchases',
+        loadChildren: () =>
+          import('./pages/purchase/purchase.module').then(
+            (m) => m.PurchaseModule,
           ),
       },
     ],
@@ -40,7 +47,7 @@ const routes: Routes = [
     path: 'not-found',
     loadChildren: () =>
       import('./pages/not-found/not-found.module').then(
-        (m) => m.NotFoundModule
+        (m) => m.NotFoundModule,
       ),
   },
   {

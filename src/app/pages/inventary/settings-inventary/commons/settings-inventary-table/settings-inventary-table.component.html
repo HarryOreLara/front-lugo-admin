@@ -2,12 +2,12 @@
   #dt1
   [value]="inventaryMovements"
   dataKey="id"
-  [rows]="30"
-  [rowsPerPageOptions]="[30, 60, 90]"
+  [rows]="60"
+  [rowsPerPageOptions]="[60, 90, 110]"
   [loading]="isLoading"
   [paginator]="true"
   [tableStyle]="{ 'min-width': '75rem', 'font-size': '14px' }"
-  [globalFilterFields]="['name']"
+  [globalFilterFields]="['product.name']"
   currentPageReportTemplate="Mostrando {last} movimientos de {totalRecords}"
 >
   <ng-template pTemplate="caption">
@@ -51,7 +51,7 @@
       <th style="min-width: 15rem">
         <div class="flex align-items-center">
           Producto
-          <p-columnFilter type="text" field="name" display="menu" />
+          <p-columnFilter type="text" field="product.name" display="menu" />
         </div>
       </th>
 
@@ -94,35 +94,19 @@
       <th style="min-width: 10rem">
         <div class="flex align-items-center">
           Cantidad
-
-          <p-columnFilter
-            type="numeric"
-            field="prices[0].salePrice"
-            display="menu"
-            currency="PEN"
-          />
+          <p-columnFilter field="quantity" type="numeric" display="menu" />
         </div>
       </th>
       <th style="min-width: 8rem">
         <div class="flex align-items-center">
           Stock Anterior
-          <p-columnFilter
-            type="numeric"
-            field="stock"
-            display="menu"
-            currency="PEN"
-          />
+          <p-columnFilter type="numeric" field="stockBefore" display="menu" />
         </div>
       </th>
       <th style="min-width: 12rem">
         <div class="flex align-items-center">
           Stock Actual
-          <p-columnFilter
-            type="numeric"
-            field="stock"
-            display="menu"
-            currency="PEN"
-          />
+          <p-columnFilter type="numeric" field="stockAfter" display="menu" />
         </div>
       </th>
 
@@ -131,9 +115,9 @@
           Costo unitario
           <p-columnFilter
             type="numeric"
-            field="stock"
+            locale="en-US"
+            field="unitCost"
             display="menu"
-            currency="PEN"
           />
         </div>
       </th>
@@ -142,9 +126,9 @@
           Costo total
           <p-columnFilter
             type="numeric"
-            field="stock"
+            locale="en-US"
+            field="totalCost"
             display="menu"
-            currency="PEN"
           />
         </div>
       </th>
@@ -174,8 +158,12 @@
           </p-columnFilter>
         </div>
       </th>
+
       <th style="min-width: 10rem">
-        <div class="flex align-items-center">Fecha de creación</div>
+        <div class="flex align-items-center">
+          Fecha de creación
+          <p-columnFilter type="date" field="createdAt" display="menu" />
+        </div>
       </th>
     </tr>
   </ng-template>
@@ -202,10 +190,10 @@
         {{ inventary.stockAfter }}
       </td>
       <td>
-        {{ inventary.unitCost }}
+        {{ inventary.unitCost | currencyLugo }}
       </td>
       <td>
-        {{ inventary.totalCost }}
+        {{ inventary.totalCost | currencyLugo }}
       </td>
       <td>
         {{ inventary.reason }}

@@ -45,8 +45,8 @@ export class InventaryMovement {
       reason: casted['reason'] as string,
       unitCost: casted['unitCost'] as number,
       totalCost: casted['totalCost'] as number,
-      createdAt: casted['createdAt'] as Date,
-      updatedAt: casted['updatedAt'] as Date,
+      createdAt: new Date(casted['createdAt'] as string),
+      updatedAt: new Date(casted['updatedAt'] as string),
     });
   }
 }

@@ -133,6 +133,16 @@ export const CONST_MENU: Array<IMenu> = [
         route: '/purchases',
         children: [
           {
+            id: 52,
+            icon: 'pi pi-chart-line',
+            name: 'Nueva venta',
+            node: 'MENU_GRAND_CHILD_PARAMS',
+            code: 'GRAND_CHILD_PURCHASE_LIST',
+            typeMenu: 'GRAND_CHILD',
+            route: '/new-purchase',
+            children: [],
+          },
+          {
             id: 24,
             icon: 'pi pi-chart-line',
             name: 'Lista de ventas',

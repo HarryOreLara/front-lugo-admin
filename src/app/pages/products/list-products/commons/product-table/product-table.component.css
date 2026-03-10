@@ -41,3 +41,37 @@
 .custom-menu-item.danger:hover {
   background: #ffebee;
 }
+
+.cart-header {
+  padding: 0.5rem 0 1rem 0;
+  border-bottom: 1.5px solid #e8ecf0;
+
+  div {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #8a96a8;
+    text-transform: uppercase;
+  }
+
+  .col-qty,
+  .col-price,
+  .col-subtotal {
+    text-align: center;
+  }
+}
+
+.cart-row {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #e8ecf0;
+  transition: background 0.15s;
+
+  &:hover {
+    background: #f4f6f9;
+    border-radius: 8px;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}

@@ -7,12 +7,7 @@
   [loading]="isLoading"
   [paginator]="true"
   [tableStyle]="{ 'min-width': '75rem', 'font-size': '14px' }"
-  [globalFilterFields]="[
-    'name',
-    'category.name',
-    'brand.name',
-    'prices[0].salePrice',
-  ]"
+  [globalFilterFields]="['name', 'product.status', 'brand.name', 'salePrice']"
   currentPageReportTemplate="Mostrando {last} productos de {totalRecords}"
 >
   <ng-template pTemplate="caption">
@@ -67,31 +62,26 @@
     </div>
   </ng-template>
   <ng-template pTemplate="header">
-    <tr>
+    <tr class="cart-header">
       <th style="min-width: 15rem">
         <div class="flex align-items-center">
-          Nombre
+          NOMBRE
           <p-columnFilter type="text" field="name" display="menu" />
         </div>
       </th>
 
       <th style="min-width: 10rem">
         <div class="flex align-items-center">
-          Precio
-          <p-columnFilter
-            type="numeric"
-            field="prices[0].salePrice"
-            display="menu"
-            currency="PEN"
-          />
+          PRECIO
+          <p-columnFilter type="numeric" field="salePrice" display="menu" />
         </div>
       </th>
 
       <th style="min-width: 10rem">
         <div class="flex align-items-center">
-          Estado
+          ESTADO
           <p-columnFilter
-            field="status"
+            field="product.status"
             matchMode="in"
             display="menu"
             [showMatchModes]="false"
@@ -123,18 +113,13 @@
       </th>
       <th style="min-width: 8rem">
         <div class="flex align-items-center">
-          Stock
-          <p-columnFilter
-            type="numeric"
-            field="stock"
-            display="menu"
-            currency="PEN"
-          />
+          STOCK
+          <p-columnFilter type="numeric" field="stock" display="menu" />
         </div>
       </th>
       <th style="min-width: 12rem">
-        <div class="flex align-items-center">
-          Sku
+        <div class="flex align-items-center text-gray-500">
+          SKU
           <p-columnFilter type="text" field="name" display="menu" />
         </div>
       </th>
@@ -211,7 +196,6 @@
       <th style="min-width: 10rem">
         <div class="flex align-items-center">
           Canal
-
           <p-columnFilter
             field="channel"
             matchMode="in"
@@ -249,7 +233,7 @@
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-product>
-    <tr>
+    <tr class="cart-row ">
       <td>
         {{ product.name }}
       </td>
