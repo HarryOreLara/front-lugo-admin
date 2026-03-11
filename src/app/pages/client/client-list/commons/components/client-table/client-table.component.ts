@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Client } from '@class/index';
 import { IParameterEnum } from '@interfaces/index';
 import { Table } from 'primeng/table';
@@ -12,12 +12,17 @@ export class ClientTableComponent {
   @Input() isLoading: boolean;
   @Input() clients: Client[];
   @Input() documentsType: IParameterEnum[];
+  @Output() public newClientEmit: EventEmitter<void> = new EventEmitter<void>();
+
+  public constructor() {}
 
   public clear(table: Table) {
     table.clear();
   }
 
-  public newClient() {}
+  public newClient() {
+    this.newClientEmit.emit();
+  }
 
   public deleteClient() {}
 

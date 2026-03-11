@@ -21,6 +21,7 @@ import {
 } from '@states/parameters/parameter.service';
 import { LugoStateService } from '@states/lugo-state/lugo-state.service';
 import { ModalNewInventaryModule } from './commons/modals/products/modal-new-inventary/modal-new-inventary.module';
+import { ModalNewClientModule } from './commons/modals/client/modal-new-client/modal-new-client.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,7 +36,8 @@ import { ModalNewInventaryModule } from './commons/modals/products/modal-new-inv
     AlertHostModule,
     ModalNewProductModule,
     ModalNewCategoryModule,
-    ModalNewInventaryModule
+    ModalNewInventaryModule,
+    ModalNewClientModule
   ],
   providers: [
     PrimeNGConfig,

@@ -21,6 +21,7 @@ import { SliderModule } from 'primeng/slider';
 import { CheckboxModule } from 'primeng/checkbox';
 import { OverlayModule } from 'primeng/overlay';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { InputSwitchModule } from 'primeng/inputswitch';
 @NgModule({
   exports: [
     StyleClassModule,
@@ -44,6 +45,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     SliderModule,
     CheckboxModule,
     OverlayModule,
+    InputSwitchModule,
   ],
 })
 export class ClientPrimengModule {}
