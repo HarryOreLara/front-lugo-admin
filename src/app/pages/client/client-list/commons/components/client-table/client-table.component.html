@@ -1,0 +1,189 @@
+<p-table
+  #dt1
+  [value]="clients"
+  dataKey="id"
+  [rows]="30"
+  [rowsPerPageOptions]="[30, 60, 90]"
+  [loading]="isLoading"
+  [paginator]="true"
+  [tableStyle]="{ 'min-width': '75rem', 'font-size': '14px' }"
+  [globalFilterFields]="['firstName', 'document', 'lastName']"
+  currentPageReportTemplate="Mostrando {last} productos de {totalRecords}"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <div>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-filter-slash"
+          (click)="clear(dt1)"
+          class="p-button mr-2"
+        ></button>
+
+        <span class="p-input-icon-left w-20rem">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            class="w-20rem"
+            (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Buscar..."
+          />
+        </span>
+      </div>
+
+      <!-- DERECHA -->
+      <div class="flex align-items-center gap-3">
+        <div>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-plus"
+            (click)="newClient()"
+            class="p-button mr-2"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr class="cart-header">
+      <th style="min-width: 15rem">
+        <div class="flex align-items-center">
+          NOMBRE
+          <p-columnFilter type="text" field="firstName" display="menu" />
+        </div>
+      </th>
+
+      <th style="min-width: 10rem">
+        <div class="flex align-items-center">
+          APELLIDO
+          <p-columnFilter type="text" field="lastName" display="menu" />
+        </div>
+      </th>
+
+      <th style="min-width: 8rem">
+        <div class="flex align-items-center">
+          T. DOCUMENTO
+          <p-columnFilter
+            field="brand"
+            matchMode="in"
+            display="menu"
+            [showMatchModes]="false"
+            [showOperator]="false"
+            [showAddButton]="false"
+          >
+            <ng-template pTemplate="header">
+              <div class="px-3 pt-3 pb-0">
+                <span class="font-bold">Seleccione una marca</span>
+              </div>
+            </ng-template>
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+              <p-dropdown
+                inputId="brand"
+                [options]="documentsType"
+                optionLabel="name"
+                optionValue="id"
+                [showClear]="true"
+                placeholder="Seleccione"
+              >
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter>
+        </div>
+      </th>
+      <th style="min-width: 12rem">
+        <div class="flex align-items-center">
+          N. DOCUMENTO
+          <p-columnFilter type="text" field="name" display="menu" />
+        </div>
+      </th>
+      <th style="min-width: 12rem">
+        <div class="flex align-items-center">
+          ESTADO
+          <p-columnFilter type="text" field="name" display="menu" />
+        </div>
+      </th>
+      <th style="min-width: 12rem">
+        <div class="flex align-items-center">
+          FECHA REGISTRO
+          <p-columnFilter type="date" field="createdAt" display="menu" />
+        </div>
+      </th>
+      <th style="min-width: 10rem">
+        <div class="flex align-items-center">ACCIONES</div>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-client>
+    <tr class="cart-row">
+      <td>
+        {{ client.firstName }}
+      </td>
+
+      <td>
+        {{ client.lastName }}
+      </td>
+      <td>
+        <p-tag
+          [tagDocumentType]="client.typeDocument"
+          class="text-white"
+          [styleClass]="'text-white'"
+        ></p-tag>
+      </td>
+      <td>
+        {{ client.document }}
+      </td>
+      <td>
+        <p-tag
+          [tagStatus]="client.status"
+          class="text-white"
+          [styleClass]="'text-white'"
+        ></p-tag>
+      </td>
+      <td>
+        {{ client.createdAt | date: "shortDate" }}
+      </td>
+      <td>
+        <!-- action-menu.component.html -->
+        <div class="action-menu-container">
+          <button
+            #menuButton
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-ellipsis-v"
+            class="p-button-text p-button-rounded"
+            (click)="overlayPanel.toggle($event)"
+            aria-haspopup="true"
+            aria-label="Opciones"
+          ></button>
+
+          <p-overlayPanel #overlayPanel [appendTo]="'body'">
+            <div class="custom-menu">
+              <button class="custom-menu-item" (click)="updateClient()">
+                <i class="pi pi-pen-to-square"></i>
+                <span>Actualizar</span>
+              </button>
+
+              <button class="custom-menu-item danger" (click)="deleteClient()">
+                <i class="pi pi-trash"></i>
+                <span>Eliminar</span>
+              </button>
+            </div>
+          </p-overlayPanel>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="7">No se encontraron clientes.</td>
+    </tr>
+  </ng-template>
+</p-table>

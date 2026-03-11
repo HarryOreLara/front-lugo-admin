@@ -1,0 +1,77 @@
+/* action-menu.component.css - Para overlayPanel */
+.custom-menu {
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+}
+
+.custom-menu-item {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #333;
+  transition: background-color 0.2s;
+  text-align: left;
+  border-radius: 4px;
+}
+
+.custom-menu-item i {
+  font-size: 1rem;
+  width: 1.2rem;
+}
+
+.custom-menu-item:hover {
+  background: #f5f5f5;
+}
+
+.custom-menu-item.danger {
+  color: #d32f2f;
+}
+
+.custom-menu-item.danger i {
+  color: #d32f2f;
+}
+
+.custom-menu-item.danger:hover {
+  background: #ffebee;
+}
+
+.cart-header {
+  padding: 0.5rem 0 1rem 0;
+  border-bottom: 1.5px solid #e8ecf0;
+
+  div {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #8a96a8;
+    text-transform: uppercase;
+  }
+
+  .col-qty,
+  .col-price,
+  .col-subtotal {
+    text-align: center;
+  }
+}
+
+.cart-row {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #e8ecf0;
+  transition: background 0.15s;
+
+  &:hover {
+    background: #f4f6f9;
+    border-radius: 8px;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}

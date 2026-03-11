@@ -41,6 +41,13 @@ const routes: Routes = [
             (m) => m.PurchaseModule,
           ),
       },
+      {
+        path: 'clients',
+        loadChildren: () =>
+          import('./pages/client/client.module').then(
+            (m) => m.ClientModule,
+          ),
+      },
     ],
   },
   {

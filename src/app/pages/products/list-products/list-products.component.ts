@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '@class/index';
-import { ModalService } from '@components//host/app-modal.service';
 import { Channel } from '@enums/channel.enum';
 import { ProductFacade } from '@patterns//facade/product.facade';
-import { LugoStateService } from '@states/lugo-state/lugo-state.service';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
