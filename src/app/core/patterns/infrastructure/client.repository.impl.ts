@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { IGenericArrays } from '@interfaces/genericas/IGeneric.interface';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { IClientRequest } from 'src/app/commons/modals/client/modal-new-client/models/client-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +33,7 @@ export class ClientRepositoryImpl implements ClientRepository {
   findClientByName(client: Client): Observable<Client> {
     throw new Error('Method not implemented.');
   }
-  createClient(client: Client): Observable<Client> {
+  createClient(client: IClientRequest): Observable<Client> {
     throw new Error('Method not implemented.');
   }
   updateClient(id: number, client: Client): Observable<Client> {

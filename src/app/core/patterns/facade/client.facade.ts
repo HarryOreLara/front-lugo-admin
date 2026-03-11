@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Client } from '@class/index';
 import { ClientService } from '@service/client/client.service';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, finalize, Subject, takeUntil, tap } from 'rxjs';
+import { createClientMapper } from 'src/app/commons/modals/client/modal-new-client/mappers/client.mapper';
+import { IClientForm } from 'src/app/commons/modals/client/modal-new-client/models/client-form.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +21,26 @@ export class ClientFacade {
     this.clientService
       .getAllClient()
       .subscribe((clients) => this.clients$.next(clients));
+  }
+
+  saveClient(client: IClientForm) {
+    const clientMapper = createClientMapper(client);
+
+    this.loading$.next(true);
+
+    this.clientService
+      .saveclient(clientMapper)
+      .pipe(
+        tap((response) => {
+          this.clients$.next([response, ...this.clients$.value]);
+
+          this.closeModal$.next();
+        }),
+        takeUntil(this.destroy$),
+        finalize(() => {
+          this.loading$.next(false);
+        }),
+      )
+      .subscribe();
   }
 }

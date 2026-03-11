@@ -2,4 +2,6 @@
   [visibleModal]="visibleModal"
   [documentsType]="documentsType"
   [channels]="channels"
+  (saveClientEmit)="saveClient($event)"
+  (closeEmit)="close()"
 ></app-modal-new-client-ui>

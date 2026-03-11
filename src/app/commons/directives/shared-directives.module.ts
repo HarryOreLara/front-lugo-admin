@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { TagChannelDirective } from './channel.directive';
 import { TagInventaryMovementDirective } from './inventary-movement.directive';
 import { TagDocumentTypeDirective } from './document-type.directive';
+import { ReactiveFormDirective } from './reactive-form.directive';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import { TagDocumentTypeDirective } from './document-type.directive';
     TagChannelDirective,
     TagInventaryMovementDirective,
     TagDocumentTypeDirective,
+    ReactiveFormDirective,
   ],
   imports: [CommonModule],
   exports: [
@@ -18,6 +20,7 @@ import { TagDocumentTypeDirective } from './document-type.directive';
     TagChannelDirective,
     TagInventaryMovementDirective,
     TagDocumentTypeDirective,
+    ReactiveFormDirective,
   ],
 })
 export class SharedDirectiveModule {}

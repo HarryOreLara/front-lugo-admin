@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Client } from '@class/index';
 import { ClientFormPresenter } from './client-form.presenter';
 import { IParameterEnum } from '@interfaces/index';
+import { IClientForm } from './models/client-form.model';
 
 @Component({
   selector: 'app-modal-new-client-ui',
@@ -16,12 +17,15 @@ export class ModalNewClientComponent {
   @Input() public channels: IParameterEnum[];
 
   @Output() closeEmit: EventEmitter<void> = new EventEmitter<void>();
-
+  @Output() saveClientEmit: EventEmitter<IClientForm> =
+    new EventEmitter<IClientForm>();
   constructor(public readonly clientPresenter: ClientFormPresenter) {
     this.createControls();
   }
 
-  public saveClient() {}
+  public saveClient() {
+    this.saveClientEmit.emit(this.clientPresenter.Form.getRawValue());
+  }
 
   public updateClient() {}
 

@@ -1,6 +1,6 @@
 import { DocumentType } from "@enums/document-type.enum";
 
-export interface IClientForm {
+export interface IClientRequest {
   typeDocument: DocumentType;
   document: string;
   firstName: string;

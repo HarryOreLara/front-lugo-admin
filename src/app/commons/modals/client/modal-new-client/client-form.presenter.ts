@@ -1,7 +1,15 @@
 import { StepPresenter } from '@states/forms/step.presenter';
 import { IClientForm } from './models/client-form.model';
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import { DocumentType } from '@enums/document-type.enum';
+import { Channel } from '@enums/channel.enum';
+import { Status } from '@enums/status.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -24,22 +32,24 @@ export class ClientFormPresenter extends StepPresenter<IClientForm> {
   }
 
   public initForm(): void {
-    this.typeDocument = new FormControl(null);
-    this.document = new FormControl(null);
-    this.firstName = new FormControl(null);
+    this.typeDocument = new FormControl(DocumentType.DNI, [
+      Validators.required,
+    ]);
+    this.document = new FormControl(null, [Validators.required]);
+    this.firstName = new FormControl(null, [Validators.required]);
     this.lastName = new FormControl(null);
-    this.email = new FormControl(null);
-    this.phone = new FormControl(null);
-    this.address = new FormControl(null);
-    this.postalCode = new FormControl(null);
-    this.isActive = new FormControl(null);
-    this.channel = new FormControl(null);
-    this.status = new FormControl(null);
+    this.email = new FormControl('userdefault@email.com');
+    this.phone = new FormControl('987654321');
+    this.address = new FormControl('Trujillo', [Validators.required]);
+    this.postalCode = new FormControl(13000);
+    this.isActive = new FormControl(true);
+    this.channel = new FormControl(Channel.PHYSICAL);
+    this.status = new FormControl(Status.ACTIVE);
   }
 
   public createForm(): void {
     this.initForm();
-  
+
     this.form = this.fb.group({
       typeDocument: this.typeDocument,
       document: this.document,
@@ -54,4 +64,6 @@ export class ClientFormPresenter extends StepPresenter<IClientForm> {
       status: this.status,
     });
   }
+
+
 }
