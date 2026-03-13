@@ -54,6 +54,8 @@
               formControlName="document"
               type="text"
               pInputText
+              autocomplete="off"
+              lugoReactiveForm
               class="w-full"
             />
           </span>
@@ -75,6 +77,8 @@
               id="firstName"
               formControlName="firstName"
               type="text"
+              autocomplete="off"
+              lugoReactiveForm
               pInputText
               class="w-full"
             />
@@ -89,6 +93,8 @@
               formControlName="lastName"
               type="text"
               pInputText
+              lugoReactiveForm
+              autocomplete="off"
               class="w-full"
             />
           </span>
@@ -102,6 +108,8 @@
               formControlName="email"
               type="email"
               pInputText
+              lugoReactiveForm
+              autocomplete="off"
               class="w-full"
             />
           </span>
@@ -113,6 +121,8 @@
             <input
               id="phone"
               formControlName="phone"
+              autocomplete="off"
+              lugoReactiveForm
               type="tel"
               pInputText
               class="w-full"
@@ -136,6 +146,8 @@
               id="address"
               formControlName="address"
               type="text"
+              autocomplete="off"
+              lugoReactiveForm
               pInputText
               class="w-full"
             />
@@ -150,6 +162,8 @@
               formControlName="postalCode"
               type="text"
               pInputText
+              autocomplete="off"
+              lugoReactiveForm
               class="w-full"
             />
           </span>
@@ -179,9 +193,12 @@
         <div class="field col-12 md:col-4 flex flex-column">
           <label class="field-label">Activo</label>
           <div class="flex align-items-center gap-2 mt-2">
-            <p-inputSwitch formControlName="isActive" inputId="isActive"></p-inputSwitch>
+            <p-inputSwitch
+              formControlName="isActive"
+              inputId="isActive"
+            ></p-inputSwitch>
             <label for="isActive" class="text-sm text-500 cursor-pointer">
-              {{ clientPresenter.Form.get('isActive')?.value ? 'Sí' : 'No' }}
+              {{ clientPresenter.Form.get("isActive")?.value ? "Sí" : "No" }}
             </label>
           </div>
         </div>

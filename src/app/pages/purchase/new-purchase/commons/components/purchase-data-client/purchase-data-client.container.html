@@ -1,1 +1,5 @@
-<app-purchase-data-client-ui></app-purchase-data-client-ui>
+<app-purchase-data-client-ui
+  [documentsType]="documentsType"
+  (searchClientEmit)="searchClient($event)"
+  [client]="(client$ | async)!"
+></app-purchase-data-client-ui>

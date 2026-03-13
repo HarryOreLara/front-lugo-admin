@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: '[ ]',
+  selector: '[lugoReactiveForm]',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

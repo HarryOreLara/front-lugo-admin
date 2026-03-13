@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Client } from '@class/index';
+import { DocumentType } from '@enums/document-type.enum';
+import { SearchType } from '@enums/search-type.enum';
 import { ClientService } from '@service/client/client.service';
 import { BehaviorSubject, finalize, Subject, takeUntil, tap } from 'rxjs';
 import { createClientMapper } from 'src/app/commons/modals/client/modal-new-client/mappers/client.mapper';
@@ -42,5 +44,12 @@ export class ClientFacade {
         }),
       )
       .subscribe();
+  }
+
+  findClient(value: string, searchType: SearchType) {
+    this.clientService.findOneclient(value, searchType).subscribe((client) => {
+      console.log({ client });
+      this.client$.next(client);
+    });
   }
 }

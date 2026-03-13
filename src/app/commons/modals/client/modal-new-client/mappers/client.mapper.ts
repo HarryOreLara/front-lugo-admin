@@ -10,7 +10,7 @@ export const createClientMapper = (clientForm: IClientForm): IClientRequest => {
     email: clientForm.email,
     phone: clientForm.phone,
     address: clientForm.address,
-    postalCode: clientForm.postalCode,
+    postalCode: String(clientForm.postalCode),
     isActive: clientForm.isActive,
     channel: clientForm.channel,
     status: clientForm.status,

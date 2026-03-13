@@ -10,6 +10,7 @@ export const ErrorMessage = (
     maxlength: `Máximo ${validatorValue.requiredLength} caracteres permitidos`,
     email: 'Formato de email inválido',
     pattern: 'Formato inválido',
+    document: 'Formato de documento inválido',
   };
 
   return config[validatorName] || 'Error de validación';

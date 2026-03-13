@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Client } from '@class/index';
+import { SearchType } from '@enums/search-type.enum';
 import { ClientRepository } from '@patterns//repository/client.repository';
 import { Observable } from 'rxjs';
 import { IClientRequest } from 'src/app/commons/modals/client/modal-new-client/models/client-request.model';
@@ -18,8 +19,11 @@ export class ClientService {
     return this.clientRepository.getAllClient(10, 20);
   }
 
-  public findOneclient(id: number): Observable<Client> {
-    return this.clientRepository.findClientById(id);
+  public findOneclient(
+    document: string,
+    searchType: SearchType,
+  ): Observable<Client> {
+    return this.clientRepository.findOneClient(document, searchType);
   }
 
   public saveclient(client: IClientRequest): Observable<Client> {
