@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Product } from '@class/index';
+import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
 
 export interface CartItem {
   id: number;
@@ -13,6 +15,19 @@ export interface CartItem {
   styleUrls: ['./purchase-data-product.component.css'],
 })
 export class PurchaseDataProductComponent {
+  public filteredProducts: Product[] = [];
+  @Input() public products: Array<Product> = [];
+
+  filterProducts(event: AutoCompleteCompleteEvent) {
+    const query = event.query.toLowerCase();
+
+    this.filteredProducts = this.products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(query) ||
+        product.sku?.toLowerCase().includes(query),
+    );
+  }
+
   // Datos de ejemplo — reemplaza con tu servicio real
   cartItems: CartItem[] = [
     {

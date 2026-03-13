@@ -3,7 +3,9 @@
     <div class="col-12 lg:col-8">
       <div class="grid grid-nogutter lg:flex-column">
         <app-purchase-data-client></app-purchase-data-client>
-        <app-purchase-data-product></app-purchase-data-product>
+        <app-purchase-data-product
+          [products]="products"
+        ></app-purchase-data-product>
       </div>
     </div>
     <div class="col-12 lg:col-4">

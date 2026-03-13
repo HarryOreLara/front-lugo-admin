@@ -15,18 +15,17 @@
 
   <div class="surface-card p-2 border-round">
     <div class="grid formgrid p-fluid">
-
-      <div class="search-bar p-input-icon-left mb-4">
-        <i class="pi pi-barcode search-icon"></i>
-        <input
-          #searchInput
-          pInputText
-          type="text"
+      <div class="col-12 field mb-4 md:col-12">
+        <p-autoComplete
+          [suggestions]="filteredProducts"
+          formControlName="product"
+          (completeMethod)="filterProducts($event)"
+          field="name"
           class="search-input w-full"
           placeholder="Buscar por SKU o Nombre del Producto..."
-          (keydown.f2)="searchInput.focus()"
-        />
-        <span class="search-badge">F2: Buscar</span>
+          [dropdown]="true"
+        >
+        </p-autoComplete>
       </div>
 
       <div class="cart-table">
