@@ -1,14 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Product } from '@class/index';
 import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { CartItem } from '../../interfaces/car-tem.interface';
 
-export interface CartItem {
-  id: number;
-  name: string;
-  sku: string;
-  quantity: number;
-  unitPrice: number;
-}
 @Component({
   selector: 'app-purchase-data-product-ui',
   templateUrl: './purchase-data-product.component.html',
@@ -16,11 +11,16 @@ export interface CartItem {
 })
 export class PurchaseDataProductComponent {
   public filteredProducts: Product[] = [];
+  public productControl = new FormControl(null);
+  cartItems: CartItem[] = [];
+
   @Input() public products: Array<Product> = [];
+  @Output() public cartItemEmit: EventEmitter<CartItem[]> = new EventEmitter<
+    CartItem[]
+  >();
 
-  filterProducts(event: AutoCompleteCompleteEvent) {
+  public filterProducts(event: AutoCompleteCompleteEvent) {
     const query = event.query.toLowerCase();
-
     this.filteredProducts = this.products.filter(
       (product) =>
         product.name.toLowerCase().includes(query) ||
@@ -28,40 +28,43 @@ export class PurchaseDataProductComponent {
     );
   }
 
-  // Datos de ejemplo — reemplaza con tu servicio real
-  cartItems: CartItem[] = [
-    {
-      id: 1,
-      name: 'Smartphone Galaxy S23 Ultra',
-      sku: 'SAM-S23U-512BK',
-      quantity: 1,
-      unitPrice: 4299.0,
-    },
-    {
-      id: 2,
-      name: 'Funda Silicona Transparente',
-      sku: 'ACC-CASE-S23U',
-      quantity: 2,
-      unitPrice: 45.0,
-    },
-  ];
+  public selection(product: Product): void {
+    const existing = this.cartItems.find((i) => i.id === product.id);
+
+    if (existing) {
+      existing.quantity++;
+    } else {
+      this.cartItems.push({
+        id: product.id,
+        name: product.name,
+        sku: product.sku ?? '',
+        quantity: 1,
+        unitPrice: product.prices[0].salePrice,
+      });
+    }
+
+    setTimeout(() => this.productControl.reset(), 0);
+    this.cartItemEmit.emit(this.cartItems);
+  }
 
   increaseQty(item: CartItem): void {
     item.quantity++;
+    this.cartItemEmit.emit(this.cartItems);
   }
 
   decreaseQty(item: CartItem): void {
-    if (item.quantity > 1) {
-      item.quantity--;
-    }
+    if (item.quantity > 1) item.quantity--;
+    this.cartItemEmit.emit(this.cartItems);
   }
 
   removeItem(item: CartItem): void {
     this.cartItems = this.cartItems.filter((i) => i.id !== item.id);
+    this.cartItemEmit.emit(this.cartItems);
   }
 
   clearCart(): void {
     this.cartItems = [];
+    this.cartItemEmit.emit(this.cartItems);
   }
 
   get total(): number {

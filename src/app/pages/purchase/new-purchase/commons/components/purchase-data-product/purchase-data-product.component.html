@@ -18,11 +18,11 @@
       <div class="col-12 field mb-4 md:col-12">
         <p-autoComplete
           [suggestions]="filteredProducts"
-          formControlName="product"
           (completeMethod)="filterProducts($event)"
           field="name"
           class="search-input w-full"
           placeholder="Buscar por SKU o Nombre del Producto..."
+          (onSelect)="selection($event)"
           [dropdown]="true"
         >
         </p-autoComplete>
