@@ -2,8 +2,7 @@ import { Channel } from '@enums/channel.enum';
 import { CurrencyType } from '@enums/currency.enum';
 import { MethodPaymentType } from '@enums/method-payment.enum';
 import { OrderStatus } from '@enums/order-status.enum';
-import { PaymentStatus } from '@enums/payment-status.enum';
-import { ProofPaymentType } from '@enums/proof-payment.enum';
+import { InvoiceType } from '@enums/invoice-type.enum';
 
 /// Interfaz de orden
 export interface IPurchaseForm {
@@ -16,7 +15,7 @@ export interface IPurchaseForm {
   total: number;
   status: OrderStatus;
   items: IPurchaseItemForm[];
-  proofPaymentType: ProofPaymentType;
+  invoiceType: InvoiceType;
   methodPayment: MethodPaymentType;
   currency: CurrencyType;
   voucher: string;

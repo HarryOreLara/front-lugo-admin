@@ -3,7 +3,7 @@ import { EventBussService } from '@states/event-buss/event-buss.service';
 import { CartItem } from '../../interfaces/car-tem.interface';
 import { CURRENCY_TYPE } from '@constants/currency.constant';
 import { IParameterEnum } from '@interfaces/index';
-import { PROOF_PAYMENT_CONSTANT } from '@constants/proof-payment.constant';
+import { INVOICE_TYPE_CONSTANT } from '@constants/invoice-type.constant';
 import { METHOD_PAYMENT_CONSTANT } from '@constants/method-payment.constant';
 import { PurchaseFacade } from '@patterns//facade/purchase.facade';
 import { IPurchaseForm } from '../../interfaces/purchase-form.interface';
@@ -16,7 +16,7 @@ import { ClientFacade } from '@patterns//facade/client.facade';
 export class PurchaseSummarySaleContainer implements OnInit {
   public cartItems: CartItem[] = [];
   public currencys: IParameterEnum[] = CURRENCY_TYPE;
-  public proofPayments: IParameterEnum[] = PROOF_PAYMENT_CONSTANT;
+  public invoiceTypes: IParameterEnum[] = INVOICE_TYPE_CONSTANT;
   public methodPayments: IParameterEnum[] = METHOD_PAYMENT_CONSTANT;
 
   public constructor(

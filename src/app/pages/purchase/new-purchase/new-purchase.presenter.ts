@@ -13,7 +13,7 @@ export class PurchaseFormPresenter extends StepPresenter<IPurchaseForm> {
   tax: FormControl;
   total: FormControl;
   items: FormArray;
-  proofPaymentType: FormControl;
+  invoiceType: FormControl;
   methodPayment: FormControl;
   currency: FormControl;
   voucher: FormControl;
@@ -27,7 +27,7 @@ export class PurchaseFormPresenter extends StepPresenter<IPurchaseForm> {
     this.tax = new FormControl(null);
     this.total = new FormControl(null, [Validators.required]);
     this.items = this.fb.array([]);
-    this.proofPaymentType = new FormControl(null, [Validators.required]);
+    this.invoiceType = new FormControl(null, [Validators.required]);
     this.methodPayment = new FormControl(null, [Validators.required]);
     this.currency = new FormControl(null, [Validators.required]);
     this.voucher = new FormControl(null);
@@ -39,7 +39,7 @@ export class PurchaseFormPresenter extends StepPresenter<IPurchaseForm> {
       tax: this.tax,
       total: this.total,
       items: this.items,
-      proofPaymentType: this.proofPaymentType,
+      invoiceType: this.invoiceType,
       methodPayment: this.methodPayment,
       currency: this.currency,
       voucher: this.voucher,

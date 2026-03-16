@@ -41,7 +41,7 @@ export class PurchaseSummarySaleComponent implements OnInit {
 
   @Input() public currencys: IParameterEnum[] = [];
   @Input() public isLoading: boolean;
-  @Input() public proofPayments: IParameterEnum[] = [];
+  @Input() public invoiceTypes: IParameterEnum[] = [];
   @Input() public methodPayments: IParameterEnum[] = [];
   @Output() public newPurchaseEmit: EventEmitter<IPurchaseForm> =
     new EventEmitter<IPurchaseForm>();

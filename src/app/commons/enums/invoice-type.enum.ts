@@ -1,4 +1,4 @@
-export enum ProofPaymentType {
+export enum InvoiceType {
   BOLETA = 'BOLETA',
   FACTURA = 'FACTURA',
   BOLETA_ELECTRONICA = 'BOLETA_ELECTRONICA',
