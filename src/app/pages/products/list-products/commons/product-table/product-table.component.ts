@@ -39,9 +39,6 @@ export class ProductTableComponent {
 
   public updateProduct(product: Product) {
     this.updateProductEmit.emit(product);
-    // this.modalService.openByName(MODELS_ENUM.MODAL_NEW_PRODUCT, {
-    //   product: product,
-    // });
   }
 
   public deleteProduct(product: Product) {

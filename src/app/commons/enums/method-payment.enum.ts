@@ -1,0 +1,6 @@
+export enum MethodPaymentType {
+  TARJETA = 'TARJETA',
+  EFECTIVO = 'EFECTIVO',
+  TRANSFERENCIA = 'TRANSFERENCIA',
+  YAPE_PLIN = 'YAPE_PLIN',
+}

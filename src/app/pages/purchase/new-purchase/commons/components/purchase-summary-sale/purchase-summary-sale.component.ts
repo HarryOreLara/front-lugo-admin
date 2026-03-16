@@ -1,6 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CartItem } from '../../interfaces/car-tem.interface';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IParameterEnum } from '@interfaces/index';
+import { PurchaseFormPresenter } from '@pages/purchase/new-purchase/new-purchase.presenter';
+import { IPurchaseForm } from '../../interfaces/purchase-form.interface';
+import { PurchaseDataClientPresenter } from '../purchase-data-client/commons/purchase-data-client.presenter';
 
 @Component({
   selector: 'app-purchase-summary-sale-ui',
@@ -8,14 +11,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./purchase-summary-sale.component.css'],
 })
 export class PurchaseSummarySaleComponent implements OnInit {
-  color3: string;
-  size3: string;
-  liked1: boolean;
-  quantity1: number;
+  private _cartItems: CartItem[] = [];
 
-  @Input() public cartItems: CartItem[] = [];
+  @Input()
+  set cartItems(value: CartItem[]) {
+    this._cartItems = value;
 
-  constructor(private fb: FormBuilder) {}
+    this.purchaseFormPresenter.setItems(value);
+    this.purchaseFormPresenter.recalculateTotals();
+  }
+  get cartItems(): CartItem[] {
+    return this._cartItems;
+  }
 
   public get totalCartItem(): number {
     return this.cartItems.reduce((total, item) => {
@@ -23,31 +30,37 @@ export class PurchaseSummarySaleComponent implements OnInit {
     }, 0);
   }
 
-  ngOnInit(): void {
-    this.saleForm = this.fb.group({
-      tipoComprobante: ['boleta', Validators.required],
-      metodoPago: ['efectivo', Validators.required],
-      moneda: [null, Validators.required],
-      voucher: [''],
-    });
+  public get disableNewPurchase(): boolean {
+    return (
+      this.purchaseDataClientPresenter.Invalid ||
+      this.purchaseFormPresenter.Invalid ||
+      this.isLoading ||
+      this.cartItems.length <= 0
+    );
   }
 
-  saleForm: FormGroup;
+  @Input() public currencys: IParameterEnum[] = [];
+  @Input() public isLoading: boolean;
+  @Input() public proofPayments: IParameterEnum[] = [];
+  @Input() public methodPayments: IParameterEnum[] = [];
+  @Output() public newPurchaseEmit: EventEmitter<IPurchaseForm> =
+    new EventEmitter<IPurchaseForm>();
 
-  tiposComprobante = [
-    { label: 'Boleta', value: 'boleta' },
-    { label: 'Factura', value: 'factura' },
-  ];
+  constructor(
+    public readonly purchaseFormPresenter: PurchaseFormPresenter,
+    public readonly purchaseDataClientPresenter: PurchaseDataClientPresenter,
+  ) {
+    this.createControls();
+  }
 
-  metodosPago = [
-    { label: 'Efectivo', value: 'efectivo' },
-    { label: 'Tarjeta', value: 'tarjeta' },
-    { label: 'Transferencia', value: 'transferencia' },
-    { label: 'Yape / Plin', value: 'yape_plin' },
-  ];
+  ngOnInit(): void {}
 
-  monedas = [
-    { name: 'Soles (PEN)', value: 'PEN' },
-    { name: 'Dólares (USD)', value: 'USD' },
-  ];
+  public newPurchase() {
+    this.newPurchaseEmit.emit(this.purchaseFormPresenter.Form.getRawValue());
+  }
+
+  private createControls() {
+    this.purchaseFormPresenter.initForm();
+    this.purchaseFormPresenter.createForm();
+  }
 }

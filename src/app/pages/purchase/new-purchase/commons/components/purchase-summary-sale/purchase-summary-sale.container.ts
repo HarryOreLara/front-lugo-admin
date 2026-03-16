@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { EventBussService } from '@states/event-buss/event-buss.service';
 import { CartItem } from '../../interfaces/car-tem.interface';
+import { CURRENCY_TYPE } from '@constants/currency.constant';
+import { IParameterEnum } from '@interfaces/index';
+import { PROOF_PAYMENT_CONSTANT } from '@constants/proof-payment.constant';
+import { METHOD_PAYMENT_CONSTANT } from '@constants/method-payment.constant';
+import { PurchaseFacade } from '@patterns//facade/purchase.facade';
+import { IPurchaseForm } from '../../interfaces/purchase-form.interface';
+import { ClientFacade } from '@patterns//facade/client.facade';
 
 @Component({
   selector: 'app-purchase-summary-sale',
@@ -8,18 +15,25 @@ import { CartItem } from '../../interfaces/car-tem.interface';
 })
 export class PurchaseSummarySaleContainer implements OnInit {
   public cartItems: CartItem[] = [];
+  public currencys: IParameterEnum[] = CURRENCY_TYPE;
+  public proofPayments: IParameterEnum[] = PROOF_PAYMENT_CONSTANT;
+  public methodPayments: IParameterEnum[] = METHOD_PAYMENT_CONSTANT;
 
-  public constructor(private readonly eventBussService: EventBussService) {}
-
+  public constructor(
+    private readonly eventBussService: EventBussService,
+    private readonly purchaseFacade: PurchaseFacade,
+    private readonly clientFacade: ClientFacade,
+  ) {}
   ngOnInit(): void {
     this.eventBussService.on<CartItem[]>('cart-item-shared').subscribe({
       next: (cartItems: CartItem[]) => {
-        console.log({cartItems});
-        this.cartItems = cartItems;
-      },
-      error: (err) => {
-        console.log(err);
+        this.cartItems = [...cartItems];
       },
     });
+  }
+
+  public newPurchase(purchaseForm: IPurchaseForm) {
+    const client = this.clientFacade.client$.value;
+    this.purchaseFacade.createPurchase(purchaseForm, client);
   }
 }

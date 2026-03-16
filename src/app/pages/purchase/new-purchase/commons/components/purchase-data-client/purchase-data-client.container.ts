@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { DOCUMENTS_TYPE } from '@constants/document-type.constant';
 import { IParameterEnum } from '@interfaces/index';
 import { IPurchaseDataClientForm } from './commons/purchase-data-client.form';
@@ -11,12 +11,16 @@ import { Client } from '@class/index';
   selector: 'app-purchase-data-client',
   templateUrl: './purchase-data-client.container.html',
 })
-export class PurchaseDataClientContainer {
+export class PurchaseDataClientContainer implements OnDestroy {
   public documentsType: IParameterEnum[] = DOCUMENTS_TYPE;
   client$ = new BehaviorSubject<Client>(new Client());
 
   constructor(private readonly clientFacade: ClientFacade) {
     this.client$ = clientFacade.client$;
+  }
+
+  ngOnDestroy(): void {
+    this.client$.next(new Client());
   }
 
   public searchClient(client: IPurchaseDataClientForm) {

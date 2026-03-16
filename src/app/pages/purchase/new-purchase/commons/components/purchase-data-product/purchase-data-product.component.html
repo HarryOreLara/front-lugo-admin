@@ -20,6 +20,7 @@
           [suggestions]="filteredProducts"
           (completeMethod)="filterProducts($event)"
           field="name"
+          [formControl]="productControl"
           class="search-input w-full"
           placeholder="Buscar por SKU o Nombre del Producto..."
           (onSelect)="selection($event)"

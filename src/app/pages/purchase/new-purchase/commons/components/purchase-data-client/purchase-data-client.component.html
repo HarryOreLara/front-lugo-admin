@@ -43,7 +43,7 @@
           type="text"
           formControlName="document"
           pInputText
-          (keypress)="searchClient()"
+          (keyup.enter)="searchClient()"
           placeholder="Ingrese un documento de identitdad"
         />
       </div>

@@ -28,7 +28,6 @@ export class ClientRepositoryImpl implements ClientRepository {
       searchType,
     };
 
-    console.log({ customParams });
     return this.http
       .get<IGeneric<Client>>(direction, { params: customParams })
       .pipe(
@@ -51,7 +50,6 @@ export class ClientRepositoryImpl implements ClientRepository {
   createClient(client: IClientRequest): Observable<Client> {
     const direction = `${this.apiUrl}/customer/createCustomer`;
 
-    console.log({ client });
     return this.http
       .post<IGeneric<Client>>(direction, client)
       .pipe(

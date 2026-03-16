@@ -1,0 +1,6 @@
+export enum ProofPaymentType {
+  BOLETA = 'BOLETA',
+  FACTURA = 'FACTURA',
+  BOLETA_ELECTRONICA = 'BOLETA_ELECTRONICA',
+  TICKET = 'TICKET',
+}

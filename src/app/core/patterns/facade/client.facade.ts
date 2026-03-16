@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Client } from '@class/index';
-import { DocumentType } from '@enums/document-type.enum';
 import { SearchType } from '@enums/search-type.enum';
 import { ClientService } from '@service/client/client.service';
 import { BehaviorSubject, finalize, Subject, takeUntil, tap } from 'rxjs';
@@ -10,7 +9,7 @@ import { IClientForm } from 'src/app/commons/modals/client/modal-new-client/mode
 @Injectable({
   providedIn: 'root',
 })
-export class ClientFacade {
+export class ClientFacade implements OnDestroy {
   clients$ = new BehaviorSubject<Client[]>([]);
   client$ = new BehaviorSubject<Client>(new Client());
   loading$ = new BehaviorSubject<boolean>(false);
@@ -47,9 +46,16 @@ export class ClientFacade {
   }
 
   findClient(value: string, searchType: SearchType) {
-    this.clientService.findOneclient(value, searchType).subscribe((client) => {
-      console.log({ client });
-      this.client$.next(client);
-    });
+    this.clientService
+      .findOneclient(value, searchType)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((client) => {
+        this.client$.next(client);
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
