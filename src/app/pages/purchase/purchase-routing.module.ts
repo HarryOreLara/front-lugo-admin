@@ -9,6 +9,13 @@ const routes: Routes = [
         (m) => m.NewPurchaseModule,
       ),
   },
+  {
+    path: 'purchase-list',
+    loadChildren: () =>
+      import('./purchase-list/purchase-list.module').then(
+        (m) => m.PurchaseListModule,
+      ),
+  },
 ];
 
 @NgModule({

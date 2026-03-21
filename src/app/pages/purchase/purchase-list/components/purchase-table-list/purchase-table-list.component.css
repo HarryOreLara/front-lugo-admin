@@ -1,0 +1,13 @@
+/* Ocultar el título en desktop */
+.p-column-title {
+  display: none;
+}
+
+/* Mostrar el título solo en móvil */
+@media screen and (max-width: 768px) {
+  .p-column-title {
+    display: inline-block;
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+}

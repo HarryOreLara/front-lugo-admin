@@ -24,7 +24,6 @@ export class SidebarComponent {
   }
 
   public navigateGrandChild(child: IMenu, father: IMenu) {
-
     const routeFather = father.route;
     const routerChild = child.route;
     const routerNavigate = this.dashboardurl.concat(routeFather, routerChild);

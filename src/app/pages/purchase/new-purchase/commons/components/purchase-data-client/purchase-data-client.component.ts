@@ -14,6 +14,7 @@ export class PurchaseDataClientComponent {
   @Input() public client: Client;
   @Output() public searchClientEmit: EventEmitter<IPurchaseDataClientForm> =
     new EventEmitter<IPurchaseDataClientForm>();
+  @Output() public newClientEmit: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     public readonly purchaseDataClientPresenter: PurchaseDataClientPresenter,
@@ -31,5 +32,9 @@ export class PurchaseDataClientComponent {
     this.searchClientEmit.emit(
       this.purchaseDataClientPresenter.Form.getRawValue(),
     );
+  }
+
+  public newClient() {
+    this.newClientEmit.emit();
   }
 }

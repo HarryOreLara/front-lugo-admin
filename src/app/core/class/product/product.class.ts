@@ -67,16 +67,20 @@ export class Product {
       unit: casted['unit'] as string,
       images: casted['images'] as Array<string>,
       imageMajor: casted['imageMajor'] as string,
-      category: Category.fromJson(casted['category']),
-      brand: Brand.fromJson(casted['brand']),
-      color: Color.fromJson(casted['color']),
+      category: casted['category']
+        ? Category.fromJson(casted['category'])
+        : new Category(),
+      brand: casted['category'] ? Brand.fromJson(casted['brand']) : new Brand(),
+      color: casted['color'] ? Color.fromJson(casted['color']) : new Color(),
       status: casted['status'] as string,
       isActive: casted['isActive'] as boolean,
       createdAt: casted['createdAt'] as Date,
       updatedAt: casted['updatedAt'] as Date,
-      prices: (casted['prices'] as Array<ProductPrice>).map((res) =>
-        ProductPrice.fromJson(res),
-      ),
+      prices: casted['prices']
+        ? (casted['prices'] as Array<ProductPrice>).map((res) =>
+            ProductPrice.fromJson(res),
+          )
+        : [],
     });
   }
 }

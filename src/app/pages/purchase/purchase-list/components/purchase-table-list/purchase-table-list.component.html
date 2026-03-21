@@ -1,0 +1,26 @@
+
+<p-table [value]="purchases" responsiveLayout="stack" [breakpoint]="'768px'">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Categoría</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-purchase>
+    <tr>
+      <td>
+        <span class="p-column-title">Nombre</span>
+        {{ purchase.fullNumber }}
+      </td>
+      <td>
+        <span class="p-column-title">Precio</span>
+        {{ purchase.subTotal }}
+      </td>
+      <td>
+        <span class="p-column-title">Categoría</span>
+        {{ purchase.status }}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
