@@ -4,6 +4,7 @@ import { Purchase } from '@class/purchase/purchase.class';
 import { IPurchaseForm } from '@pages/purchase/new-purchase/commons/interfaces/purchase-form.interface';
 import { newPurchaseMapper } from '@pages/purchase/new-purchase/commons/mappers/purchase.mapper';
 import { PurchaseService } from '@service/purchase/purchase.service';
+import { EventBussService } from '@states/event-buss/event-buss.service';
 import { BehaviorSubject, finalize, Subject, takeUntil, tap } from 'rxjs';
 
 @Injectable({
@@ -16,7 +17,10 @@ export class PurchaseFacade {
   closeModal$ = new Subject<void>();
   private destroy$ = new Subject<void>();
 
-  constructor(private readonly purchaseService: PurchaseService) {}
+  constructor(
+    private readonly purchaseService: PurchaseService,
+    private readonly eventBussService: EventBussService,
+  ) {}
 
   createPurchase(purchaseForm: IPurchaseForm, client: Client) {
     const purchaseMapper = newPurchaseMapper(purchaseForm, client);
@@ -33,6 +37,7 @@ export class PurchaseFacade {
         takeUntil(this.destroy$),
         finalize(() => {
           this.loading$.next(false);
+          this.eventBussService.emit('lugo-purchase-reset', true);
         }),
       )
       .subscribe();

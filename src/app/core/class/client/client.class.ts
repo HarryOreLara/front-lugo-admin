@@ -36,8 +36,6 @@ export class Client {
   }
 
   static fromJson(client: unknown): Client {
-
-    console.log({client});
     const casted = client as Record<string, unknown>;
 
     return new Client({

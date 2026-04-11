@@ -21,8 +21,8 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
   color: FormControl;
   description: FormControl;
   stock: FormControl;
-  // unitAmount: FormControl;
-  // quantityBox: FormControl;
+  sku: FormControl;
+  barCode: FormControl;
   descriptionFull: FormControl;
   prices: FormControl;
   status: FormControl;
@@ -45,8 +45,8 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
     this.brand = new FormControl(null);
     this.color = new FormControl(null);
     this.stock = new FormControl(null);
-    // this.unitAmount = new FormControl(null);
-    // this.quantityBox = new FormControl(null);
+    this.sku = new FormControl(null);
+    this.barCode = new FormControl(null);
     this.prices = new FormControl(null);
     this.status = new FormControl(null);
     this.isActive = new FormControl(null);
@@ -62,8 +62,8 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
       description: [product?.description ?? null, Validators.required],
       descriptionFull: [product?.descriptionFull ?? null],
       stock: [product?.stock ?? 0],
-      // unitAmount: [product?.unitAmount ?? null],
-      // quantityBox: [product?.quantityBox ?? null],
+      sku: [product?.sku ?? null],
+      barCode: [product?.barCode ?? null],
       prices: this.fb.array(
         (product?.prices?.length
           ? product.prices
@@ -109,6 +109,8 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
     this.useSamePrice = new FormControl(null);
     this.status = new FormControl(null);
     this.prices = new FormControl(null);
+    this.sku = new FormControl(null);
+    this.barCode = new FormControl(null);
   }
 
   public updateForm(product: Product) {

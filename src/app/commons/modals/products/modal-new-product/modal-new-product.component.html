@@ -20,7 +20,35 @@
       <div class="grid formgrid p-fluid">
         <div class="field mb-4 col-12 md:col-12">
           <label for="name" class="font-medium text-900">Nombre</label>
-          <input id="name" formControlName="name" type="text" pInputText />
+          <input
+            id="name"
+            formControlName="name"
+            autocomplete="off"
+            type="text"
+            pInputText
+          />
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+        <label for="sku" class="font-medium text-900">SKU</label>
+          <input
+            id="sku"
+            formControlName="sku"
+            autocomplete="off"
+            type="text"
+            pInputText
+          />
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="barCode" class="font-medium text-900"
+            >Codigo Barras</label
+          >
+          <input
+            id="barCode"
+            formControlName="barCode"
+            autocomplete="off"
+            type="text"
+            pInputText
+          />
         </div>
         <div class="field mb-4 col-12 md:col-4">
           <label for="categories" class="font-medium text-900">Categoria</label>

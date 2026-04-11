@@ -20,6 +20,16 @@ export class ProductRepositoryImpl implements ProductRepository {
 
   constructor(private readonly http: HttpClient) {}
 
+  public findOneProductByBarCode(barCode: string): Observable<Product> {
+    const direction = `${this.apiUrl}/product/getOneProductByBarCode`;
+
+    return this.http
+      .get<IGeneric<Product>>(direction, { params: { barCode } })
+      .pipe(
+        map((response: IGeneric<Product>) => Product.fromJson(response.data)),
+      );
+  }
+
   public getAllProduct(
     page: number,
     size: number,

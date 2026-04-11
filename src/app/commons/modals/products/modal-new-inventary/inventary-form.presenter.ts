@@ -1,13 +1,17 @@
 import { StepPresenter } from '@states/forms/step.presenter';
 import { IInventaryForm } from './models/inventary.model';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { InventaryMovementType } from '@enums/inventary-movement.enum';
+import { combineLatest } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class InventaryFormPresenter extends StepPresenter<IInventaryForm> {
+export class InventaryFormPresenter
+  extends StepPresenter<IInventaryForm>
+  implements OnInit
+{
   product: FormControl;
   typeInventary: FormControl;
   quantity: FormControl;
@@ -20,8 +24,13 @@ export class InventaryFormPresenter extends StepPresenter<IInventaryForm> {
     super();
   }
 
+  ngOnInit(): void {
+    this.calculateTotalCost();
+  }
+
   public createForm() {
     this.initForm();
+    this.createValidators();
 
     this.form = this.fb.group({
       product: this.product,
@@ -32,8 +41,9 @@ export class InventaryFormPresenter extends StepPresenter<IInventaryForm> {
       unitCost: this.unitCost,
       totalCost: this.totalCost,
     });
-  }
 
+    this.calculateTotalCost();
+  }
   public initForm(): void {
     this.product = new FormControl(null);
     this.typeInventary = new FormControl(InventaryMovementType.INBOUND);
@@ -42,5 +52,19 @@ export class InventaryFormPresenter extends StepPresenter<IInventaryForm> {
     this.reason = new FormControl(null);
     this.unitCost = new FormControl(null);
     this.totalCost = new FormControl(null);
+  }
+
+  public createValidators(): void {
+    this.totalCost.disable();
+  }
+  public calculateTotalCost(): void {
+    combineLatest([
+      this.quantity.valueChanges,
+      this.unitCost.valueChanges,
+    ]).subscribe(([quantity, unitCost]) => {
+      const total = (quantity || 0) * (unitCost || 0);
+
+      this.totalCost.setValue(total, { emitEvent: false });
+    });
   }
 }

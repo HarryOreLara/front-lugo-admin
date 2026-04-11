@@ -7,6 +7,7 @@
       <button
         pButton
         pRipple
+        label="Busqueda manual"
         icon="pi pi-ellipsis-v"
         class="p-button-text p-button-plain p-button-rounded"
       ></button>
@@ -16,6 +17,19 @@
   <div class="surface-card p-2 border-round">
     <div class="grid formgrid p-fluid">
       <div class="col-12 field mb-4 md:col-12">
+        <input
+          #barcodeInput
+          id="document"
+          lugoReactiveForm
+          autocomplete="off"
+          type="text"
+          [formControl]="productControl"
+          pInputText
+          (keyup.enter)="onScan()"
+          placeholder="Escanee aqui"
+        />
+      </div>
+      <!-- <div class="col-12 field mb-4 md:col-12">
         <p-autoComplete
           [suggestions]="filteredProducts"
           (completeMethod)="filterProducts($event)"
@@ -27,7 +41,7 @@
           [dropdown]="true"
         >
         </p-autoComplete>
-      </div>
+      </div> -->
 
       <div class="cart-table">
         <div class="cart-header">

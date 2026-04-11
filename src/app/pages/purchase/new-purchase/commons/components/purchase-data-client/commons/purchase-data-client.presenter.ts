@@ -21,19 +21,12 @@ export class PurchaseDataClientPresenter extends StepPresenter<IPurchaseDataClie
   }
 
   public initForm(): void {
-    this.typeDocument = new FormControl(null, [Validators.required]);
+    this.typeDocument = new FormControl(DocumentType.DNI, [Validators.required]);
     this.document = new FormControl(null, [Validators.required]);
     this.document.setValidators(this.documentValidator());
   }
 
   public createForm(): void {
-    this.initForm();
-
-    this.document.setValidators([
-      Validators.required,
-      this.documentValidator(),
-    ]);
-
     this.form = this.fb.group({
       typeDocument: this.typeDocument,
       document: this.document,

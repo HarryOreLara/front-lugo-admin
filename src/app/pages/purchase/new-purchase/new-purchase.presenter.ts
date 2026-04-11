@@ -1,4 +1,10 @@
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import {
   IPurchaseForm,
   IPurchaseItemForm,
@@ -6,6 +12,9 @@ import {
 import { StepPresenter } from '@states/forms/step.presenter';
 import { Injectable } from '@angular/core';
 import { CartItem } from './commons/interfaces/car-tem.interface';
+import { CurrencyType } from '@enums/currency.enum';
+import { MethodPaymentType } from '@enums/method-payment.enum';
+import { InvoiceType } from '@enums/invoice-type.enum';
 
 @Injectable({ providedIn: 'root' })
 export class PurchaseFormPresenter extends StepPresenter<IPurchaseForm> {
@@ -27,10 +36,15 @@ export class PurchaseFormPresenter extends StepPresenter<IPurchaseForm> {
     this.tax = new FormControl(null);
     this.total = new FormControl(null, [Validators.required]);
     this.items = this.fb.array([]);
-    this.invoiceType = new FormControl(null, [Validators.required]);
-    this.methodPayment = new FormControl(null, [Validators.required]);
-    this.currency = new FormControl(null, [Validators.required]);
+    this.invoiceType = new FormControl(InvoiceType.BOLETA, [
+      Validators.required,
+    ]);
+    this.methodPayment = new FormControl(MethodPaymentType.EFECTIVO, [
+      Validators.required,
+    ]);
+    this.currency = new FormControl(CurrencyType.SOLES, [Validators.required]);
     this.voucher = new FormControl(null);
+    this.voucher.disable();
   }
 
   public createForm(): void {
@@ -44,6 +58,8 @@ export class PurchaseFormPresenter extends StepPresenter<IPurchaseForm> {
       currency: this.currency,
       voucher: this.voucher,
     });
+
+    this.changeMethodPayment();
   }
 
   public buildItemGroup(cartItem: CartItem): FormGroup {
@@ -69,5 +85,22 @@ export class PurchaseFormPresenter extends StepPresenter<IPurchaseForm> {
     );
     this.subTotal.setValue(subtotal, { emitEvent: false });
     this.total.setValue(subtotal, { emitEvent: false });
+  }
+
+  public changeMethodPayment() {
+    this.methodPayment.valueChanges.subscribe((res) => {
+      switch (res) {
+        case MethodPaymentType.EFECTIVO:
+          this.voucher.disable();
+          this.voucher.reset();
+          break;
+        default:
+          this.voucher.enable();
+          this.voucher.setValidators([Validators.required]);
+          break;
+      }
+
+      this.voucher.updateValueAndValidity();
+    });
   }
 }

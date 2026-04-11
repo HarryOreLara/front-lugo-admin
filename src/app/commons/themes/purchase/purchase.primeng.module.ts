@@ -22,6 +22,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { OverlayModule } from 'primeng/overlay';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+
 @NgModule({
   exports: [
     StyleClassModule,
@@ -45,7 +46,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     SliderModule,
     CheckboxModule,
     OverlayModule,
-    AutoCompleteModule
+    AutoCompleteModule,
   ],
 })
 export class PurchasePrimengModule {}

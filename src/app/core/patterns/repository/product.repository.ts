@@ -9,4 +9,5 @@ export interface ProductRepository {
   createProduct(product: IProductRquest): Observable<Product>;
   updateProduct(id: number, product: IProductRquest): Observable<Product>;
   deleteProduct(id: number): Observable<Product>;
+  findOneProductByBarCode(barCode: string): Observable<Product>;
 }

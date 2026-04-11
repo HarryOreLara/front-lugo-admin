@@ -48,6 +48,10 @@ export class ProductFacade {
     return this.productService.findOneProduct(id);
   }
 
+  findOneProductByBarCode(barCode: string) {
+    return this.productService.findOneProductByBarCode(barCode);
+  }
+
   updateProductFc(product: IProductForm, id: number) {
     const productMapper = createProductMapper(product);
 

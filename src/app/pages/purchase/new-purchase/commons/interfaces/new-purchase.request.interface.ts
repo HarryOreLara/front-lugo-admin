@@ -15,7 +15,8 @@ export interface INewPurchaseRequest {
   status: OrderStatus;
   currency: CurrencyType;
   methodPayment: MethodPaymentType;
-  orderItem: INewPurchaseItem[];
+  orderItems: INewPurchaseItem[];
+  voucher: string;
 }
 
 export interface INewPurchaseItem {

@@ -34,4 +34,8 @@ export class ProductService {
   eliminarProduct(id: number): Observable<Product> {
     return this.productRepository.deleteProduct(id);
   }
+
+  findOneProductByBarCode(barCode: string) {
+    return this.productRepository.findOneProductByBarCode(barCode);
+  }
 }

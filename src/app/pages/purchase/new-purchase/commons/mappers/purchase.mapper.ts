@@ -20,13 +20,13 @@ export const newPurchaseMapper = (
     subTotal: purchaseForm.subTotal,
     total: purchaseForm.total,
     channel: Channel.PHYSICAL,
-    orderItem: newPurchaseItemMapper(purchaseForm.items),
+    orderItems: newPurchaseItemMapper(purchaseForm.items),
     tax: 0,
     currency: purchaseForm.currency,
     methodPayment: purchaseForm.methodPayment,
     customerId: client.id === 0 ? null : client.id,
-    employeeId: 1,
-    voucer: purchaseForm.voucher
+    employeeId: 3,
+    voucher: purchaseForm.voucher,
   } as INewPurchaseRequest;
 };
 

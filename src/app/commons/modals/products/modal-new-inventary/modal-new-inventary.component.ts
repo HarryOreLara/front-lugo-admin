@@ -42,7 +42,8 @@ export class ModalNewInventaryComponent {
     this.filteredProducts = this.products.filter(
       (product) =>
         product.name.toLowerCase().includes(query) ||
-        product.sku?.toLowerCase().includes(query),
+        product.sku?.toLowerCase().includes(query) ||
+        product.barcode?.toLowerCase().includes(query) 
     );
   }
 
