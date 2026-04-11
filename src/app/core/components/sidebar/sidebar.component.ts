@@ -19,7 +19,11 @@ export class SidebarComponent {
 
   public navigateChild(child: IMenu, father: IMenu) {
     if (child.children.length <= 0) {
-      this.router.navigateByUrl(child.route);
+      const routerChild = child.route;
+
+      const routerNavigate = this.dashboardurl.concat(routerChild);
+
+      this.router.navigateByUrl(routerNavigate);
     }
   }
 

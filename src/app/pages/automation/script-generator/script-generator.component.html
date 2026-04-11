@@ -1,0 +1,240 @@
+<!-- 
+<div class="generator-container">
+
+  <h2>Generador de SQL — Productos</h2>
+
+  <div class="form-section">
+    <label for="productInput">Pega el texto del producto aquí:</label>
+    <textarea
+      id="productInput"
+      [(ngModel)]="rawText"
+      rows="12"
+      placeholder="Taladro Inalámbrico 48V&#10;✨ Incluye accesorios: Brocas, dados&#10;✨ Doble batería&#10;Precio: S/. 95"
+    ></textarea>
+  </div>
+
+  <div class="ids-section">
+    <div class="id-field">
+      <label>Category ID</label>
+      <input type="number" [(ngModel)]="categoryId" min="1" max="3" />
+    </div>
+    <div class="id-field">
+      <label>Brand ID</label>
+      <input type="number" [(ngModel)]="brandId" min="1" max="3" />
+    </div>
+    <div class="id-field">
+      <label>Color ID</label>
+      <input type="number" [(ngModel)]="colorId" min="1" max="3" />
+    </div>
+  </div>
+
+  <button (click)="generate()" [disabled]="!rawText.trim()">
+    ⚡ Generar SQL
+  </button>
+
+  <div class="output-section" *ngIf="generatedSql">
+    <div class="output-header">
+      <label>SQL generado:</label>
+      <button class="copy-btn" (click)="copySql()">
+        {{ copied ? '✅ Copiado!' : '📋 Copiar' }}
+      </button>
+    </div>
+    <pre>{{ generatedSql }}</pre>
+  </div>
+
+</div>
+
+ -->
+
+
+
+
+
+
+<div class="p-4">
+
+  <!-- Header -->
+  <div class="flex align-items-center gap-3 mb-4">
+    <i class="pi pi-database text-primary" style="font-size: 2rem;"></i>
+    <div>
+      <h2 class="m-0 text-900 font-bold">Generador de SQL</h2>
+      <p class="m-0 text-500 text-sm">Convierte el texto de un producto en un script SQL listo para PostgreSQL</p>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <!-- Panel izquierdo: Input -->
+    <div class="col-12 lg:col-6">
+      <p-card styleClass="h-full shadow-2">
+
+        <ng-template pTemplate="header">
+          <div class="flex align-items-center gap-2 px-4 pt-4">
+            <i class="pi pi-pencil text-primary"></i>
+            <span class="font-semibold text-900">Texto del Producto</span>
+          </div>
+        </ng-template>
+
+        <!-- Textarea -->
+        <div class="flex flex-column gap-1 mb-4">
+          <label class="text-700 font-medium text-sm">Pega aquí el texto del producto</label>
+          <textarea
+            pInputTextarea
+            [(ngModel)]="rawText"
+            [rows]="12"
+            [autoResize]="false"
+            placeholder=""
+            class="w-full font-mono text-sm"
+          ></textarea>
+        </div>
+
+        <!-- IDs -->
+        <div class="grid mb-4">
+          <div class="col-12">
+            <p class="text-700 font-medium text-sm mb-2 mt-0">IDs de Relaciones</p>
+          </div>
+
+          <div class="col-4">
+            <div class="flex flex-column gap-1">
+              <label class="text-600 text-xs">Category ID</label>
+              <p-inputNumber
+                [(ngModel)]="categoryId"
+                [min]="1"
+                [max]="999"
+                [showButtons]="true"
+                buttonLayout="horizontal"
+                decrementButtonClass="p-button-outlined"
+                incrementButtonClass="p-button-outlined"
+                incrementButtonIcon="pi pi-plus"
+                decrementButtonIcon="pi pi-minus"
+                inputStyleClass="w-full text-center"
+                styleClass="w-full"
+              ></p-inputNumber>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="flex flex-column gap-1">
+              <label class="text-600 text-xs">Brand ID</label>
+              <p-inputNumber
+                [(ngModel)]="brandId"
+                [min]="1"
+                [max]="999"
+                [showButtons]="true"
+                buttonLayout="horizontal"
+                decrementButtonClass="p-button-outlined"
+                incrementButtonClass="p-button-outlined"
+                incrementButtonIcon="pi pi-plus"
+                decrementButtonIcon="pi pi-minus"
+                inputStyleClass="w-full text-center"
+                styleClass="w-full"
+              ></p-inputNumber>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="flex flex-column gap-1">
+              <label class="text-600 text-xs">Color ID</label>
+              <p-inputNumber
+                [(ngModel)]="colorId"
+                [min]="1"
+                [max]="999"
+                [showButtons]="true"
+                buttonLayout="horizontal"
+                decrementButtonClass="p-button-outlined"
+                incrementButtonClass="p-button-outlined"
+                incrementButtonIcon="pi pi-plus"
+                decrementButtonIcon="pi pi-minus"
+                inputStyleClass="w-full text-center"
+                styleClass="w-full"
+              ></p-inputNumber>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón generar -->
+        <p-button
+          label="Generar SQL"
+          icon="pi pi-bolt"
+          styleClass="w-full p-button-lg"
+          [disabled]="!rawText.trim()"
+          (onClick)="generate()"
+        ></p-button>
+
+      </p-card>
+    </div>
+
+    <!-- Panel derecho: Output -->
+    <div class="col-12 lg:col-6">
+      <p-card styleClass="h-full shadow-2">
+
+        <ng-template pTemplate="header">
+          <div class="flex align-items-center justify-content-between px-4 pt-4">
+            <div class="flex align-items-center gap-2">
+              <i class="pi pi-code text-primary"></i>
+              <span class="font-semibold text-900">SQL Generado</span>
+            </div>
+            <p-button
+              *ngIf="generatedSql"
+              [label]="copied ? 'Copiado' : 'Copiar'"
+              [icon]="copied ? 'pi pi-check' : 'pi pi-copy'"
+              styleClass="p-button-sm p-button-outlined"
+              [ngClass]="{ 'p-button-success': copied }"
+              (onClick)="copySql()"
+            ></p-button>
+          </div>
+        </ng-template>
+
+        <!-- Vacío -->
+        <div
+          *ngIf="!generatedSql"
+          class="flex flex-column align-items-center justify-content-center gap-3"
+          style="min-height: 350px;"
+        >
+          <i class="pi pi-file-edit text-300" style="font-size: 4rem;"></i>
+          <p class="text-400 text-center m-0">
+            El SQL generado aparecerá aquí.<br />
+            Pega el texto de un producto y presiona <strong>Generar SQL</strong>.
+          </p>
+        </div>
+
+        <!-- SQL output -->
+        <div *ngIf="generatedSql">
+
+          <!-- Tags resumen del producto parseado -->
+          <div class="flex flex-wrap gap-2 mb-3" *ngIf="parsedProduct">
+            <p-tag
+              [value]="'SKU: ' + parsedProduct.sku"
+              severity="info"
+              icon="pi pi-tag"
+            ></p-tag>
+            <p-tag
+              [value]="'S/. ' + parsedProduct.salePrice"
+              severity="success"
+              icon="pi pi-dollar"
+            ></p-tag>
+            <p-tag
+              [value]="'Costo: S/. ' + parsedProduct.costPrice"
+              severity="warning"
+              icon="pi pi-wallet"
+            ></p-tag>
+            <p-tag
+              [value]="'Stock: ' + parsedProduct.stock"
+              [severity]="parsedProduct.stock > 0 ? 'success' : 'danger'"
+              icon="pi pi-box"
+            ></p-tag>
+          </div>
+
+          <pre
+            class="m-0 p-3 border-round surface-100 text-sm overflow-auto"
+            style="max-height: 380px; font-family: monospace; white-space: pre-wrap; word-break: break-word;"
+          >{{ generatedSql }}</pre>
+        </div>
+
+      </p-card>
+    </div>
+
+  </div>
+
+
+</div>

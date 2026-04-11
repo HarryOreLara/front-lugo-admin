@@ -44,9 +44,12 @@ const routes: Routes = [
       {
         path: 'clients',
         loadChildren: () =>
-          import('./pages/client/client.module').then(
-            (m) => m.ClientModule,
-          ),
+          import('./pages/client/client.module').then((m) => m.ClientModule),
+      },
+      {
+        path: 'script-generator',
+        loadChildren: () =>
+          import('./pages/automation/script-generator/script-generator.module').then((m) => m.ScriptGeneratorModule),
       },
     ],
   },

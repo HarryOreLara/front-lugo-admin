@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { StyleClassModule } from 'primeng/styleclass';
+
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
@@ -22,6 +22,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { OverlayModule } from 'primeng/overlay';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { StyleClassModule } from 'primeng/styleclass';
 @NgModule({
   exports: [
     StyleClassModule,

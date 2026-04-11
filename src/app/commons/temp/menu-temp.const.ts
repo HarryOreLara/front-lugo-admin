@@ -535,4 +535,25 @@ export const CONST_MENU: Array<IMenu> = [
       },
     ],
   },
+  {
+    id: 53,
+    icon: 'pi pi-chart-line',
+    name: 'Automatizaciones',
+    node: 'MENU_PARAMS',
+    typeMenu: 'FATHER',
+    code: 'FATHER_AUTOMATION',
+    route: '',
+    children: [
+      {
+        id: 54,
+        icon: 'pi pi-chart-line',
+        name: 'Generador de scripts',
+        node: 'MENU_CHILD_PARAMS',
+        code: 'CHILD_SCRIPT_GENERATOR',
+        typeMenu: 'CHILD',
+        route: '/script-generator',
+        children: [],
+      },
+    ],
+  },
 ];
