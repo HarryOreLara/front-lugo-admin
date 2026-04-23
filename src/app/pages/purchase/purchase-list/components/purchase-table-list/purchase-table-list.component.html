@@ -1,127 +1,135 @@
 <!-- purchases-list.component.html -->
 
-<!-- CSS para el modo stack -->
-<style>
-  .p-column-title {
-    display: none;
-  }
+<div class="purchases-wrapper">
+  <!-- Header de reportes -->
+  <div class="purchases-header">
+    <div class="purchases-header-left">
+      <div class="header-icon">
+        <i
+          class="pi pi-chart-bar"
+          style="color: var(--blue-600); font-size: 1rem"
+        ></i>
+      </div>
+      <div>
+        <p class="header-title">Reporte de Comprobantes</p>
+        <p class="header-subtitle">Gestión y seguimiento de compras</p>
+      </div>
+    </div>
 
-  @media screen and (max-width: 768px) {
-    .p-column-title {
-      display: inline-block;
-      font-weight: 700;
-      min-width: 120px;
-      margin-right: 0.5rem;
-      color: var(--text-color-secondary);
-    }
+    <div class="flex gap-2 flex-wrap">
+      <button
+        pButton
+        pRipple
+        icon="pi pi-file-excel"
+        label="Exportar Excel"
+        class="p-button-sm p-button-outlined btn-excel-custom"
+        pTooltip="Descargar en Excel"
+        tooltipPosition="bottom"
+      ></button>
 
-    :host
-      ::ng-deep
-      .p-datatable.p-datatable-stack
-      .p-datatable-tbody
-      > tr
-      > td {
-      display: flex;
-      align-items: center;
-      border: 0;
-      padding: 0.4rem 1rem;
-    }
+      <button
+        pButton
+        pRipple
+        icon="pi pi-chart-pie"
+        label="Ver Resumen"
+        class="p-button-sm p-button-outlined btn-summary-custom"
+        pTooltip="Ver resumen general"
+        tooltipPosition="bottom"
+      ></button>
 
-    :host
-      ::ng-deep
-      .p-datatable.p-datatable-stack
-      .p-datatable-tbody
-      > tr
-      > td:last-child {
-      padding-bottom: 1rem;
-    }
-  }
-</style>
+      <button
+        pButton
+        pRipple
+        icon="pi pi-file-pdf"
+        label="Exportar PDF"
+        class="p-button-sm p-button-outlined p-button-danger"
+        pTooltip="Exportar tabla como PDF"
+        tooltipPosition="bottom"
+      ></button>
+    </div>
+  </div>
 
-<p-table
-  [value]="purchases"
-  responsiveLayout="stack"
-  [breakpoint]="'768px'"
-  styleClass="p-datatable-sm p-datatable-gridlines"
->
-  <ng-template pTemplate="header">
-    <tr>
-      <th style="width: 160px">N° Comprobante</th>
-      <th>Cliente</th>
-      <th>Empleado</th>
-      <th style="width: 120px">Canal</th>
-      <th style="width: 120px">Estado</th>
-      <th style="width: 120px" class="text-right">Subtotal</th>
-      <th style="width: 120px" class="text-right">Total</th>
-      <th style="width: 80px" class="text-center">PDF</th>
-    </tr>
-  </ng-template>
+  <!-- Tabla -->
+  <p-table
+    [value]="purchases"
+    responsiveLayout="stack"
+    [breakpoint]="'768px'"
+    dataKey="id"
+    [rows]="30"
+    [rowsPerPageOptions]="[30, 60, 90]"
+    [loading]="isLoading"
+    [paginator]="true"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 155px">N° Comprobante</th>
+        <th>Empleado</th>
+        <th style="width: 110px" class="text-center">Canal</th>
+        <th style="width: 115px" class="text-center">Estado</th>
+        <th style="width: 120px" class="text-right">Subtotal</th>
+        <th style="width: 120px" class="text-right">Total</th>
+        <th style="width: 70px" class="text-center">PDF</th>
+      </tr>
+    </ng-template>
 
-  <ng-template pTemplate="body" let-purchase>
-    <tr>
-      <td>
-        <span class="p-column-title">N° Comprobante</span>
-        <span class="font-semibold text-primary">{{
-          purchase.fullNumber
-        }}</span>
-      </td>
+    <ng-template pTemplate="body" let-purchase>
+      <tr>
+        <td>
+          <span class="p-column-title">N° Comprobante</span>
+          <span class="voucher-chip">{{ purchase.fullNumber }}</span>
+        </td>
+        <td>
+          <span class="p-column-title">Empleado</span>
+          {{ purchase.employee.firstName }}
+          <span class="text-sm text-color-secondary ml-1"
+            >({{ purchase.employee.document }})</span
+          >
+        </td>
+        <td class="text-center">
+          <span class="p-column-title">Canal</span>
+          <p-tag
+            [value]="purchase.channel"
+            [severity]="purchase.channel === 'PHYSICAL' ? 'info' : 'success'"
+          ></p-tag>
+        </td>
+        <td class="text-center">
+          <span class="p-column-title">Estado</span>
+          <p-tag
+            [value]="purchase.status"
+            [severity]="getStatusSeverity(purchase.status)"
+          ></p-tag>
+        </td>
+        <td class="text-right">
+          <span class="p-column-title">Subtotal</span>
+          S/ {{ purchase.subTotal | number: "1.2-2" }}
+        </td>
+        <td class="text-right">
+          <span class="p-column-title">Total</span>
+          <span class="font-bold"
+            >S/ {{ purchase.total | number: "1.2-2" }}</span
+          >
+        </td>
+        <td class="text-center">
+          <button
+            pButton
+            pRipple
+            [icon]="'pi pi-file-pdf'"
+            class="p-button-rounded p-button-danger p-button-text p-button-sm"
+            [pTooltip]="'Ver ' + getVoucherType(purchase.fullNumber)"
+            tooltipPosition="left"
+            (click)="generatePdf(purchase)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
 
-      <td>
-        <span class="p-column-title">Empleado</span>
-        {{ purchase.employee.firstName }}
-        <span class="text-sm text-color-secondary ml-1"
-          >({{ purchase.employee.document }})</span
-        >
-      </td>
-
-      <td>
-        <span class="p-column-title">Canal</span>
-        <p-tag
-          [value]="purchase.channel"
-          [severity]="purchase.channel === 'PHYSICAL' ? 'info' : 'success'"
-        >
-        </p-tag>
-      </td>
-
-      <td>
-        <span class="p-column-title">Estado</span>
-        <p-tag
-          [value]="purchase.status"
-          [severity]="getStatusSeverity(purchase.status)"
-        >
-        </p-tag>
-      </td>
-
-      <td class="text-right">
-        <span class="p-column-title">Subtotal</span>
-        S/ {{ purchase.subTotal | number: "1.2-2" }}
-      </td>
-
-      <td class="text-right">
-        <span class="p-column-title">Total</span>
-        <span class="font-bold">S/ {{ purchase.total | number: "1.2-2" }}</span>
-      </td>
-
-      <td class="text-right">
-        <button
-          pButton
-          pRipple
-          [icon]="'pi pi-file-pdf'"
-          class="p-button-rounded p-button-danger p-button-text"
-          [pTooltip]="'Ver ' + getVoucherType(purchase.fullNumber)"
-          tooltipPosition="left"
-          (click)="generatePdf(purchase)"
-        ></button>
-      </td>
-    </tr>
-  </ng-template>
-
-  <ng-template pTemplate="emptymessage">
-    <tr>
-      <td colspan="8" class="text-center p-4 text-color-secondary">
-        <i class="pi pi-inbox text-4xl block mb-2"></i>
-        No se encontraron comprobantes
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="7" class="text-center p-4 text-color-secondary">
+          <i class="pi pi-inbox text-4xl block mb-2"></i>
+          No se encontraron comprobantes
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

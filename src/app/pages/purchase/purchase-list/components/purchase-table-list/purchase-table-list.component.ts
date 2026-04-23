@@ -10,6 +10,7 @@ import autoTable from 'jspdf-autotable';
 })
 export class PurchaseTableListComponent {
   @Input() purchases: Array<Purchase> = [];
+  @Input() isLoading: boolean;
 
   // Detecta el tipo de comprobante por el prefijo
   getVoucherType(fullNumber: string): string {
