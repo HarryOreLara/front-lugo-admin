@@ -16,6 +16,20 @@ const routes: Routes = [
         (m) => m.PurchaseListModule,
       ),
   },
+  {
+    path: 'methods-payment',
+    loadChildren: () =>
+      import('./methods-payment/methods-payment.module').then(
+        (m) => m.MethodsPaymentModule,
+      ),
+  },
+  {
+    path: 'comprobants',
+    loadChildren: () =>
+      import('./comprobants/comprobants.module').then(
+        (m) => m.ComprobantsModule,
+      ),
+  },
 ];
 
 @NgModule({

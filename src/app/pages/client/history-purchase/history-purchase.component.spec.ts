@@ -1,0 +1,21 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { HistoryPurchaseComponent } from './history-purchase.component';
+
+describe('HistoryPurchaseComponent', () => {
+  let component: HistoryPurchaseComponent;
+  let fixture: ComponentFixture<HistoryPurchaseComponent>;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [HistoryPurchaseComponent]
+    });
+    fixture = TestBed.createComponent(HistoryPurchaseComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
