@@ -17,7 +17,7 @@ export const CONST_MENU: Array<IMenu> = [
         node: 'MENU_CHILD_PARAMS',
         code: 'CHILD_DASHBOARD',
         typeMenu: 'CHILD',
-        route: '/dashboard',
+        route: '',
         children: [],
       },
       {

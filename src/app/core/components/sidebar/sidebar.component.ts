@@ -23,6 +23,8 @@ export class SidebarComponent {
 
       const routerNavigate = this.dashboardurl.concat(routerChild);
 
+      console.log({routerNavigate});
+
       this.router.navigateByUrl(routerNavigate);
     }
   }
@@ -31,6 +33,8 @@ export class SidebarComponent {
     const routeFather = father.route;
     const routerChild = child.route;
     const routerNavigate = this.dashboardurl.concat(routeFather, routerChild);
+
+      console.log({routerNavigate});
 
     return this.router.navigateByUrl(routerNavigate);
   }
