@@ -23,7 +23,6 @@ export class ModalNewClientContainer implements OnInit {
 
   public constructor(
     private readonly clientFacade: ClientFacade,
-
     private readonly modalService: ModalService,
   ) {}
 

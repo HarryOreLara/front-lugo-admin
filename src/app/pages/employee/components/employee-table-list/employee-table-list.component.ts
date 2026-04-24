@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Employee } from '@class/employee/employee.class';
 
 @Component({
@@ -9,4 +9,11 @@ import { Employee } from '@class/employee/employee.class';
 export class EmployeeTableListComponent {
   @Input() public isLoading: boolean;
   @Input() public employees: Employee[] = [];
+
+  @Output() public newEmployeeEmit: EventEmitter<void> =
+    new EventEmitter<void>();
+
+  newEmployee() {
+    this.newEmployeeEmit.emit()
+  }
 }

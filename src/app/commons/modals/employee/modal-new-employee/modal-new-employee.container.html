@@ -1,1 +1,9 @@
-<app-modal-new-employee-ui></app-modal-new-employee-ui>
+<app-modal-new-employee-ui
+  [visibleModal]="visibleModal"
+  (closeEmit)="close()"
+  (saveEmployeeEmit)="saveEmployee($event)"
+  [documentsType]="documentsType"
+  [employeeRoles]="employeeRoles"
+  [banks]="banks"
+  [districts]="districts"
+></app-modal-new-employee-ui>

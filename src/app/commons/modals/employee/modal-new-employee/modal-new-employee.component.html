@@ -1,1 +1,201 @@
-<p>modal-new-employee works!</p>
+<p-dialog
+  [(visible)]="visibleModal"
+  appendTo="body"
+  [modal]="true"
+  [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="new-product-dialog"
+>
+  <ng-template pTemplate="header">
+    <div class="inline-flex align-items-center justify-content-center gap-2">
+      <span class="font-bold white-space-nowrap">
+        {{ employee ? "Actualizar empleado" : "Nuevo empleado" }}
+      </span>
+    </div>
+  </ng-template>
+  <form class="surface-ground" [formGroup]="employeeFormPresenter.Form">
+    <div class="surface-card p-4 border-round p-fluid">
+      <div class="grid formgrid p-fluid">
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="firstName" class="font-medium text-900">Nombre</label>
+          <input
+            id="firstName"
+            formControlName="firstName"
+            autocomplete="off"
+            type="text"
+            pInputText
+          />
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="lastName" class="font-medium text-900">Apellido</label>
+          <input
+            id="lastName"
+            formControlName="lastName"
+            autocomplete="off"
+            type="text"
+            pInputText
+          />
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="typeDocument" class="font-medium text-900"
+            >Tipo Documento</label
+          >
+          <p-dropdown
+            inputId="typeDocument"
+            [options]="documentsType"
+            optionValue="id"
+            formControlName="typeDocument"
+            optionLabel="name"
+            placeholder="Seleccione"
+          >
+          </p-dropdown>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="document" class="font-medium text-900">Document</label>
+          <input
+            id="document"
+            formControlName="document"
+            autocomplete="off"
+            type="text"
+            pInputText
+          />
+        </div>
+
+        <div class="field mb-4 col-12 md:col-4">
+          <label for="bank" class="font-medium text-900">Banco</label>
+          <p-dropdown
+            inputId="bank"
+            [options]="banks"
+            optionLabel="description"
+            optionValue="id"
+            formControlName="bank"
+            placeholder="Seleccióne un banco"
+          >
+          </p-dropdown>
+        </div>
+        <div class="field mb-4 col-12 md:col-4">
+          <label for="district" class="font-medium text-900">Distrito</label>
+          <p-dropdown
+            inputId="district"
+            [options]="districts"
+            optionValue="id"
+            formControlName="district"
+            optionLabel="description"
+            placeholder="Seleccione un distrito"
+          >
+          </p-dropdown>
+        </div>
+
+        <div class="field mb-4 col-12 md:col-4">
+          <label for="email" class="font-medium text-900">Email</label>
+          <input
+            id="email"
+            formControlName="email"
+            autocomplete="off"
+            type="text"
+            pInputText
+          />
+        </div>
+
+        <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
+
+        <div class="col-12 mb-2">
+          <label class="font-medium text-900 block mb-3">Rol</label>
+          <div class="flex flex-wrap gap-3">
+            <div
+              *ngFor="let tipo of employeeRoles"
+              class="flex-1 border-1 border-round-lg p-3 cursor-pointer"
+              style="min-width: 120px; background: var(--surface-card)"
+              [ngClass]="{
+                'border-blue-500 border-2 text-blue-500':
+                  employeeFormPresenter.role.value === tipo.id,
+                'hover:surface-100 border-200':
+                  employeeFormPresenter.role.value !== tipo.id,
+              }"
+              (click)="employeeFormPresenter.role.setValue(tipo.id)"
+            >
+              <div class="flex justify-content-between align-items-start mb-3">
+                <span
+                  class="inline-flex align-items-center justify-content-center border-round"
+                  style="
+                    width: 36px;
+                    height: 36px;
+                    background: var(--indigo-100);
+                  "
+                >
+                  <i
+                    class="pi pi-shield text-indigo-600"
+                    style="font-size: 1rem"
+                  ></i>
+                </span>
+                <span
+                  class="flex align-items-center justify-content-center border-circle border-1 border-300"
+                  style="width: 18px; height: 18px"
+                  [ngClass]="{
+                    'bg-blue-500 border-blue-500':
+                      employeeFormPresenter.role.value === tipo.id,
+                  }"
+                >
+                  <i
+                    *ngIf="employeeFormPresenter.role.value === tipo.id"
+                    class="pi pi-check text-white"
+                    style="font-size: 0.55rem"
+                  ></i>
+                </span>
+              </div>
+              <div class="text-900 font-medium text-sm">{{ tipo.name }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="surface-border border-top-1 opacity-50 my-4 col-12"></div>
+
+        <div class="field mb-4 col-12 md:col-4">
+          <label for="address" class="font-medium text-900">Dirección</label>
+          <input
+            id="address"
+            formControlName="address"
+            type="text"
+            pInputText
+          />
+        </div>
+
+        <div class="field mb-4 col-12 md:col-4">
+          <label for="postalCode" class="font-medium text-900"
+            >Codigo postal</label
+          >
+          <input
+            id="postalCode"
+            formControlName="postalCode"
+            type="text"
+            pInputText
+          />
+        </div>
+
+        <div class="field mb-4 col-12 md:col-4">
+          <label for="phone" class="font-medium text-900">Telefono</label>
+          <input id="phone" formControlName="phone" type="text" pInputText />
+        </div>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      [disabled]="isLoading"
+      label="Cancelar"
+      class="bg-red-500 border-red-400 hover:bg-red-600"
+      (click)="close()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [label]="employee ? 'Actualizar' : 'Guardar'"
+      [disabled]="employeeFormPresenter.Invalid || isLoading"
+      type="button"
+      (click)="employee ? updateEmployee() : saveEmployee()"
+    ></button>
+  </ng-template>
+</p-dialog>
