@@ -72,46 +72,52 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 110px">Codigo</th>
-        <th style="width: 115px" class="text-center">Nombre</th>
-        <th style="width: 120px" class="text-right">Rol</th>
-        <th style="width: 120px" class="text-right">Documento</th>
-        <th style="width: 70px" class="text-center">Localizacion</th>
-        <th style="width: 70px" class="text-center">Contacto</th>
-        <th style="width: 70px" class="text-center">Estado</th>
+        <th style="width: 110px">Código</th>
+        <th>Nombre</th>
+        <th style="width: 110px" class="text-center">Rol</th>
+        <th style="width: 130px">Documento</th>
+        <th style="width: 150px">Localización</th>
+        <th>Contacto</th>
+        <th style="width: 110px" class="text-center">Estado</th>
       </tr>
     </ng-template>
 
-    <ng-template pTemplate="body" let-purchase>
+    <ng-template pTemplate="body" let-employee>
       <tr>
         <td>
-          <span class="p-column-title">N° Comprobante</span>
-          <span class="voucher-chip">{{ purchase.fullNumber }}</span>
+          <span class="p-column-title">Código</span>
+          <span class="voucher-chip">{{ employee.code }}</span>
         </td>
         <td>
-          <span class="p-column-title">Empleado</span>
-          {{ purchase.employee.firstName }}
-          <span class="text-sm text-color-secondary ml-1"
-            >({{ purchase.employee.document }})</span
-          >
+          <span class="p-column-title">Nombre</span>
+          {{ employee.firstName + " " + employee.lastName }}
         </td>
         <td class="text-center">
-          <span class="p-column-title">Canal</span>
+          <span class="p-column-title">Rol</span>
           <p-tag
-            [value]="purchase.channel"
-            [severity]="purchase.channel === 'PHYSICAL' ? 'info' : 'success'"
+            [value]="employee.role"
+            [severity]="employee.role === 'PHYSICAL' ? 'info' : 'success'"
           ></p-tag>
         </td>
-
-        <td class="text-right">
-          <span class="p-column-title">Subtotal</span>
-          S/ {{ purchase.subTotal | number: "1.2-2" }}
+        <td>
+          <span class="p-column-title">Documento</span>
+          {{ employee.document }}
         </td>
-        <td class="text-right">
-          <span class="p-column-title">Total</span>
-          <span class="font-bold"
-            >S/ {{ purchase.total | number: "1.2-2" }}</span
-          >
+        <td>
+          <span class="p-column-title">Localización</span>
+          {{ employee.district.name }}
+        </td>
+        <td>
+          <span class="p-column-title">Contacto</span>
+          {{ employee.email }}
+        </td>
+        <td class="text-center">
+          <span class="p-column-title">Estado</span>
+        <p-tag
+          [tagStatus]="employee.status"
+          class="text-white"
+          [styleClass]="'text-white'"
+        ></p-tag>
         </td>
       </tr>
     </ng-template>

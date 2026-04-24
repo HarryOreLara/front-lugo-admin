@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Employee } from '@class/employee/employee.class';
 
 @Component({
   selector: 'app-employee-header-info-ui',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class EmployeeHeaderInfoComponent {
 
+    @Input() public employees: Employee[] = [];
+  
 }

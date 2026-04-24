@@ -1,13 +1,12 @@
 import { Component, Input } from '@angular/core';
+import { Employee } from '@class/employee/employee.class';
 
 @Component({
   selector: 'app-employee-table-list-ui',
   templateUrl: './employee-table-list.component.html',
-  styleUrls: ['./employee-table-list.component.css']
+  styleUrls: ['./employee-table-list.component.css'],
 })
 export class EmployeeTableListComponent {
-
   @Input() public isLoading: boolean;
-  @Input() public employees: any;
-
+  @Input() public employees: Employee[] = [];
 }
