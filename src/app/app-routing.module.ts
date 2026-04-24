@@ -49,13 +49,22 @@ const routes: Routes = [
       {
         path: 'users-and-roles',
         loadChildren: () =>
-          import('./pages/users-and-roles/users-and-roles.module').then((m) => m.UsersAndRolesModule),
+          import('./pages/users-and-roles/users-and-roles.module').then(
+            (m) => m.UsersAndRolesModule,
+          ),
       },
       {
         path: 'script-generator',
         loadChildren: () =>
           import('./pages/automation/script-generator/script-generator.module').then(
             (m) => m.ScriptGeneratorModule,
+          ),
+      },
+      {
+        path: 'employee',
+        loadChildren: () =>
+          import('./pages/employee/employee.module').then(
+            (m) => m.EmployeeModule,
           ),
       },
     ],

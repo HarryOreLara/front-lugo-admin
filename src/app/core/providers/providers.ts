@@ -4,6 +4,7 @@ import { CATEGORY_PROVIDER } from './category.provider';
 import { INVENTARY_PROVIDER } from './inventary.provider';
 import { CLIENT_PROVIDER } from './client.provider';
 import { PURCHASE_PROVIDER } from './purchase.provider';
+import { EMPLOYEE_PROVIDER } from './employee.provider';
 
 export const APP_PROVIDERS: Array<Provider> = [
   ...PRODUCT_PROVIDER,
@@ -11,4 +12,5 @@ export const APP_PROVIDERS: Array<Provider> = [
   ...INVENTARY_PROVIDER,
   ...CLIENT_PROVIDER,
   ...PURCHASE_PROVIDER,
+  ...EMPLOYEE_PROVIDER,
 ];

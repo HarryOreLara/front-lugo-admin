@@ -329,6 +329,16 @@ export const CONST_MENU: Array<IMenu> = [
         children: [],
       },
       {
+        id: 55,
+        icon: 'pi pi-chart-line',
+        name: 'Trabajadores',
+        node: 'MENU_CHILD_PARAMS',
+        code: 'CHILD_EMPLOYEE',
+        typeMenu: 'CHILD',
+        route: '/employee',
+        children: [],
+      },
+      {
         id: 11,
         icon: 'pi pi-chart-line',
         name: 'Promociones',
@@ -401,7 +411,6 @@ export const CONST_MENU: Array<IMenu> = [
           {
             id: 43,
             icon: 'pi pi-chart-line',
-
             name: 'Roles',
             node: 'MENU_GRAND_CHILD_PARAMS',
             code: 'GRAND_CHILD_ROLES',
@@ -412,7 +421,6 @@ export const CONST_MENU: Array<IMenu> = [
           {
             id: 44,
             icon: 'pi pi-chart-line',
-
             name: 'Permisos',
             node: 'MENU_GRAND_CHILD_PARAMS',
             code: 'GRAND_CHILD_PERMISES',

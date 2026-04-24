@@ -1,0 +1,108 @@
+
+.employee-wrapper {
+  border: 0.5px solid var(--surface-border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface-card);
+}
+
+.employee-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--surface-border);
+  background: var(--surface-ground);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.employee-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--blue-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+  line-height: 1;
+}
+
+.header-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-color-secondary);
+  margin: 3px 0 0;
+}
+
+.btn-excel-custom {
+  background: var(--green-100) !important;
+  border-color: var(--green-400) !important;
+  color: var(--green-700) !important;
+}
+
+.btn-excel-custom:hover {
+  background: var(--green-200) !important;
+}
+
+.btn-summary-custom {
+  background: var(--blue-100) !important;
+  border-color: var(--blue-400) !important;
+  color: var(--blue-700) !important;
+}
+
+.btn-summary-custom:hover {
+  background: var(--blue-200) !important;
+}
+
+.voucher-chip {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--blue-700);
+  background: var(--blue-100);
+  padding: 3px 8px;
+  border-radius: 5px;
+}
+
+/* Stack responsive */
+.p-column-title {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .p-column-title {
+    display: inline-block;
+    font-weight: 700;
+    min-width: 120px;
+    margin-right: 0.5rem;
+    color: var(--text-color-secondary);
+  }
+
+  :host ::ng-deep .p-datatable.p-datatable-stack .p-datatable-tbody > tr > td {
+    display: flex;
+    align-items: center;
+    border: 0;
+    padding: 0.4rem 1rem;
+  }
+
+  :host ::ng-deep .p-datatable.p-datatable-stack .p-datatable-tbody > tr > td:last-child {
+    padding-bottom: 1rem;
+  }
+
+  .employee-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

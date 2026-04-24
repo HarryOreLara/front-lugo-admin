@@ -22,6 +22,7 @@ import {
 import { LugoStateService } from '@states/lugo-state/lugo-state.service';
 import { ModalNewInventaryModule } from './commons/modals/products/modal-new-inventary/modal-new-inventary.module';
 import { ModalNewClientModule } from './commons/modals/client/modal-new-client/modal-new-client.module';
+import { ModalNewEmployeeModule } from './commons/modals/employee/modal-new-employee/modal-new-employee.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,7 +38,8 @@ import { ModalNewClientModule } from './commons/modals/client/modal-new-client/m
     ModalNewProductModule,
     ModalNewCategoryModule,
     ModalNewInventaryModule,
-    ModalNewClientModule
+    ModalNewClientModule,
+    ModalNewEmployeeModule
   ],
   providers: [
     PrimeNGConfig,
