@@ -7,6 +7,6 @@ export interface EmployeeRepository {
   getAllEmployee(page: number, size: number): Observable<Employee[]>;
   findEmployeeById(id: number): Observable<Employee>;
   createEmployee(employee: IEmployeeRequest): Observable<Employee>;
-  updateEmployee(id: number, Employee: IEmployeeRequest): Observable<Employee>;
+  updateEmployee(id: number, employee: IEmployeeRequest): Observable<Employee>;
   deleteEmployee(id: number): Observable<Employee>;
 }

@@ -6,4 +6,5 @@ export * from './inventary-movement.enum';
 export * from './parameters.enum';
 export * from './status.enum';
 export * from './order-status.enum';
-export * from './payment-status.enum';;
+export * from './payment-status.enum';
+export * from './employee-role.enum';
