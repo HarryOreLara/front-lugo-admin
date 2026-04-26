@@ -14,6 +14,10 @@ export class EmployeeTableListComponent {
     new EventEmitter<void>();
 
   newEmployee() {
-    this.newEmployeeEmit.emit()
+    this.newEmployeeEmit.emit();
   }
+
+  updateEmployee() {}
+
+  deleteEmployee() {}
 }
