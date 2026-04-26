@@ -1,4 +1,5 @@
 import { Channel } from '@enums/channel.enum';
+import { DocumentType } from '@enums/document-type.enum';
 import { EmployeeRole } from '@enums/employee-role.enum';
 import { Status } from '@enums/status.enum';
 

@@ -1,7 +1,8 @@
 import { StepPresenter } from '@states/forms/step.presenter';
 import { IEmployeeForm } from './models/employee-form.model';
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, ValidatorFn } from '@angular/forms';
+import { DocumentType } from '@enums/document-type.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -32,17 +33,19 @@ export class EmployeeFormPresenter extends StepPresenter<IEmployeeForm> {
     this.phone = new FormControl(null, []);
     this.role = new FormControl(null, []);
     this.isActive = new FormControl(null, []);
-    this.typeDocument = new FormControl(null, []);
+    this.typeDocument = new FormControl(DocumentType.DNI, []);
     this.document = new FormControl(null, []);
     this.address = new FormControl(null, []);
     this.postalCode = new FormControl(null, []);
     this.status = new FormControl(null, []);
     this.district = new FormControl(null, []);
     this.bank = new FormControl(null, []);
+
+    this.document.setValidators(this.documentValidator());
+    this.phone.setValidators(this.phoneValidator());
   }
 
   public createForm(): void {
-
     this.form = this.fb.group({
       firstName: this.firstName,
       lastName: this.lastName,
@@ -58,5 +61,44 @@ export class EmployeeFormPresenter extends StepPresenter<IEmployeeForm> {
       district: this.district,
       bank: this.bank,
     });
+  }
+
+  public documentValidator(): ValidatorFn {
+    return (control) => {
+      if (!control.value) return null;
+
+      const value = control.value.toString();
+      const type = this.typeDocument?.value;
+
+      switch (type) {
+        case DocumentType.DNI:
+          if (value.length !== 8) {
+            return { document: true };
+          }
+          break;
+      }
+
+      return null;
+    };
+  }
+
+  public phoneValidator(): ValidatorFn {
+    return (control) => {
+      if (!control.value) return null;
+
+      const value = control.value.toString();
+
+      const phoneRegex = /^9\d{8}$/;
+
+      if (!phoneRegex.test(value)) {
+        return {
+          phoneInvalid: {
+            message: 'El teléfono debe tener 9 dígitos y empezar con 9',
+          },
+        };
+      }
+
+      return null;
+    };
   }
 }

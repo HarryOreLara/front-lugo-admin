@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalService } from '@components//host/app-modal.service';
 import { EmployeeFacade } from '@patterns//facade/employee.facade';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { IEmployeeForm } from './models/employee-form.model';
 import { LugoStateService } from '@states/lugo-state/lugo-state.service';
 import { ParameterNode } from '@enums/parameters.enum';
@@ -37,6 +37,13 @@ export class ModalNewEmployeeContainer implements OnInit, OnDestroy {
 
   public saveEmployee(employee: IEmployeeForm) {
     this.employeeFacade.saveEmployeeFc(employee);
+
+    this.employeeFacade.closeModal$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.close();
+      });
+
   }
 
   public close() {

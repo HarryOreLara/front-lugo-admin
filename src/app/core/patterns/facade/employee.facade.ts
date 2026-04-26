@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Employee } from '@class/employee/employee.class';
 import { EmployeeService } from '@service/employee/employee.service';
 import { BehaviorSubject, finalize, Subject, takeUntil, tap } from 'rxjs';
+import { createEmployeeMapper } from 'src/app/commons/modals/employee/modal-new-employee/mapper/employee.mapper';
 import { IEmployeeForm } from 'src/app/commons/modals/employee/modal-new-employee/models/employee-form.model';
 
 @Injectable({
@@ -23,10 +24,13 @@ export class EmployeeFacade {
   }
 
   saveEmployeeFc(employeeForm: IEmployeeForm) {
+
+    const employeeFacade = createEmployeeMapper(employeeForm);
+
     this.loading$.next(true);
 
     this.employeeService
-      .createEmployee(employeeForm)
+      .createEmployee(employeeFacade)
       .pipe(
         tap((response) => {
           this.employees$.next([response, ...this.employees$.value]);

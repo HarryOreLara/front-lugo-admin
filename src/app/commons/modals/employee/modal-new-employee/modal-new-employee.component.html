@@ -24,6 +24,7 @@
             id="firstName"
             formControlName="firstName"
             autocomplete="off"
+            lugoReactiveForm
             type="text"
             pInputText
           />
@@ -34,6 +35,7 @@
             id="lastName"
             formControlName="lastName"
             autocomplete="off"
+            lugoReactiveForm
             type="text"
             pInputText
           />
@@ -57,6 +59,7 @@
           <input
             id="document"
             formControlName="document"
+            lugoReactiveForm
             autocomplete="off"
             type="text"
             pInputText
@@ -93,6 +96,7 @@
           <input
             id="email"
             formControlName="email"
+            lugoReactiveForm
             autocomplete="off"
             type="text"
             pInputText
@@ -158,6 +162,8 @@
             id="address"
             formControlName="address"
             type="text"
+            autocomplete="off"
+            lugoReactiveForm
             pInputText
           />
         </div>
@@ -170,13 +176,30 @@
             id="postalCode"
             formControlName="postalCode"
             type="text"
+            autocomplete="off"
             pInputText
           />
         </div>
 
         <div class="field mb-4 col-12 md:col-4">
           <label for="phone" class="font-medium text-900">Telefono</label>
-          <input id="phone" formControlName="phone" type="text" pInputText />
+          <input
+            id="phone"
+            formControlName="phone"
+            autocomplete="off"
+            type="text"
+            lugoReactiveForm
+            pInputText
+          />
+        </div>
+
+        <div class="field mb-4 col-12 flex align-items-center">
+          <span class="mr-2 text-900">Empleado activo</span>
+          <p-checkbox
+            formControlName="isActive"
+            value="true"
+            [binary]="true"
+          ></p-checkbox>
         </div>
       </div>
     </div>
