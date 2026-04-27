@@ -1,15 +1,25 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { LoginPresenter } from './login.presenter';
+import { ILoginForm } from './models/login-form.model';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-login-ui',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  constructor(private readonly router: Router) {}
+  @Output() public loginEmmiter: EventEmitter<ILoginForm> =
+    new EventEmitter<ILoginForm>();
+  constructor(public loginPresenter: LoginPresenter) {
+    this.createControls();
+  }
 
   public login() {
-    this.router.navigateByUrl('/dashboard');
+    this.loginEmmiter.emit(this.loginPresenter.Form.getRawValue());
+  }
+
+  private createControls() {
+    this.loginPresenter.initForm();
+    this.loginPresenter.createForm();
   }
 }
