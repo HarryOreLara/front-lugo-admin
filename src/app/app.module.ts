@@ -13,8 +13,8 @@ import { DialogModule } from 'primeng/dialog';
 import { ModalNewProductModule } from './commons/modals/products/modal-new-product/modal-new-product.module';
 import { APP_PROVIDERS } from './core/providers/providers';
 import { ModalNewCategoryModule } from './commons/modals/products/modal-new-category/modal-new-category.module';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ErrorInterceptor } from './commons/interceptors/error-interceptor';
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
+import { ErrorInterceptor } from './commons/interceptors/error.interceptor';
 import {
   initParameters,
   ParameterService,
@@ -23,6 +23,9 @@ import { LugoStateService } from '@states/lugo-state/lugo-state.service';
 import { ModalNewInventaryModule } from './commons/modals/products/modal-new-inventary/modal-new-inventary.module';
 import { ModalNewClientModule } from './commons/modals/client/modal-new-client/modal-new-client.module';
 import { ModalNewEmployeeModule } from './commons/modals/employee/modal-new-employee/modal-new-employee.module';
+import { CredentialsInterceptor } from './commons/interceptors/credentials.interceptor';
+import { authInitializer } from '@states/auth/auth.initializer';
+import { AuthService } from '@service/auth/auth.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,10 +42,17 @@ import { ModalNewEmployeeModule } from './commons/modals/employee/modal-new-empl
     ModalNewCategoryModule,
     ModalNewInventaryModule,
     ModalNewClientModule,
-    ModalNewEmployeeModule
+    ModalNewEmployeeModule,
   ],
   providers: [
     PrimeNGConfig,
+    provideHttpClient(),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: authInitializer,
+      deps: [AuthService, LugoStateService],
+      multi: true,
+    },
     {
       provide: APP_INITIALIZER,
       useFactory: initParameters,
@@ -52,6 +62,11 @@ import { ModalNewEmployeeModule } from './commons/modals/employee/modal-new-empl
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CredentialsInterceptor,
       multi: true,
     },
     ...APP_PROVIDERS,

@@ -15,8 +15,8 @@ export class LoginPresenter extends StepPresenter<ILoginForm> {
   }
 
   public initForm(): void {
-    this.username = new FormControl(null, []);
-    this.password = new FormControl(null, []);
+    this.username = new FormControl('C84744', []);
+    this.password = new FormControl('84744448', []);
   }
 
   public createForm(): void {

@@ -1,4 +1,4 @@
-import {
+ import {
   HttpErrorResponse,
   HttpEvent,
   HttpHandler,
@@ -15,7 +15,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(
     private readonly router: Router,
-    private readonly alertBussService: AlertBussService, // o tu servicio de alertas
+    private readonly alertBussService: AlertBussService,
   ) {}
 
   intercept(
