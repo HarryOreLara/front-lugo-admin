@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { createLoginMapper } from '@pages/auth/login/mappers/login.mapper';
 import { ILoginForm } from '@pages/auth/login/models/login-form.model';
 import { AuthService } from '@service/auth/auth.service';
-import { LugoStateService } from '@states/lugo-state/lugo-state.service';
+import { AuthStateService } from '@states/lugo-state/auth-state.service';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class AuthFacade implements OnDestroy {
 
   public constructor(
     private readonly authService: AuthService,
-    private readonly lugoState: LugoStateService,
+    private readonly authState: AuthStateService,
     private readonly router: Router,
   ) {}
 
@@ -28,7 +28,7 @@ export class AuthFacade implements OnDestroy {
 
     this.authService.login(loginMapper).subscribe({
       next: (user) => {
-        this.lugoState.set('user-state', user);
+        this.authState.setUser(user);
         this.loading$.next(false);
         this.router.navigate(['/dashboard']);
       },
@@ -42,8 +42,8 @@ export class AuthFacade implements OnDestroy {
   logoutFacade(): void {
     this.authService.logout().subscribe({
       next: () => {
-        this.lugoState.clear('user-state');
-        this.router.navigate(['/login']);
+        this.authState.clearUser();
+        this.router.navigate(['/']);
       },
     });
   }

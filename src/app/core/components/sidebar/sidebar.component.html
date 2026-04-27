@@ -100,11 +100,12 @@
         <li>
           <a
             pRipple
+            (click)="logout()"
             class="flex align-items-center cursor-pointer p-3 hover:bg-bluegray-700 text-gray-300 transition-duration-150 transition-colors"
             style="border-radius: 30px"
           >
             <i class="pi pi-sign-out mr-2"></i>
-            <span class="font-medium">Sign Out</span>
+            <span class="font-medium">Cerrar Sesión</span>
           </a>
         </li>
       </ul>
@@ -123,7 +124,7 @@
           class="mr-2"
           style="width: 28px; height: 28px"
         />
-        <span class="font-medium">Amy Elsner</span>
+        <span class="font-medium">{{ name }}</span>
         <i class="pi pi-chevron-up ml-auto"></i>
       </a>
     </div>

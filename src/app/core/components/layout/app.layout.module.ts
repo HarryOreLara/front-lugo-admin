@@ -29,7 +29,6 @@ import { TopbarComponent } from '../topbar/topbar.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    // SharedAuthModule,
     RippleModule,
     StyleClassModule,
     SelectButtonModule,

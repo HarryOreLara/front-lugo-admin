@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthCookieService } from '@service/cookie/cookie.service';
+import { User } from '@class/auth/user.class';
+import { AuthStateService } from '@states/lugo-state/auth-state.service';
+import { LugoStateService } from '@states/lugo-state/lugo-state.service';
 
 @Component({
   selector: 'app-layout',
@@ -7,11 +9,11 @@ import { AuthCookieService } from '@service/cookie/cookie.service';
   styleUrls: ['./app.layout.component.css'],
 })
 export class AppLayoutComponent implements OnInit {
-  user: any | null;
+  public user: User;
 
-  constructor(private readonly cookieService: AuthCookieService) {}
+  constructor(private readonly authState: AuthStateService) {}
 
   ngOnInit(): void {
-    this.user = this.cookieService.getUserDataFromToken();
+    this.user = this.authState.getUser()!;
   }
 }
