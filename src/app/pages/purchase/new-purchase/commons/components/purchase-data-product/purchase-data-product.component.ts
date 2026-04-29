@@ -24,6 +24,7 @@ export class PurchaseDataProductComponent implements AfterViewInit, OnInit {
   public filteredProducts: Product[] = [];
   public productControl = new FormControl(null);
   public cartItems: CartItem[] = [];
+  public manualSearch: boolean = false;
   @ViewChild('barcodeInput') barcodeInput!: ElementRef;
   @Input() public products: Array<Product> = [];
   @Output() public cartItemEmit: EventEmitter<CartItem[]> = new EventEmitter<

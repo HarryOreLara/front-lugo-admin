@@ -3,20 +3,15 @@
     class="flex justify-content-between align-items-center border-bottom-1 mb-3 surface-border"
   >
     <span class="text-xl text-900 font-bold">Productos</span>
-    <div>
-      <button
-        pButton
-        pRipple
-        label="Busqueda manual"
-        icon="pi pi-ellipsis-v"
-        class="p-button-text p-button-plain p-button-rounded"
-      ></button>
+
+    <div class="flex align-items-center gap-2">
+      <span class="text-900">Búsqueda manual</span>
+      <p-inputSwitch [(ngModel)]="manualSearch"></p-inputSwitch>
     </div>
   </div>
-
   <div class="surface-card p-2 border-round">
     <div class="grid formgrid p-fluid">
-      <div class="col-12 field mb-4 md:col-12">
+      <div class="col-12 field mb-4 md:col-12" *ngIf="!manualSearch">
         <input
           #barcodeInput
           id="document"
@@ -29,19 +24,17 @@
           placeholder="Escanee aqui"
         />
       </div>
-      <!-- <div class="col-12 field mb-4 md:col-12">
+      <div class="col-12 field mb-4 md:col-12" *ngIf="manualSearch">
         <p-autoComplete
           [suggestions]="filteredProducts"
           (completeMethod)="filterProducts($event)"
-          field="name"
           [formControl]="productControl"
           class="search-input w-full"
           placeholder="Buscar por SKU o Nombre del Producto..."
-          (onSelect)="selection($event)"
           [dropdown]="true"
         >
         </p-autoComplete>
-      </div> -->
+      </div>
 
       <div class="cart-table">
         <div class="cart-header">
