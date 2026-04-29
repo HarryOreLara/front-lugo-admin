@@ -6,6 +6,7 @@ import { ProductsPrimengModule } from '@themes/products/products.primeng.module'
 import { FormsModule } from '@angular/forms';
 import { ProductTableModule } from "../list-products/commons/product-table/product-table.module";
 import { CategoryTableModule } from './commons/components/category-table/category-table.module';
+import { CategoryHeaderInfoModule } from "./commons/components/category-header-info/category-header-info.module";
 
 @NgModule({
   declarations: [CategoriesComponent],
@@ -15,7 +16,8 @@ import { CategoryTableModule } from './commons/components/category-table/categor
     ProductsPrimengModule,
     FormsModule,
     ProductTableModule,
-    CategoryTableModule
+    CategoryTableModule,
+    CategoryHeaderInfoModule
 ],
 })
 export class CategoriesModule {}

@@ -1,6 +1,6 @@
 <p-table
   #dt1
-  [value]="categories"
+  [value]="[]"
   dataKey="id"
   [rows]="10"
   [rowsPerPageOptions]="[10, 25, 50]"
@@ -46,26 +46,20 @@
       </th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-category let-rowIndex="rowIndex">
+  <ng-template pTemplate="body" let-brand let-rowIndex="rowIndex">
     <tr>
       <td>
         {{ rowIndex + 1 }}
       </td>
       <td>
-        {{ category.name }}
+        {{ brand.name }}
+      </td>
+
+      <td>
+        {{ brand.code }}
       </td>
       <td>
-        <p-tag
-          [tagStatus]="category.status"
-          class="text-white"
-          [styleClass]="'text-white'"
-        ></p-tag>
-      </td>
-      <td>
-        {{ category.code }}
-      </td>
-      <td>
-        {{ category.channel }}
+        {{ brand.channel }}
       </td>
       <td>
         <!-- action-menu.component.html -->
@@ -84,17 +78,14 @@
 
           <p-overlayPanel #overlayPanel [appendTo]="'body'">
             <div class="custom-menu">
-              <button
-                class="custom-menu-item"
-                (click)="updateCategory(category)"
-              >
+              <button class="custom-menu-item" (click)="updateBrand(brand)">
                 <i class="pi pi-pen-to-square"></i>
                 <span>Actualizar</span>
               </button>
 
               <button
                 class="custom-menu-item danger"
-                (click)="deleteCategory(category)"
+                (click)="deleteBrand(brand)"
               >
                 <i class="pi pi-trash"></i>
                 <span>Eliminar</span>
@@ -107,7 +98,7 @@
   </ng-template>
   <ng-template pTemplate="emptymessage">
     <tr>
-      <td colspan="7">No se encontró ninguna categoria.</td>
+      <td colspan="7">No se encontró ninguna marca.</td>
     </tr>
   </ng-template>
 </p-table>
