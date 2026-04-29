@@ -1,0 +1,551 @@
+/* ══════════════════════════════════════════
+   Permission Manager – CSS puro
+   PrimeNG 16 + PrimeFlex compatible
+   ══════════════════════════════════════════ */
+
+/* ── Variables */
+:root {
+  --surface:       #0f172a;
+  --surface-card:  #1e293b;
+  --surface-raised:#253347;
+  --border:        #334155;
+  --text-primary:  #f1f5f9;
+  --text-muted:    #94a3b8;
+  --accent:        #6366f1;
+  --success:       #10b981;
+  --danger:        #ef4444;
+  --warning:       #f59e0b;
+}
+
+/* ── Layout */
+.perm-manager {
+  min-height: 100vh;
+  background: var(--surface);
+  padding: 1.5rem;
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+/* ── Header */
+.perm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #6366f1, #818cf8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.header-sub {
+  margin: 2px 0 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ── Unsaved banner */
+.unsaved-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: 10px;
+  padding: 0.65rem 1rem;
+  color: var(--warning);
+  font-size: 0.88rem;
+  margin-bottom: 1.25rem;
+}
+
+.unsaved-banner i {
+  font-size: 1rem;
+}
+
+/* ── Body layout */
+.perm-body {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+/* ══ ROLES PANEL ══════════════════════ */
+.roles-panel {
+  width: 240px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.roles-panel-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin: 0 0 0.25rem;
+}
+
+.role-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid transparent;
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.role-card:hover {
+  background: var(--surface-raised);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.role-card.active {
+  border-left-color: var(--role-color, var(--accent));
+  background: var(--surface-raised);
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.2), 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.role-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.65rem;
+}
+
+.role-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.role-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.role-name {
+  display: block;
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.role-handle {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.role-check {
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.role-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.role-progress-bar {
+  flex: 1;
+  height: 5px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.role-progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+.role-pct {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  width: 28px;
+  text-align: right;
+}
+
+.role-count {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* ══ PERMS PANEL ══════════════════════ */
+.perms-panel {
+  flex: 1;
+  min-width: 0;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.perms-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-raised);
+}
+
+.search-wrap {
+  position: relative;
+}
+
+.search-wrap .pi-search {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.search-input {
+  padding-left: 2.2rem !important;
+  background: var(--surface-card) !important;
+  border-color: var(--border) !important;
+  color: var(--text-primary) !important;
+  border-radius: 8px !important;
+  width: 200px;
+  font-size: 0.875rem;
+}
+
+.search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-input:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25) !important;
+}
+
+.active-role-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  padding: 0.6rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.active-role-badge .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.active-role-badge strong {
+  color: var(--text-primary);
+}
+
+/* ── Grid layout */
+.perm-grid {
+  display: grid;
+  grid-template-columns: 280px repeat(5, 96px) 80px;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.perm-grid-header {
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid var(--border);
+}
+
+.perm-grid-header .col-module,
+.perm-grid-header .col-perm,
+.perm-grid-header .col-toggle {
+  padding: 0.7rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.perm-grid-header .col-module,
+.perm-grid-header .col-perm i {
+  font-size: 0.85rem;
+}
+
+.col-module {
+  padding-left: 0;
+}
+
+.center {
+  justify-content: center;
+  text-align: center;
+}
+
+/* ── Rows */
+.perm-row {
+  display: grid;
+  grid-template-columns: 280px repeat(5, 96px) 80px;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+  transition: background 0.15s ease;
+}
+
+.perm-row:last-child {
+  border-bottom: none;
+}
+
+.perm-row:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.perm-row.row-full {
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.perm-row.row-full:hover {
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.perm-row.row-partial {
+  background: rgba(99, 102, 241, 0.04);
+}
+
+.perm-row.row-partial:hover {
+  background: rgba(99, 102, 241, 0.07);
+}
+
+.perm-row .col-perm {
+  display: flex;
+  justify-content: center;
+}
+
+.perm-row .col-toggle {
+  display: flex;
+  justify-content: center;
+}
+
+.mod-icon-wrap {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mod-icon-wrap i {
+  font-size: 0.95rem;
+  color: var(--accent);
+}
+
+.perm-row .col-module {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding-left: 0;
+}
+
+.mod-info {
+  min-width: 0;
+}
+
+.mod-name {
+  display: block;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-primary);
+}
+
+.mod-desc {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+/* ── Empty state */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+  gap: 0.75rem;
+}
+
+.empty-state i {
+  font-size: 2.5rem;
+  opacity: 0.4;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* ══ PrimeNG overrides (dark theme) ═══ */
+
+/* Checkbox */
+.p-checkbox .p-checkbox-box {
+  background: var(--surface-raised) !important;
+  border-color: var(--border) !important;
+  border-radius: 5px !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.p-checkbox .p-checkbox-box.p-highlight {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+
+/* InputSwitch */
+.p-inputswitch .p-inputswitch-slider {
+  background: var(--border) !important;
+}
+
+.p-inputswitch .p-inputswitch-slider:before {
+  background: #fff !important;
+}
+
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  background: var(--success) !important;
+}
+
+/* SelectButton */
+.p-selectbutton .p-button {
+  background: var(--surface-card) !important;
+  border-color: var(--border) !important;
+  color: var(--text-muted) !important;
+  font-size: 0.78rem !important;
+  padding: 0.4rem 0.75rem !important;
+}
+
+.p-selectbutton .p-button.p-highlight {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #fff !important;
+}
+
+.p-selectbutton .p-button:hover:not(.p-highlight) {
+  background: var(--surface-raised) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Buttons */
+.p-button {
+  border-radius: 8px !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Toast */
+.p-toast .p-toast-message {
+  border-radius: 10px !important;
+}
+
+/* Confirm dialog */
+.p-dialog {
+  background: var(--surface-card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 14px !important;
+  color: var(--text-primary) !important;
+}
+
+.p-dialog .p-dialog-header {
+  background: var(--surface-raised) !important;
+  color: var(--text-primary) !important;
+}
+
+.p-dialog .p-dialog-content {
+  background: var(--surface-card) !important;
+  color: var(--text-muted) !important;
+}
+
+.p-dialog .p-dialog-footer {
+  background: var(--surface-card) !important;
+}
+
+/* ── Responsive */
+@media (max-width: 1024px) {
+  .perm-body {
+    flex-direction: column;
+  }
+
+  .roles-panel {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .role-card {
+    flex: 1 1 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .perm-grid,
+  .perm-row {
+    grid-template-columns: 1fr repeat(3, 70px) 60px;
+  }
+
+  /* Ocultar columnas "Crear" y "Exportar" en móvil */
+  .perm-grid .col-perm:nth-child(3),
+  .perm-grid .col-perm:nth-child(5),
+  .perm-row .col-perm:nth-child(3),
+  .perm-row .col-perm:nth-child(5) {
+    display: none;
+  }
+}

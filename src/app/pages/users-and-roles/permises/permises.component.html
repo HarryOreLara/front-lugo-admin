@@ -1,1 +1,165 @@
-<p>permises works!</p>
+
+<div class="perm-manager">
+
+  <!-- ══ HEADER ══ -->
+  <div class="perm-header">
+    <div class="flex align-items-center gap-3">
+      <div class="header-icon">
+        <i class="pi pi-shield"></i>
+      </div>
+      <div>
+        <h1 class="header-title">Gestión de Permisos</h1>
+        <p class="header-sub">Configura los accesos por módulo para cada rol del sistema</p>
+      </div>
+    </div>
+    <div class="flex gap-2 align-items-center">
+      <p-button
+        *ngIf="hasChanges"
+        label="Descartar"
+        icon="pi pi-times"
+        styleClass="p-button-outlined p-button-secondary"
+        (onClick)="discardChanges()">
+      </p-button>
+      <p-button
+        label="Guardar cambios"
+        icon="pi pi-check"
+        [disabled]="!hasChanges"
+        (onClick)="saveChanges()">
+      </p-button>
+    </div>
+  </div>
+
+  <!-- ══ UNSAVED BANNER ══ -->
+  <div *ngIf="hasChanges" class="unsaved-banner">
+    <i class="pi pi-exclamation-circle"></i>
+    <span>Tienes cambios sin guardar en el rol <strong>{{ selectedRole.label }}</strong></span>
+  </div>
+
+  <div class="perm-body">
+
+    <!-- ══ LEFT: ROLES PANEL ══ -->
+    <div class="roles-panel">
+      <p class="roles-panel-title">Roles del sistema</p>
+
+      <div class="role-card"
+           *ngFor="let role of roles"
+           [class.active]="selectedRole.id === role.id"
+           (click)="selectRole(role)"
+           [style.--role-color]="role.color">
+
+        <div class="role-card-top">
+          <span class="role-avatar" [style.background]="role.color">
+            {{ role.label.charAt(0) }}
+          </span>
+          <div class="role-info">
+            <span class="role-name">{{ role.label }}</span>
+            <span class="role-handle">@{{ role.name }}</span>
+          </div>
+          <i *ngIf="selectedRole.id === role.id" class="pi pi-check-circle role-check"></i>
+        </div>
+
+        <div class="role-progress-wrap">
+          <div class="role-progress-bar">
+            <div class="role-progress-fill"
+                 [style.width.%]="getProgressValue(role.id)"
+                 [style.background]="role.color">
+            </div>
+          </div>
+          <span class="role-pct">{{ getProgressValue(role.id) }}%</span>
+        </div>
+        <span class="role-count">{{ getEnabledCount(role.id) }} / {{ getTotalPermissions() }} permisos activos</span>
+      </div>
+    </div>
+
+    <!-- ══ RIGHT: PERMISSIONS TABLE ══ -->
+    <div class="perms-panel">
+
+      <!-- Toolbar -->
+      <div class="perms-toolbar">
+        <div class="flex align-items-center gap-2">
+          <span class="p-input-icon-left search-wrap">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" placeholder="Buscar módulo..."
+                   [(ngModel)]="searchText" class="search-input"/>
+          </span>
+          <p-selectButton
+            
+            [(ngModel)]="filterMode"
+            optionLabel="label"
+            optionValue="value">
+          </p-selectButton>
+        </div>
+        <div class="flex gap-2">
+          <p-button label="Conceder todo" icon="pi pi-check-square"
+                    styleClass="p-button-sm p-button-success p-button-outlined"
+                    (onClick)="grantAll()">
+          </p-button>
+          <p-button label="Revocar todo" icon="pi pi-times-circle"
+                    styleClass="p-button-sm p-button-danger p-button-outlined"
+                    (onClick)="revokeAll()">
+          </p-button>
+        </div>
+      </div>
+
+      <!-- Role badge activo -->
+      <div class="active-role-badge" [style.border-color]="selectedRole.color">
+        <span class="dot" [style.background]="selectedRole.color"></span>
+        Configurando permisos para: <strong>{{ selectedRole.label }}</strong>
+      </div>
+
+      <!-- Header columnas -->
+      <div class="perm-grid perm-grid-header">
+        <div class="col-module">Módulo</div>
+        <div class="col-perm center" *ngFor="let perm of permissions">
+          <i [class]="perm.icon" [pTooltip]="perm.label" tooltipPosition="top"></i>
+          <span>{{ perm.label }}</span>
+        </div>
+        <div class="col-toggle center">Todo</div>
+      </div>
+
+      <!-- Filas -->
+      <div *ngIf="filteredModules.length === 0" class="empty-state">
+        <i class="pi pi-filter-slash"></i>
+        <p>No hay módulos que coincidan con el filtro</p>
+      </div>
+
+      <div class="perm-row" *ngFor="let mod of filteredModules; let i = index"
+           [class.row-full]="isModuleFullyGranted(mod.id)"
+           [class.row-partial]="isModulePartiallyGranted(mod.id)">
+
+        <!-- Módulo info -->
+        <div class="col-module">
+          <div class="mod-icon-wrap">
+            <i [class]="mod.icon"></i>
+          </div>
+          <div class="mod-info">
+            <span class="mod-name">{{ mod.name }}</span>
+            <span class="mod-desc">{{ mod.description }}</span>
+          </div>
+        </div>
+
+        <!-- Checkboxes de permisos -->
+        <div class="col-perm center" *ngFor="let perm of permissions">
+          <p-checkbox
+            [binary]="true"
+            [ngModel]="getPermission(mod.id, perm.key)"
+            (onChange)="togglePermission(mod.id, perm.key)"
+            [pTooltip]="perm.label + ': ' + (getPermission(mod.id, perm.key) ? 'Activo' : 'Inactivo')"
+            tooltipPosition="top">
+          </p-checkbox>
+        </div>
+
+        <!-- Toggle fila completa -->
+        <div class="col-toggle center">
+          <p-inputSwitch
+            [ngModel]="isModuleFullyGranted(mod.id)"
+            (onChange)="toggleAllModulePermissions(mod.id)"
+            [pTooltip]="isModuleFullyGranted(mod.id) ? 'Revocar todo' : 'Conceder todo'"
+            tooltipPosition="top">
+          </p-inputSwitch>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

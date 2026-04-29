@@ -1,1 +1,20 @@
-<p>roles works!</p>
+<div class="grid border-round surface-card">
+  <div
+    *ngFor="let item of employeeRoles"
+    [class]="item.containerClass"
+  >
+    <div class="m-3">
+      <span [class]="item.iconWrapperClass">
+        <i [class]="item.icon + ' ' + item.iconClass"></i>
+      </span>
+
+      <div class="text-900 font-medium text-xl mb-3">
+        {{ item.name }}
+      </div>
+
+      <p class="mt-0 text-600 line-height-3">
+        {{ item.description }}
+      </p>
+    </div>
+  </div>
+</div>

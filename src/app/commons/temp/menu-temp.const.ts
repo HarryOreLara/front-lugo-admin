@@ -398,16 +398,16 @@ export const CONST_MENU: Array<IMenu> = [
         typeMenu: 'CHILD',
         route: '/users-and-roles',
         children: [
-          {
-            id: 42,
-            icon: 'pi pi-chart-line',
-            name: 'Usuarios',
-            node: 'MENU_GRAND_CHILD_PARAMS',
-            code: 'GRAND_CHILD_USERS',
-            typeMenu: 'GRAND_CHILD',
-            route: '/users',
-            children: [],
-          },
+          // {
+          // //   id: 42,
+          // //   icon: 'pi pi-chart-line',
+          // //   name: 'Usuarios',
+          // //   node: 'MENU_GRAND_CHILD_PARAMS',
+          // //   code: 'GRAND_CHILD_USERS',
+          // //   typeMenu: 'GRAND_CHILD',
+          // //   route: '/users',
+          // //   children: [],
+          // // },
           {
             id: 43,
             icon: 'pi pi-chart-line',

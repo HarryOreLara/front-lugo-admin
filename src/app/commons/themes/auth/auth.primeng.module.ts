@@ -9,6 +9,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { StyleClassModule } from 'primeng/styleclass';
 import { TagModule } from 'primeng/tag';
 import { CheckboxModule } from 'primeng/checkbox';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   exports: [
@@ -22,6 +23,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     AvatarGroupModule,
     AvatarModule,
     CheckboxModule,
+    TooltipModule,
   ],
 })
 export class AuthPrimengModule {}
