@@ -25,7 +25,7 @@ export class PurchaseDataProductComponent implements AfterViewInit, OnInit {
   public productControl = new FormControl(null);
   public cartItems: CartItem[] = [];
   public manualSearch: boolean = false;
-  @ViewChild('barcodeInput') barcodeInput!: ElementRef;
+  @ViewChild('barCodeInput') barCodeInput!: ElementRef;
   @Input() public products: Array<Product> = [];
   @Output() public cartItemEmit: EventEmitter<CartItem[]> = new EventEmitter<
     CartItem[]
@@ -48,7 +48,7 @@ export class PurchaseDataProductComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.barcodeInput.nativeElement.focus();
+      this.barCodeInput.nativeElement.focus();
     }, 100);
   }
 
@@ -58,7 +58,7 @@ export class PurchaseDataProductComponent implements AfterViewInit, OnInit {
       (product) =>
         product.name.toLowerCase().includes(query) ||
         product.sku?.toLowerCase().includes(query) ||
-        product.barcode?.toLowerCase().includes(query),
+        product.barCode?.toLowerCase().includes(query),
     );
   }
 
@@ -110,7 +110,7 @@ export class PurchaseDataProductComponent implements AfterViewInit, OnInit {
 
     if (!value) return;
 
-    this.productFacade.findOneProductByBarCode(value).subscribe({
+    this.productFacade.findOneProductBybarCode(value).subscribe({
       next: (res: Product) => {
         this.selection(res);
       },

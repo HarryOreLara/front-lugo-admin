@@ -114,6 +114,7 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
   }
 
   public updateForm(product: Product) {
+    console.log({ product });
     this.form.patchValue({
       ...product,
       category: product.category.id,

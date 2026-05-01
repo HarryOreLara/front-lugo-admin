@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 
 export interface ParsedProduct {
   sku: string;
-  barcode: string;
+  barCode: string;
   qrCode: string;
   name: string;
   description: string;
@@ -27,7 +27,6 @@ export interface ParsedProduct {
   providedIn: 'root',
 })
 export class ProductSqlGeneratorService {
-
   // ─── Generadores de campos automáticos ──────────────────────
 
   private generateSku(name: string): string {
@@ -35,24 +34,24 @@ export class ProductSqlGeneratorService {
       .toUpperCase()
       .replace(/[^A-Z0-9\s]/g, '')
       .split(' ')
-      .filter(w => w.length > 0);
+      .filter((w) => w.length > 0);
 
     const prefix = words
       .slice(0, 3)
-      .map(w => w.substring(0, 3))
+      .map((w) => w.substring(0, 3))
       .join('-');
 
     const suffix = Math.floor(100 + Math.random() * 900);
     return `${prefix}-${suffix}`;
   }
 
-  private generateBarcode(): string {
+  private generatebarCode(): string {
     // Genera un EAN-13 de 13 dígitos
-    let barcode = '';
+    let barCode = '';
     for (let i = 0; i < 13; i++) {
-      barcode += Math.floor(Math.random() * 10).toString();
+      barCode += Math.floor(Math.random() * 10).toString();
     }
-    return barcode;
+    return barCode;
   }
 
   private generateQrCode(sku: string): string {
@@ -88,8 +87,8 @@ export class ProductSqlGeneratorService {
     // La primera línea no vacía suele ser el nombre del producto
     const lines = text
       .split('\n')
-      .map(l => l.trim())
-      .filter(l => l.length > 0);
+      .map((l) => l.trim())
+      .filter((l) => l.length > 0);
 
     if (lines.length === 0) return 'Producto sin nombre';
 
@@ -104,21 +103,21 @@ export class ProductSqlGeneratorService {
     // Extrae líneas que empiecen con ✨, *, -, •, ❗ o similar
     return text
       .split('\n')
-      .map(l => l.trim())
-      .filter(l => /^[✨*\-•❗►→✓]/.test(l))
-      .map(l =>
+      .map((l) => l.trim())
+      .filter((l) => /^[✨*\-•❗►→✓]/.test(l))
+      .map((l) =>
         l
           .replace(/^[✨*\-•❗►→✓]\s*/, '')
           .replace(/\*/g, '')
-          .trim()
+          .trim(),
       )
-      .filter(l => l.length > 0 && !/precio|price|\d+\s*s\//i.test(l));
+      .filter((l) => l.length > 0 && !/precio|price|\d+\s*s\//i.test(l));
   }
 
   private extractStock(text: string): number {
     // Busca frases como "últimas 10 disponibles", "stock: 5", etc.
     const match = text.match(
-      /(?:últimas?|solo|stock|disponibles?)\s*[:]?\s*(\d+)/i
+      /(?:últimas?|solo|stock|disponibles?)\s*[:]?\s*(\d+)/i,
     );
     return match ? parseInt(match[1]) : 0;
   }
@@ -133,7 +132,7 @@ export class ProductSqlGeneratorService {
     const stock = this.extractStock(rawText);
 
     const sku = this.generateSku(name);
-    const barcode = this.generateBarcode();
+    const barCode = this.generatebarCode();
     const qrCode = this.generateQrCode(sku);
     const imageUrl = this.generateImageUrl(name);
 
@@ -145,13 +144,11 @@ export class ProductSqlGeneratorService {
 
     // Descripción completa: nombre + todas las features
     const descriptionFull =
-      features.length > 0
-        ? `${name}. ${features.join('. ')}.`
-        : name;
+      features.length > 0 ? `${name}. ${features.join('. ')}.` : name;
 
     return {
       sku,
-      barcode,
+      barCode,
       qrCode,
       name,
       description,
@@ -174,9 +171,7 @@ export class ProductSqlGeneratorService {
   generateSql(product: ParsedProduct): string {
     const channels = ['PHYSICAL', 'WEB', 'MOBILE'];
 
-    const channelValues = channels
-      .map(ch => `  ('${ch}')`)
-      .join(',\n');
+    const channelValues = channels.map((ch) => `  ('${ch}')`).join(',\n');
 
     return `-- ============================================================
 -- Producto: ${product.name}
@@ -193,7 +188,7 @@ WITH inserted_product AS (
     created_at, updated_at
   )
   VALUES (
-    '${product.sku}', '${product.barcode}', '${product.qrCode}', '${product.name.replace(/'/g, "''")}', '${product.description.replace(/'/g, "''")}', '${product.descriptionFull.replace(/'/g, "''")}',
+    '${product.sku}', '${product.barCode}', '${product.qrCode}', '${product.name.replace(/'/g, "''")}', '${product.description.replace(/'/g, "''")}', '${product.descriptionFull.replace(/'/g, "''")}',
     ${product.stock}, ${product.minStock}, ${product.maxStock}, ARRAY['${product.imageUrl}'],
     '${product.imageUrl}',
     'ACTIVE'::"Status",
@@ -235,7 +230,7 @@ COMMIT;
   // ─── Genera SQL para múltiples productos a la vez ────────────
 
   generateSqlFromMultipleTexts(rawTexts: string[]): string {
-    const sqls = rawTexts.map(text => this.generateSqlFromText(text));
+    const sqls = rawTexts.map((text) => this.generateSqlFromText(text));
     return sqls.join('\n\n');
   }
 }

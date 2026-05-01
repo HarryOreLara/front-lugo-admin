@@ -2,12 +2,12 @@ import { Status } from '@enums/status.enum';
 import { IProductForm, IProductPriceForm } from '../modals/product-form.modal';
 import {
   IProductPriceRequest,
-  IProductRquest,
+  IProductRequest,
 } from '../modals/product-request.modal';
 
 export const createProductMapper = (
   productForm: IProductForm,
-): IProductRquest => {
+): IProductRequest => {
   return {
     name: productForm.name,
     categoryId: productForm.category,
@@ -16,12 +16,12 @@ export const createProductMapper = (
     description: productForm.description,
     stock: productForm.stock,
     sku: productForm.sku,
-    barCode: productForm.barCode,
+    barcode: productForm.barCode,
     descriptionFull: productForm.descriptionFull,
     prices: productForm.prices.map((pric) => createPriceMapper(pric)),
     status: productForm.isActive ? Status.ACTIVE : Status.INACTIVE,
     isActive: productForm.isActive,
-  } as IProductRquest;
+  } as IProductRequest;
 };
 
 export const createPriceMapper = (

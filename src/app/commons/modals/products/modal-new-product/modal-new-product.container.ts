@@ -36,9 +36,6 @@ export class ModalNewProductContainer implements OnInit {
   public ngOnInit(): void {
     this.initParameters();
 
-    console.log('ModalNewCategoryContainer - INIT');
-    console.log('Categoría recibida:', this.product);
-
     if (this.product) {
       this.productPresenter.updateForm(this.product);
     } else {

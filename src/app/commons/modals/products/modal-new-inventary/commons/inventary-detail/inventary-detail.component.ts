@@ -46,7 +46,7 @@ export class InventaryDetailComponent implements OnInit {
       (product) =>
         product.name.toLowerCase().includes(query) ||
         product.sku?.toLowerCase().includes(query) ||
-        product.barcode?.toLowerCase().includes(query),
+        product.barCode?.toLowerCase().includes(query),
     );
   }
 

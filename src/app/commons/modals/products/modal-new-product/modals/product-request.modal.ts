@@ -1,14 +1,11 @@
-
-
-
-export interface IProductRquest {
+export interface IProductRequest {
   name: string;
   categoryId: number;
   brandId: number;
   colorId: number;
   description: string;
   stock: number;
-  // unitAmount: number;
+  barcode: string;
   // quantityBox: number;
   descriptionFull: string;
   prices: Array<IProductPriceRequest>;

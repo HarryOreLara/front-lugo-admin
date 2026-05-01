@@ -6,7 +6,7 @@ import { Color } from '@class/color/color.class';
 export class Product {
   public id: number;
   public sku: string;
-  public barcode: string;
+  public barCode: string;
   public qrCode: string;
   public name: string;
   public description: string;
@@ -29,7 +29,7 @@ export class Product {
   public constructor(product: Partial<Product> = {}) {
     this.id = product.id ?? 0;
     this.sku = product.sku ?? '';
-    this.barcode = product.barcode ?? '';
+    this.barCode = product.barCode ?? '';
     this.qrCode = product.qrCode ?? '';
     this.name = product.name ?? '';
     this.description = product.description ?? '';
@@ -56,7 +56,7 @@ export class Product {
     return new Product({
       id: casted['id'] as number,
       sku: casted['sku'] as string,
-      barcode: casted['barcode'] as string,
+      barCode: casted['barcode'] as string,
       qrCode: casted['qrCode'] as string,
       name: casted['name'] as string,
       description: casted['description'] as string,

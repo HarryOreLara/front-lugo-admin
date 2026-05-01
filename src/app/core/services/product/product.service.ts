@@ -3,7 +3,7 @@ import { Product } from '@class/index';
 import { Channel } from '@enums/channel.enum';
 import { ProductRepository } from '@patterns//repository/product.repository';
 import { Observable } from 'rxjs';
-import { IProductRquest } from 'src/app/commons/modals/products/modal-new-product/modals/product-request.modal';
+import { IProductRequest } from 'src/app/commons/modals/products/modal-new-product/modals/product-request.modal';
 import { PRODUCT_REPOSITORY } from 'src/app/commons/tokens/product.token';
 
 @Injectable({
@@ -23,11 +23,11 @@ export class ProductService {
     return this.productRepository.findProductById(id);
   }
 
-  saveProduct(product: IProductRquest): Observable<Product> {
+  saveProduct(product: IProductRequest): Observable<Product> {
     return this.productRepository.createProduct(product);
   }
 
-  updateProduct(id: number, product: IProductRquest): Observable<Product> {
+  updateProduct(id: number, product: IProductRequest): Observable<Product> {
     return this.productRepository.updateProduct(id, product);
   }
 
@@ -35,7 +35,7 @@ export class ProductService {
     return this.productRepository.deleteProduct(id);
   }
 
-  findOneProductByBarCode(barCode: string) {
-    return this.productRepository.findOneProductByBarCode(barCode);
+  findOneProductBybarCode(barCode: string) {
+    return this.productRepository.findOneProductBybarCode(barCode);
   }
 }

@@ -9,7 +9,7 @@ import {
 } from '@interfaces/genericas/IGeneric.interface';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IProductRquest } from 'src/app/commons/modals/products/modal-new-product/modals/product-request.modal';
+import { IProductRequest } from 'src/app/commons/modals/products/modal-new-product/modals/product-request.modal';
 import { Channel } from '@enums/channel.enum';
 
 @Injectable({
@@ -20,8 +20,8 @@ export class ProductRepositoryImpl implements ProductRepository {
 
   constructor(private readonly http: HttpClient) {}
 
-  public findOneProductByBarCode(barCode: string): Observable<Product> {
-    const direction = `${this.apiUrl}/product/getOneProductByBarCode`;
+  public findOneProductBybarCode(barCode: string): Observable<Product> {
+    const direction = `${this.apiUrl}/product/getOneProductBybarCode`;
 
     return this.http
       .get<IGeneric<Product>>(direction, { params: { barCode } })
@@ -55,7 +55,7 @@ export class ProductRepositoryImpl implements ProductRepository {
         map((response: IGeneric<Product>) => Product.fromJson(response.data)),
       );
   }
-  public createProduct(product: IProductRquest): Observable<Product> {
+  public createProduct(product: IProductRequest): Observable<Product> {
     const direction = `${this.apiUrl}/product/createProduct`;
 
     return this.http
@@ -66,7 +66,7 @@ export class ProductRepositoryImpl implements ProductRepository {
   }
   public updateProduct(
     id: number,
-    product: IProductRquest,
+    product: IProductRequest,
   ): Observable<Product> {
     const direction = `${this.apiUrl}/product/updateProduct`;
 
