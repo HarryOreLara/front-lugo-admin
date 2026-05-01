@@ -28,9 +28,9 @@ export class InventarySummaryComponent implements OnInit {
     );
 
     const value = price?.costPrice ?? 0;
-    const quantity = Number(this.quantity) || 0;
+    const stock = Number(this.stock) ?? 0;
 
-    return value * quantity;
+    return value * stock;
   }
 
   public get totalCost(): number {
@@ -90,6 +90,7 @@ export class InventarySummaryComponent implements OnInit {
       //   filter((quant) => typeof quant === 'number' && quant !== null),
       // )
       .subscribe((res: number) => {
+        console.log({res});
         this.reactiveTotalCost = res;
       });
   }

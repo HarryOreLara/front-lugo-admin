@@ -65,7 +65,7 @@ export class InventaryFormPresenter
     ]).subscribe(([quantity, unitCost]) => {
       const total = (quantity || 0) * (unitCost || 0);
 
-      this.totalCost.setValue(total, { emitEvent: false });
+      this.totalCost.setValue(total);
     });
   }
 }

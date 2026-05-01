@@ -20,7 +20,6 @@
       field="name"
       placeholder="Buscar producto..."
       [dropdown]="true"
-      (onSelect)="onProductSelect($event)"
     >
     </p-autoComplete>
   </div>
@@ -28,8 +27,12 @@
   <div class="col-12 md:col-3 mb-4" *ngFor="let item of inventaryMovementsType">
     <div
       class="surface-card border-2 border-round p-5 cursor-pointer flex flex-column align-items-center justify-content-center transition-all transition-duration-200"
-      (click)="inventaryFormPresenter.typeInventary.setValue(item.id)"
+      (click)="
+        !isDisabled(item) &&
+          inventaryFormPresenter.typeInventary.setValue(item.id)
+      "
       [ngClass]="[
+        isDisabled(item) ? 'opacity-50 cursor-not-allowed' : '',
         inventaryFormPresenter.typeInventary.value !== item.id
           ? 'surface-border'
           : '',
