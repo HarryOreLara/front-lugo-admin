@@ -56,6 +56,7 @@ export class InventaryFormPresenter
 
   public createValidators(): void {
     this.totalCost.disable();
+    this.unitCost.disable();
   }
   public calculateTotalCost(): void {
     combineLatest([

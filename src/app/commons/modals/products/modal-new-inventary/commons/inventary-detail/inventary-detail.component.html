@@ -1,0 +1,141 @@
+<form
+  class="surface-card grid formgrid p-fluid border-round shadow-2 p-4"
+  [formGroup]="inventaryFormPresenter.Form"
+>
+  <div
+    class="col-12 mb-2 flex flex-column lg:flex-row align-items-center justify-content-between"
+  >
+    <div class="text-900 font-medium text-xl">Detalle de movimiento</div>
+  </div>
+
+  <p-divider class="w-full px-2 mb-3"></p-divider>
+
+  <div class="col-12 field mb-4 md:col-12">
+    <label class="font-medium text-900"> Producto / SKU </label>
+
+    <p-autoComplete
+      [suggestions]="filteredProducts"
+      formControlName="product"
+      (completeMethod)="filterProducts($event)"
+      field="name"
+      placeholder="Buscar producto..."
+      [dropdown]="true"
+      (onSelect)="onProductSelect($event)"
+    >
+    </p-autoComplete>
+  </div>
+
+  <div class="col-12 md:col-3 mb-4" *ngFor="let item of inventaryMovementsType">
+    <div
+      class="surface-card border-2 border-round p-5 cursor-pointer flex flex-column align-items-center justify-content-center transition-all transition-duration-200"
+      (click)="inventaryFormPresenter.typeInventary.setValue(item.id)"
+      [ngClass]="[
+        inventaryFormPresenter.typeInventary.value !== item.id
+          ? 'surface-border'
+          : '',
+        inventaryFormPresenter.typeInventary.value === item.id
+          ? 'shadow-2 border-' + item.color + '-500'
+          : '',
+      ]"
+    >
+      <div
+        class="w-3rem h-3rem flex align-items-center justify-content-center border-circle mb-3"
+        [ngClass]="[
+          inventaryFormPresenter.typeInventary.value !== item.id
+            ? 'bg-' + item.color + '-100'
+            : '',
+          inventaryFormPresenter.typeInventary.value === item.id
+            ? 'bg-' + item.color + '-600'
+            : '',
+        ]"
+      >
+        <i
+          class="pi {{ item.icon }} text-2xl"
+          [ngClass]="[
+            inventaryFormPresenter.typeInventary.value !== item.id
+              ? 'text-' + item.color + '-500'
+              : '',
+            inventaryFormPresenter.typeInventary.value === item.id
+              ? 'text-white'
+              : '',
+          ]"
+        ></i>
+      </div>
+
+      <span
+        class="text-lg font-medium"
+        [ngClass]="[
+          inventaryFormPresenter.typeInventary.value !== item.id
+            ? 'text-900'
+            : '',
+          inventaryFormPresenter.typeInventary.value === item.id
+            ? 'text-' + item.color + '-700'
+            : '',
+        ]"
+      >
+        {{ item.name }}
+      </span>
+    </div>
+  </div>
+
+  <div class="field mb-4 col-12 md:col-6">
+    <label for="quantity" class="font-medium text-900">Cantidad</label>
+    <div class="flex align-content-center">
+      <p-inputNumber
+        mode="decimal"
+        inputId="withoutgrouping"
+        locale="en-US"
+        formControlName="quantity"
+        class="flex-1"
+      ></p-inputNumber>
+    </div>
+  </div>
+
+  <div class="field mb-4 col-12 md:col-6">
+    <label for="reference" class="font-medium text-900"
+      >Referencia / Id Pedido</label
+    >
+    <input id="reference" type="text" formControlName="reference" pInputText />
+  </div>
+
+  <div class="field mb-4 col-12 md:col-6">
+    <label for="unitCost" class="font-medium text-900">Costo unitario</label>
+    <div class="flex align-content-center">
+      <p-inputNumber
+        inputId="locale-us"
+        mode="decimal"
+        locale="en-US"
+        formControlName="unitCost"
+        [minFractionDigits]="2"
+        inputId="minmaxfraction"
+        class="flex-1"
+      ></p-inputNumber>
+    </div>
+  </div>
+
+  <div class="field mb-4 col-12 md:col-6">
+    <label for="totalCost" class="font-medium text-900">Costo total</label>
+    <div class="flex align-content-center">
+      <p-inputNumber
+        inputId="locale-us"
+        mode="decimal"
+        formControlName="totalCost"
+        locale="en-US"
+        [minFractionDigits]="2"
+        inputId="minmaxfraction"
+        class="flex-1"
+      ></p-inputNumber>
+    </div>
+  </div>
+
+  <div class="field mb-4 col-12">
+    <label for="reason" class="font-medium text-900">Razon o motivo</label>
+    <textarea
+      id="reason"
+      formControlName="reason"
+      pInputTextarea
+      [autoResize]="true"
+      [rows]="5"
+    ></textarea>
+  </div>
+</form>

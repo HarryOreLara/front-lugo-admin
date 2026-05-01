@@ -22,9 +22,7 @@ export class ModalNewInventaryComponent {
 
   public filteredProducts: Product[] = [];
 
-  constructor(public readonly inventaryFormPresenter: InventaryFormPresenter) {
-    this.createControls();
-  }
+  constructor(public readonly inventaryFormPresenter: InventaryFormPresenter) {}
 
   ngOnInit() {}
 
@@ -43,11 +41,7 @@ export class ModalNewInventaryComponent {
       (product) =>
         product.name.toLowerCase().includes(query) ||
         product.sku?.toLowerCase().includes(query) ||
-        product.barcode?.toLowerCase().includes(query) 
+        product.barcode?.toLowerCase().includes(query),
     );
-  }
-
-  public createControls() {
-    this.inventaryFormPresenter.createForm();
   }
 }
