@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Brand } from '@class/brand/brand.class';
 
 @Component({
   selector: 'app-brand-ui',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./brand.component.css'],
 })
 export class BrandComponent {
-  public brands: any[] = [];
+  @Input() public brands: Brand[];
 }

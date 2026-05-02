@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Brand } from '@class/brand/brand.class';
 
 @Component({
   selector: 'app-brand-table-list-ui',
@@ -6,6 +7,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./brand-table-list.component.css']
 })
 export class BrandTableListComponent {
+    @Input() public brands: Brand[];
+
 
   @Input() public isLoading: boolean;
 

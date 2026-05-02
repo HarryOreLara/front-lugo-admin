@@ -1,6 +1,6 @@
 <p-table
   #dt1
-  [value]="[]"
+  [value]="brands"
   dataKey="id"
   [rows]="10"
   [rowsPerPageOptions]="[10, 25, 50]"
@@ -39,6 +39,9 @@
         <div class="flex align-items-center">Codigo</div>
       </th>
       <th style="min-width: 10rem">
+        <div class="flex align-items-center">Imagen</div>
+      </th>
+      <th style="min-width: 10rem">
         <div class="flex align-items-center">Canal</div>
       </th>
       <th style="min-width: 10rem">
@@ -54,9 +57,18 @@
       <td>
         {{ brand.name }}
       </td>
-
+      <td>
+        <p-tag
+          [tagStatus]="brand.status"
+          class="text-white"
+          [styleClass]="'text-white'"
+        ></p-tag>
+      </td>
       <td>
         {{ brand.code }}
+      </td>
+      <td>
+        {{ brand.imageUrl }}
       </td>
       <td>
         {{ brand.channel }}
