@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Category } from '@class/category/category.class';
 import { ModalService } from '@components//host/app-modal.service';
 import { MODELS_ENUM } from '@enums/models.enum';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-category-table-ui',
@@ -23,5 +24,9 @@ export class CategoryTableComponent {
 
   public deleteCategory(category: Category) {
     console.log('Eliminar categoría:', category);
+  }
+
+  clear(table: Table) {
+    table.clear();
   }
 }

@@ -11,13 +11,17 @@
 >
   <ng-template pTemplate="caption">
     <div class="flex">
-      <p-button label="Limpiar" icon="pi pi-filter-slash" />
+      <p-button
+        label="Limpiar"
+        (click)="clear(dt1)"
+        icon="pi pi-filter-slash"
+      />
       <span class="p-input-icon-left ml-auto">
         <i class="pi pi-search"></i>
         <input
           pInputText
           type="text"
-          (input)="dt1.filterGlobal($event.target, 'contains')"
+          (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
           placeholder="Buscar por palabra"
         />
       </span>
