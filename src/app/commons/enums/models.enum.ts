@@ -4,4 +4,5 @@ export enum MODELS_ENUM {
   MODAL_NEW_INVENTARY = 'modalNewInventary',
   MODAL_NEW_CLIENT = 'modalNewClient',
   MODAL_NEW_EMPLOYEE = 'modalNewEmployee',
+  MODAL_NEW_BRAND = 'modalNewBrand',
 }

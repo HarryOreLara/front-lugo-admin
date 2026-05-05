@@ -26,6 +26,7 @@ import { ModalNewEmployeeModule } from './commons/modals/employee/modal-new-empl
 import { CredentialsInterceptor } from './commons/interceptors/credentials.interceptor';
 import { authInitializer } from '@states/auth/auth.initializer';
 import { AuthService } from '@service/auth/auth.service';
+import { ModalNewBrandModule } from './commons/modals/products/modal-new-brand/modal-new-brand.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,6 +44,7 @@ import { AuthService } from '@service/auth/auth.service';
     ModalNewInventaryModule,
     ModalNewClientModule,
     ModalNewEmployeeModule,
+    ModalNewBrandModule
   ],
   providers: [
     PrimeNGConfig,
