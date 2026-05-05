@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Brand } from '@class/brand/brand.class';
 import { BrandService } from '@service/brand/brand.service';
 import { BehaviorSubject, finalize, Subject, takeUntil, tap } from 'rxjs';
+import { createBrandMapper } from 'src/app/commons/modals/products/modal-new-brand/mappers/brand.mapper';
+import { IBrandForm } from 'src/app/commons/modals/products/modal-new-brand/models/brand-form.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,13 +23,13 @@ export class BrandFacade {
     });
   }
 
-  createBrand(brand: Brand) {
-    // const payload = Brand.toJson(category);
+  createBrand(brand: IBrandForm) {
+    const payload = createBrandMapper(brand);
 
     this.loading$.next(true);
 
     this.brandService
-      .createBrand(brand)
+      .createBrand(payload)
       .pipe(
         tap((response) => {
           this.brands$.next([response, ...this.brands$.value]);
@@ -42,13 +44,14 @@ export class BrandFacade {
       .subscribe();
   }
 
-  updateBrand(brand: Brand, id: number) {
-    // const payload = Brand.toJson(category);
+  updateBrand(brand: IBrandForm, id: number) {
+    const payload = createBrandMapper(brand);
+    
 
     this.loading$.next(true);
 
     this.brandService
-      .updateBrand(id, brand)
+      .updateBrand(id, payload)
       .pipe(
         tap((updatedCategory) => {
           const updatedList = this.brands$.value.map((brand) =>

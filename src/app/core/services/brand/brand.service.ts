@@ -2,6 +2,8 @@ import { Inject, Injectable } from '@angular/core';
 import { Brand } from '@class/brand/brand.class';
 import { BrandRepository } from '@patterns//repository/brand.repository';
 import { Observable } from 'rxjs';
+import { IBrandForm } from 'src/app/commons/modals/products/modal-new-brand/models/brand-form.model';
+import { IBrandRequest } from 'src/app/commons/modals/products/modal-new-brand/models/brand-request.model';
 import { BRAND_REPOSITORY } from 'src/app/commons/tokens/brand.token';
 
 @Injectable({
@@ -21,11 +23,11 @@ export class BrandService {
     return this.brandRepository.findBrandById(id);
   }
 
-  createBrand(brand: Brand): Observable<Brand> {
-    return this.brandRepository.createBrand(brand);
+  createBrand(brandRequest: IBrandRequest): Observable<Brand> {
+    return this.brandRepository.createBrand(brandRequest);
   }
 
-  updateBrand(id: number, brand: Brand): Observable<Brand> {
+  updateBrand(id: number, brand: IBrandRequest): Observable<Brand> {
     return this.brandRepository.updateBrand(id, brand);
   }
 

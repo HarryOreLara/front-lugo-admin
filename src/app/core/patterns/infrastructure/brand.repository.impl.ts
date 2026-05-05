@@ -8,6 +8,7 @@ import {
   IGeneric,
   IGenericArrays,
 } from '@interfaces/genericas/IGeneric.interface';
+import { IBrandRequest } from 'src/app/commons/modals/products/modal-new-brand/models/brand-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +36,7 @@ export class BrandRepositoryImpl implements BrandRepository {
     throw new Error('Method not implemented.');
   }
 
-  createBrand(brand: Brand): Observable<Brand> {
+  createBrand(brand: IBrandRequest): Observable<Brand> {
     const direction = `${this.apiUrl}/brand/createBrand`;
 
     return this.http
@@ -43,7 +44,7 @@ export class BrandRepositoryImpl implements BrandRepository {
       .pipe(map((response) => Brand.fromJson(response.data)));
   }
 
-  updateBrand(id: number, brand: Brand): Observable<Brand> {
+  updateBrand(id: number, brand: IBrandRequest): Observable<Brand> {
     const direction = `${this.apiUrl}/category/update`;
 
     return this.http

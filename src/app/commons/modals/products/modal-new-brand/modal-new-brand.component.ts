@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Brand } from '@class/brand/brand.class';
 import { BrandFormPresenter } from './brand.form.presenter';
+import { CHANNEL_CONSTANT } from '@constants/channel.constant';
+import { IParameterEnum } from '@interfaces/index';
+import { IBrandForm } from './models/brand-form.model';
 
 @Component({
   selector: 'app-modal-new-brand-ui',
@@ -13,11 +16,12 @@ export class ModalNewBrandComponent {
 
   @Input() public isLoading: boolean;
   @Input() public visibleModal: boolean;
-  @Output() saveBrandEmitter: EventEmitter<Brand> = new EventEmitter<Brand>();
+  @Output() saveBrandEmitter: EventEmitter<IBrandForm> = new EventEmitter<IBrandForm>();
   @Output() updateBrandEmitter: EventEmitter<{
-    brand: Brand;
+    brand: IBrandForm;
     id: number;
-  }> = new EventEmitter<{ brand: Brand; id: number }>();
+  }> = new EventEmitter<{ brand: IBrandForm; id: number }>();
+  public channels: Array<IParameterEnum> = CHANNEL_CONSTANT;
 
   constructor(public readonly brandPresenter: BrandFormPresenter) {
     this.createControls();

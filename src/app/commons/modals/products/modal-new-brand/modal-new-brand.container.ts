@@ -4,6 +4,7 @@ import { ModalService } from '@components//host/app-modal.service';
 import { BrandFacade } from '@patterns//facade/brand.facade';
 import { Subject, takeUntil } from 'rxjs';
 import { BrandFormPresenter } from './brand.form.presenter';
+import { IBrandForm } from './models/brand-form.model';
 
 @Component({
   selector: 'app-modal-new-brand',
@@ -44,11 +45,11 @@ export class ModalNewBrandContainer {
     this.modalService.close();
   }
 
-  public saveBrand(brand: Brand) {
+  public saveBrand(brand: IBrandForm) {
     this.brandFacade.createBrand(brand);
   }
 
-  public updateBrand({ brand, id }: { brand: Brand; id: number }): void {
+  public updateBrand({ brand, id }: { brand: IBrandForm; id: number }): void {
     this.brandFacade.updateBrand(brand, id);
   }
 

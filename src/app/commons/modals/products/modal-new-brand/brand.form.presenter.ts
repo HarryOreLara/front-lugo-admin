@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Brand } from '@class/brand/brand.class';
 import { Category } from '@class/category/category.class';
 import { StepPresenter } from '@states/forms/step.presenter';
+import { IBrandForm } from './models/brand-form.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class BrandFormPresenter extends StepPresenter<Brand> {
+export class BrandFormPresenter extends StepPresenter<IBrandForm> {
   name: FormControl;
   code: FormControl;
   description: FormControl;
@@ -37,12 +37,14 @@ export class BrandFormPresenter extends StepPresenter<Brand> {
       channel: this.channel,
       isActive: this.isActive,
     });
+
+    this.listenChanges();
   }
 
   public createValidators(): void {
     this.name.addValidators([Validators.required]);
     this.description.addValidators([Validators.required]);
-    this.code.addValidators([Validators.required]);
+    this.code.disable();
     this.channel.addValidators([Validators.required]);
     this.isActive.addValidators([Validators.required]);
     this.form?.updateValueAndValidity();
@@ -50,5 +52,31 @@ export class BrandFormPresenter extends StepPresenter<Brand> {
 
   public updateForm(category: Category) {
     this.form.patchValue(category);
+  }
+
+  public listenChanges() {
+    this.changeName();
+  }
+
+  public changeName(): void {
+    this.name.valueChanges.subscribe((res: string) => {
+      if (!res) return;
+
+      const code = this.generateCode(res);
+
+      this.code.setValue(code);
+    });
+  }
+
+  private generateCode(name: string): string {
+    return (
+      'P_' +
+      name
+        .trim()
+        .toUpperCase()
+        .split(/\s+/)
+        .map((word) => word.substring(0, 4))
+        .join('_')
+    );
   }
 }
