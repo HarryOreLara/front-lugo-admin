@@ -46,6 +46,7 @@ export class ModalNewProductComponent {
   }
 
   private createControls() {
+    this.productFormPresenter.initForm();
     this.productFormPresenter.createForm();
   }
 }

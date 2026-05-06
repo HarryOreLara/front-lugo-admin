@@ -4,6 +4,7 @@ import { ModalNewProductComponent } from './modal-new-product.component';
 import { ProductsPrimengModule } from '@themes/products/products.primeng.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalNewProductContainer } from './modal-new-product.container';
+import { SharedDirectiveModule } from '@directives/shared-directives.module';
 
 @NgModule({
   declarations: [ModalNewProductComponent, ModalNewProductContainer],
@@ -12,6 +13,7 @@ import { ModalNewProductContainer } from './modal-new-product.container';
     ProductsPrimengModule,
     FormsModule,
     ReactiveFormsModule,
+    SharedDirectiveModule
   ],
   exports: [ModalNewProductContainer],
 })

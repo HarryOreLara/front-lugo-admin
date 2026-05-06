@@ -10,6 +10,10 @@ import { StepPresenter } from '@states/forms/step.presenter';
 import { IProductForm } from './modals/product-form.modal';
 import { Product } from '@class/index';
 import { Subscription } from 'rxjs';
+import {
+  noWhitespaceValidator,
+  onlyLettersValidator,
+} from 'src/app/commons/validators';
 
 @Injectable({
   providedIn: 'root',
@@ -38,7 +42,11 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
   }
 
   public initForm(): void {
-    this.name = new FormControl(null);
+    this.name = new FormControl(null, [
+      Validators.required,
+      onlyLettersValidator,
+      noWhitespaceValidator,
+    ]);
     this.description = new FormControl(null);
     this.descriptionFull = new FormControl(null);
     this.category = new FormControl(null);
@@ -53,25 +61,22 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
 
     this.useSamePrice = new FormControl(null);
   }
-  public createForm(product?: IProductForm): void {
+  public createForm(): void {
     this.form = this.fb.group({
-      name: [product?.name ?? null, Validators.required],
-      category: [product?.category ?? null, Validators.required],
-      brand: [product?.brand ?? null, Validators.required],
-      color: [product?.color ?? null, Validators.required],
-      description: [product?.description ?? null, Validators.required],
-      descriptionFull: [product?.descriptionFull ?? null],
-      stock: [product?.stock ?? 0],
-      sku: [product?.sku ?? null],
-      barCode: [product?.barCode ?? null],
+      name: this.name,
+      category: this.category,
+      brand: this.brand,
+      color: this.color,
+      description: this.description,
+      descriptionFull: this.descriptionFull,
+      stock: this.stock,
+      sku: this.sku,
+      barCode: this.barCode,
       prices: this.fb.array(
-        (product?.prices?.length
-          ? product.prices
-          : this.getDefaultPrices()
-        ).map((price) => this.createPriceGroup(price)),
+        this.getDefaultPrices().map((price) => this.createPriceGroup(price)),
       ),
-      status: [product?.status ?? null],
-      isActive: [product?.isActive ?? true],
+      status: this.status,
+      isActive: this.isActive,
       useSamePrice: [false],
     });
 
@@ -114,7 +119,6 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
   }
 
   public updateForm(product: Product) {
-    console.log({ product });
     this.form.patchValue({
       ...product,
       category: product.category.id,

@@ -6,28 +6,25 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 
-
-
-.fonts{
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-  font-family: 'Lato', 'Roboto', 'Segoe UI', sans-serif;
-  font-family: 'Nunito', 'Arial', Helvetica, sans-serif;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-family: 'Merriweather', Georgia, serif;
-  font-family: 'Playfair Display', 'Times New Roman', serif;
-  font-family: Consolas, Monaco, 'Ubuntu Mono', monospace;
-  font-family: 'Fira Code', Consolas, Monaco, monospace;
-  font-family: 'Source Code Pro', 'Courier New', monospace;
-  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
-  font-family: 'Roboto Slab', 'Times New Roman', serif;
-  font-family: 'Arial', 'Helvetica Neue', sans-serif;
-  font-family: 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+.fonts {
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Lato", "Roboto", "Segoe UI", sans-serif;
+  font-family: "Nunito", "Arial", Helvetica, sans-serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Merriweather", Georgia, serif;
+  font-family: "Playfair Display", "Times New Roman", serif;
+  font-family: Consolas, Monaco, "Ubuntu Mono", monospace;
+  font-family: "Fira Code", Consolas, Monaco, monospace;
+  font-family: "Source Code Pro", "Courier New", monospace;
+  font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+  font-family: "Roboto Slab", "Times New Roman", serif;
+  font-family: "Arial", "Helvetica Neue", sans-serif;
+  font-family: "Inter", "Roboto", "Helvetica Neue", Arial, sans-serif;
 }
 
-
 body {
-  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -48,24 +45,24 @@ body {
   background: linear-gradient(to right, #ed213a, #93291e);
 }
 
-.frost-header{
+.frost-header {
   background: linear-gradient(to right, #000428, #004e92);
 }
 
-.card-primary{
+.card-primary {
   background: linear-gradient(to right, #c31432, #240b36);
 }
 
-.card-secondary{
-  background: linear-gradient(to right, #000046, #1CB5E0);
+.card-secondary {
+  background: linear-gradient(to right, #000046, #1cb5e0);
 }
 
-.card-third{
+.card-third {
   background: linear-gradient(to right, #ff0084, #33001b);
 }
 
-.card-fourth{
-  background: linear-gradient(to right, #ff512f, #f09819); 
+.card-fourth {
+  background: linear-gradient(to right, #ff512f, #f09819);
 }
 
 .overlay {
@@ -81,26 +78,31 @@ body {
   z-index: 9999; /* Asegura que el spinner esté en la parte superior */
 }
 
-
-
-
-
 .led-line {
   width: 100%;
   height: 3px; /* Altura de la línea */
-  background: linear-gradient(90deg, #12e3c0, #001faa); /* Fondo negro inicial */
+  background: linear-gradient(
+    90deg,
+    #12e3c0,
+    #001faa
+  ); /* Fondo negro inicial */
   position: relative;
   overflow: hidden;
 }
 
 .led-line::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, #02e702, transparent); /* Efecto mecha LED */
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #02e702,
+    transparent
+  ); /* Efecto mecha LED */
   animation: move-light 2s linear infinite;
 }
 
@@ -116,24 +118,32 @@ body {
   }
 }
 
-
 .led-border {
   position: relative;
   padding: 3px; /* Ajusta el grosor de la línea LED */
-  background: linear-gradient(90deg, #12e3c0, #001faa); /* Fondo del borde LED */
+  background: linear-gradient(
+    90deg,
+    #12e3c0,
+    #001faa
+  ); /* Fondo del borde LED */
   border-radius: 56px;
   overflow: hidden;
 }
 
 .led-border::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 200%;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, transparent, #02e702, transparent); /* Efecto de luz LED */
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #02e702,
+    transparent
+  ); /* Efecto de luz LED */
   animation: move-light 2s linear infinite;
 }
 
@@ -148,10 +158,6 @@ body {
     left: -100%;
   }
 }
-
-
-
-
 
 .small-button {
   font-size: 12px; /* Tamaño de fuente más pequeño */
@@ -159,11 +165,6 @@ body {
   height: 36px; /* Altura total */
   width: 36px; /* Anchura total si es un botón redondo */
 }
-
-
-
-
-
 
 .custom-menu {
   display: flex;
@@ -206,4 +207,21 @@ body {
 
 .custom-menu-item.danger:hover {
   background: #ffebee;
+}
+
+/* quitar focus azul */
+.p-inputtext:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* error */
+.p-inputtext.p-invalid {
+  border-color: red !important;
+}
+
+/* error con focus */
+.p-inputtext.p-invalid:focus {
+  border-color: red !important;
+  box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.2) !important;
 }

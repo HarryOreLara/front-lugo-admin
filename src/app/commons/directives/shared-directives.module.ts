@@ -5,6 +5,7 @@ import { TagChannelDirective } from './channel.directive';
 import { TagInventaryMovementDirective } from './inventary-movement.directive';
 import { TagDocumentTypeDirective } from './document-type.directive';
 import { ReactiveFormDirective } from './reactive-form.directive';
+import { ErrorBorderDirective } from './border-error-form.directive';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { ReactiveFormDirective } from './reactive-form.directive';
     TagInventaryMovementDirective,
     TagDocumentTypeDirective,
     ReactiveFormDirective,
+    ErrorBorderDirective,
   ],
   imports: [CommonModule],
   exports: [
@@ -21,6 +23,7 @@ import { ReactiveFormDirective } from './reactive-form.directive';
     TagInventaryMovementDirective,
     TagDocumentTypeDirective,
     ReactiveFormDirective,
+    ErrorBorderDirective,
   ],
 })
 export class SharedDirectiveModule {}
