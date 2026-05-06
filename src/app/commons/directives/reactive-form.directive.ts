@@ -28,7 +28,9 @@ import { Subscription } from 'rxjs';
     },
   ],
 })
-export class ReactiveFormDirective implements ControlValueAccessor, OnInit, OnDestroy {
+export class ReactiveFormDirective
+  implements ControlValueAccessor, OnInit, OnDestroy
+{
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   protected lastValue: any;
 
@@ -43,7 +45,7 @@ export class ReactiveFormDirective implements ControlValueAccessor, OnInit, OnDe
   constructor(
     public controlContainer: ControlContainer,
     private el: ElementRef,
-    private renderer: Renderer2
+    private renderer: Renderer2,
   ) {}
 
   ngOnInit() {
@@ -86,6 +88,7 @@ export class ReactiveFormDirective implements ControlValueAccessor, OnInit, OnDe
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any) {
     this.lastValue = value ?? '';
+    this.renderer.setProperty(this.el.nativeElement, 'value', this.lastValue);
     this.setErrorControl();
   }
 
@@ -95,6 +98,17 @@ export class ReactiveFormDirective implements ControlValueAccessor, OnInit, OnDe
       this.lastValue = value;
       if (this.onChange) this.onChange(value);
       if (this.onTouched) this.onTouched();
+
+      const formGroup = this.controlContainer.control as FormGroup;
+      const control = formGroup?.controls?.[this.formControlName];
+
+      if (control) {
+        control.setValue(value, {
+          emitEvent: true,
+          emitModelToViewChange: false,
+        });
+      }
+
       this.setErrorControl();
     }
   }
@@ -161,7 +175,7 @@ export class ReactiveFormDirective implements ControlValueAccessor, OnInit, OnDe
         this.renderer.insertBefore(
           inputWrapper.parentElement,
           this.errorElement,
-          inputWrapper.nextSibling
+          inputWrapper.nextSibling,
         );
       }
     }

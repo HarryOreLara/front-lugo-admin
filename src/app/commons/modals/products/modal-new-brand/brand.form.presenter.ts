@@ -1,5 +1,11 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Category } from '@class/category/category.class';
 import { StepPresenter } from '@states/forms/step.presenter';
 import { IBrandForm } from './models/brand-form.model';
@@ -66,6 +72,18 @@ export class BrandFormPresenter extends StepPresenter<IBrandForm> {
 
       this.code.setValue(code);
     });
+  }
+
+  private onlyLettersValidator(
+    control: AbstractControl,
+  ): ValidationErrors | null {
+    const value = control.value;
+
+    if (!value) return null;
+
+    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+
+    return regex.test(value) ? null : { onlyLetters: true };
   }
 
   private generateCode(name: string): string {

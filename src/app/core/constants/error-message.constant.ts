@@ -1,7 +1,7 @@
 export const ErrorMessage = (
   validatorName: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  validatorValue?: any
+  validatorValue?: any,
 ): string => {
   // eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
   const config: { [key: string]: string } = {
@@ -11,6 +11,7 @@ export const ErrorMessage = (
     email: 'Formato de email inválido',
     pattern: 'Formato inválido',
     document: 'Formato de documento inválido',
+    onlyLetters: 'Solo se permiten letras',
   };
 
   return config[validatorName] || 'Error de validación';

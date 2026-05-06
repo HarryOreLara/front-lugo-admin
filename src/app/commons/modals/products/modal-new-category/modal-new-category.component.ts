@@ -44,6 +44,7 @@ export class ModalNewCategoryComponent {
   }
 
   public createControls() {
+    this.categoryFormPresenter.initForm();
     this.categoryFormPresenter.createForm();
   }
 }
