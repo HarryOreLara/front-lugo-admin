@@ -8,7 +8,6 @@ import {
 export const createProductMapper = (
   productForm: IProductForm,
 ): IProductRequest => {
-  console.log({productForm});
   return {
     name: productForm.name.toUpperCase(),
     categoryId: productForm.category,

@@ -13,6 +13,12 @@ import { Table } from 'primeng/table';
   styleUrls: ['./product-table.component.css'],
 })
 export class ProductTableComponent {
+  getPhysicalPrice(product: Product): string {
+    const physical = product.prices.find((x) => x.channel === Channel.PHYSICAL);
+
+    return physical?.channel ?? 'NINGUNO';
+  }
+
   @Input() isLoading: boolean;
   @Input() products: Array<Product>;
   @Input() channels: Array<IParameterEnum>;

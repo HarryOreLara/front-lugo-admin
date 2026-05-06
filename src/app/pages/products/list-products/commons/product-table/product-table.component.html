@@ -264,9 +264,7 @@
         {{ product.brand.name }}
       </td>
       <td>
-        {{
-          product.prices.length === 0 ? "NINGUNO" : product.prices[0].channel
-        }}
+        {{ getPhysicalPrice(product) }}
       </td>
       <td>
         <!-- action-menu.component.html -->
