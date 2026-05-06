@@ -12,6 +12,9 @@ export const ErrorMessage = (
     pattern: 'Formato inválido',
     document: 'Formato de documento inválido',
     onlyLetters: 'Solo se permiten letras',
+    whitespace: 'Hay muchos espacios',
+    whitespaceEdges: 'Hay espacios al incio o final',
+    whitespaceMultiple: 'Hay multiples espacios',
   };
 
   return config[validatorName] || 'Error de validación';

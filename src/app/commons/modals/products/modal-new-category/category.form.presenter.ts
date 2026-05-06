@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Category } from '@class/category/category.class';
 import { StepPresenter } from '@states/forms/step.presenter';
+import {
+  noWhitespaceValidator,
+  onlyLettersValidator,
+} from 'src/app/commons/validators';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +24,8 @@ export class CategoryFormPresenter extends StepPresenter<Category> {
   public initForm(): void {
     this.name = new FormControl(null, [
       Validators.required,
-      this.onlyLettersValidator,
+      onlyLettersValidator,
+      noWhitespaceValidator,
     ]);
     this.description = new FormControl(null);
     this.code = new FormControl({ value: null, disabled: true });
@@ -52,7 +51,6 @@ export class CategoryFormPresenter extends StepPresenter<Category> {
 
   public listenName(): void {
     this.form.get('name')?.valueChanges.subscribe((name) => {
-
       if (!name) {
         this.form.get('code')?.setValue('', { emitEvent: false });
         return;
@@ -60,16 +58,6 @@ export class CategoryFormPresenter extends StepPresenter<Category> {
       const code = this.generateCode(name);
       this.form.get('code')?.setValue(code, { emitEvent: false });
     });
-  }
-
-  private onlyLettersValidator(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-
-    if (!value) return null;
-
-    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
-
-    return regex.test(value) ? null : { onlyLetters: true };
   }
 
   private generateCode(name: string): string {

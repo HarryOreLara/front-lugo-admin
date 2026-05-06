@@ -43,6 +43,7 @@ export class ModalNewBrandComponent {
   }
 
   public createControls() {
+    this.brandPresenter.initForm();
     this.brandPresenter.createForm();
   }
 }
