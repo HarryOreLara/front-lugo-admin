@@ -15,6 +15,7 @@ export const ErrorMessage = (
     whitespace: 'Hay muchos espacios',
     whitespaceEdges: 'Hay espacios al incio o final',
     whitespaceMultiple: 'Hay multiples espacios',
+    onlyNumbers: 'Solo se acepta números',
   };
 
   return config[validatorName] || 'Error de validación';

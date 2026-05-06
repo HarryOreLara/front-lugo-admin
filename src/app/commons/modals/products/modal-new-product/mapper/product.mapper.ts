@@ -8,13 +8,14 @@ import {
 export const createProductMapper = (
   productForm: IProductForm,
 ): IProductRequest => {
+  console.log({productForm});
   return {
-    name: productForm.name,
+    name: productForm.name.toUpperCase(),
     categoryId: productForm.category,
     brandId: productForm.brand,
     colorId: productForm.color,
     description: productForm.description,
-    stock: productForm.stock,
+    stock: productForm.stock ? productForm.stock : 0,
     sku: productForm.sku,
     barcode: productForm.barCode,
     descriptionFull: productForm.descriptionFull,

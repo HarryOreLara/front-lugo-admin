@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 import {
   noWhitespaceValidator,
   onlyLettersValidator,
+  onlyNumbersValidator,
 } from 'src/app/commons/validators';
 
 @Injectable({
@@ -44,17 +45,28 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
   public initForm(): void {
     this.name = new FormControl(null, [
       Validators.required,
-      onlyLettersValidator,
-      noWhitespaceValidator,
+      noWhitespaceValidator(),
     ]);
-    this.description = new FormControl(null);
-    this.descriptionFull = new FormControl(null);
+    this.description = new FormControl(null, [
+      noWhitespaceValidator(),
+      Validators.maxLength(200),
+      Validators.minLength(5),
+    ]);
+    this.descriptionFull = new FormControl(null, [
+      Validators.maxLength(500),
+      Validators.minLength(5),
+    ]);
     this.category = new FormControl(null);
     this.brand = new FormControl(null);
     this.color = new FormControl(null);
     this.stock = new FormControl(null);
     this.sku = new FormControl(null);
-    this.barCode = new FormControl(null);
+    this.barCode = new FormControl(null, [
+      onlyNumbersValidator(),
+      Validators.maxLength(30),
+      Validators.minLength(5),
+      noWhitespaceValidator(),
+    ]);
     this.prices = new FormControl(null);
     this.status = new FormControl(null);
     this.isActive = new FormControl(null);

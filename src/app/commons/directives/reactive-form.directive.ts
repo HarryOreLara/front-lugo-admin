@@ -1,44 +1,25 @@
 import {
   Directive,
   ElementRef,
-  forwardRef,
   HostListener,
   Input,
   Renderer2,
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import {
-  ControlContainer,
-  ControlValueAccessor,
-  FormGroup,
-  NG_VALUE_ACCESSOR,
-} from '@angular/forms';
+import { ControlContainer, FormGroup } from '@angular/forms';
 import { ErrorMessage } from '@constants/error-message.constant';
-import { Subscription } from 'rxjs';
+import { merge, Subscription } from 'rxjs';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[lugoReactiveForm]',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ReactiveFormDirective),
-      multi: true,
-    },
-  ],
 })
-export class ReactiveFormDirective
-  implements ControlValueAccessor, OnInit, OnDestroy
-{
+export class ReactiveFormDirective implements OnInit, OnDestroy {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  protected lastValue: any;
 
   @Input() public formControlName!: string;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private onChange!: (value: any) => void;
-  private onTouched!: () => void;
   private errorElement!: HTMLElement | null;
   private statusSubscription!: Subscription;
 
@@ -61,66 +42,18 @@ export class ReactiveFormDirective
 
   @HostListener('blur')
   public _handleBluredEvent() {
-    if (this.onTouched) this.onTouched();
     this.setErrorControl();
   }
-
-  @HostListener('input', ['$event'])
-  public _handleInputEvent(event: Event) {
-    const input = event.target as HTMLInputElement | null;
-    if (!input) return;
-    this.hostValues(input.value);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  registerOnChange(fn: (value: any) => void) {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: () => void) {
-    this.onTouched = fn;
-  }
-
-  setDisabledState(isDisabled: boolean) {
-    this.renderer.setProperty(this.el.nativeElement, 'disabled', isDisabled);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  writeValue(value: any) {
-    this.lastValue = value ?? '';
-    this.renderer.setProperty(this.el.nativeElement, 'value', this.lastValue);
-    this.setErrorControl();
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  hostValues(value: any) {
-    if (JSON.stringify(value) !== JSON.stringify(this.lastValue)) {
-      this.lastValue = value;
-      if (this.onChange) this.onChange(value);
-      if (this.onTouched) this.onTouched();
-
-      const formGroup = this.controlContainer.control as FormGroup;
-      const control = formGroup?.controls?.[this.formControlName];
-
-      if (control) {
-        control.setValue(value, {
-          emitEvent: true,
-          emitModelToViewChange: false,
-        });
-      }
-
-      this.setErrorControl();
-    }
-  }
-
   private setupErrorHandling() {
     const formGroup = this.controlContainer.control as FormGroup;
     const control = formGroup?.controls?.[this.formControlName];
 
     if (!control) return;
 
-    // Suscribirse a los cambios de estado
-    this.statusSubscription = control.statusChanges.subscribe(() => {
+    this.statusSubscription = merge(
+      control.statusChanges,
+      control.valueChanges,
+    ).subscribe(() => {
       this.setErrorControl();
     });
 
@@ -133,8 +66,7 @@ export class ReactiveFormDirective
     const control = formGroup?.controls?.[this.formControlName];
     if (!control) return;
 
-    const hasError = control.dirty && control.touched;
-
+    const hasError = control.invalid && (control.dirty || control.touched);
     if (hasError) {
       let message = '';
       for (const propertyName in control.errors) {

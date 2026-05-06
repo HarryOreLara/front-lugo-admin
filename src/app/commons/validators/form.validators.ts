@@ -1,37 +1,47 @@
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-export const onlyLettersValidator = (
-  control: AbstractControl,
-): ValidationErrors | null => {
-  const value = control.value;
+export const onlyNumbersValidator = (): ValidatorFn => {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!control.value) return null;
 
-  if (!value) return null;
+    const value = control.value.toString();
 
-  const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
+    const isValid = /^[0-9]+$/.test(value);
 
-  return regex.test(value) ? null : { onlyLetters: true };
+    return isValid ? null : { onlyNumbers: true };
+  };
 };
 
-export const noWhitespaceValidator = (
-  control: AbstractControl,
-): ValidationErrors | null => {
-  const value = control.value;
+export const onlyLettersValidator = (): ValidatorFn => {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (!control.value) return null;
 
-  if (!value) return null;
+    const regex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
 
-  const trimmed = value.trim();
+    return regex.test(control.value) ? null : { onlyLetters: true };
+  };
+};
 
-  if (trimmed.length === 0) {
-    return { whitespace: true };
-  }
+export const noWhitespaceValidator = (): ValidatorFn => {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
 
-  if (value !== trimmed) {
-    return { whitespaceEdges: true };
-  }
+    if (!value) return null;
 
-  if (/\s{2,}/.test(value)) {
-    return { whitespaceMultiple: true };
-  }
+    const trimmed = value.trim();
 
-  return null;
+    if (trimmed.length === 0) {
+      return { whitespace: true };
+    }
+
+    if (value !== trimmed) {
+      return { whitespaceEdges: true };
+    }
+
+    if (/\s{2,}/.test(value)) {
+      return { whitespaceMultiple: true };
+    }
+
+    return null;
+  };
 };

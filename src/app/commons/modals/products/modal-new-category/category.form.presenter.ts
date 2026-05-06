@@ -24,10 +24,13 @@ export class CategoryFormPresenter extends StepPresenter<Category> {
   public initForm(): void {
     this.name = new FormControl(null, [
       Validators.required,
-      onlyLettersValidator,
-      noWhitespaceValidator,
+      onlyLettersValidator(),
+      noWhitespaceValidator(),
     ]);
-    this.description = new FormControl(null);
+    this.description = new FormControl(null, [
+      Validators.minLength(50),
+      Validators.minLength(3),
+    ]);
     this.code = new FormControl({ value: null, disabled: true });
     this.channel = new FormControl(null);
     this.isActive = new FormControl(true);

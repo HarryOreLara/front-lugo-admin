@@ -25,8 +25,8 @@ export class BrandFormPresenter extends StepPresenter<IBrandForm> {
   public initForm(): void {
     this.name = new FormControl(null, [
       Validators.required,
-      onlyLettersValidator,
-      noWhitespaceValidator,
+      onlyLettersValidator(),
+      noWhitespaceValidator(),
     ]);
     this.description = new FormControl(null);
     this.code = new FormControl({ value: null, disabled: true });
