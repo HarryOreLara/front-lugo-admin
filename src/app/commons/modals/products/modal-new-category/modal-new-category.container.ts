@@ -12,9 +12,7 @@ import { CategoryFormPresenter } from './category.form.presenter';
 export class ModalNewCategoryContainer implements OnInit, OnDestroy {
   public isLoading$: Subject<boolean> = new Subject<boolean>();
   public visibleModal: boolean = true;
-
   @Input() category: Category;
-
   private destroy$ = new Subject<void>();
 
   constructor(

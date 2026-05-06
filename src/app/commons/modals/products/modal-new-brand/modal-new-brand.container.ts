@@ -13,16 +13,16 @@ import { IBrandForm } from './models/brand-form.model';
 export class ModalNewBrandContainer {
   public isLoading$: Subject<boolean> = new Subject<boolean>();
   public visibleModal: boolean = true;
-
   @Input() brand: Brand;
-
   private destroy$ = new Subject<void>();
 
   constructor(
     private readonly brandPresenter: BrandFormPresenter,
     private readonly modalService: ModalService,
     private readonly brandFacade: BrandFacade,
-  ) {}
+  ) {
+    this.isLoading$ = brandFacade.loading$;
+  }
 
   ngOnInit(): void {
     console.log('ModalNewBrandContainer - INIT');

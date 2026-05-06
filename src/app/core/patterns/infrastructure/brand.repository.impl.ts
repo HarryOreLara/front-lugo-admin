@@ -45,7 +45,7 @@ export class BrandRepositoryImpl implements BrandRepository {
   }
 
   updateBrand(id: number, brand: IBrandRequest): Observable<Brand> {
-    const direction = `${this.apiUrl}/category/update`;
+    const direction = `${this.apiUrl}/brand/updateBrand`;
 
     return this.http
       .patch<IGeneric<Brand>>(direction, brand, {

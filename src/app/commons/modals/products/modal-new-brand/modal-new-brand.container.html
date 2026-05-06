@@ -1,6 +1,8 @@
 <app-modal-new-brand-ui
-[visibleModal]="visibleModal"
-(saveBrandEmitter)="saveBrand($event)"
-(updateBrandEmitter)="updateBrand($event)"
-(closeEmit)="close()"
+  [visibleModal]="visibleModal"
+  (saveBrandEmitter)="saveBrand($event)"
+  (updateBrandEmitter)="updateBrand($event)"
+  (closeEmit)="close()"
+  [isLoading]="(isLoading$ | async)!"
+  [brand]="brand"
 ></app-modal-new-brand-ui>
