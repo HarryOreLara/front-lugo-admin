@@ -36,18 +36,46 @@ export class CategoryFormPresenter extends StepPresenter<Category> {
       channel: this.channel,
       isActive: this.isActive,
     });
+
+    this.listenChanges();
   }
 
   public createValidators(): void {
     this.name.addValidators([Validators.required]);
     this.description.addValidators([Validators.required]);
-    this.code.addValidators([Validators.required]);
+    this.code.disable();
     this.channel.addValidators([Validators.required]);
     this.isActive.addValidators([Validators.required]);
     this.form?.updateValueAndValidity();
   }
 
   public updateForm(category: Category) {
-    this.form.patchValue(category)
+    this.form.patchValue(category);
+  }
+
+  public listenChanges() {
+    this.changeName();
+  }
+
+  public changeName(): void {
+    this.name.valueChanges.subscribe((res: string) => {
+      if (!res) return;
+
+      const code = this.generateCode(res);
+
+      this.code.setValue(code);
+    });
+  }
+
+  private generateCode(name: string): string {
+    return (
+      'P_' +
+      name
+        .trim()
+        .toUpperCase()
+        .split(/\s+/)
+        .map((word) => word.substring(0, 4))
+        .join('_')
+    );
   }
 }

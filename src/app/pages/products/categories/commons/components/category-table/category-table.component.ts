@@ -9,7 +9,6 @@ import { Table } from 'primeng/table';
   templateUrl: './category-table.component.html',
   styleUrls: ['./category-table.component.css'],
 })
-// category-table.component.ts
 export class CategoryTableComponent {
   @Input() public isLoading: boolean;
   @Input() public categories: Array<Category>;
@@ -26,7 +25,7 @@ export class CategoryTableComponent {
     console.log('Eliminar categoría:', category);
   }
 
-  clear(table: Table) {
+  public clear(table: Table) {
     table.clear();
   }
 }
