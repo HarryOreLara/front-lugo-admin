@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Product } from '@class/index';
 import { InventaryMovement } from '@class/inventary-movement/inventary-movement.class';
 
 @Component({
@@ -8,4 +9,5 @@ import { InventaryMovement } from '@class/inventary-movement/inventary-movement.
 })
 export class SettingsInventaryComponent {
   @Input() public inventaryMovements: InventaryMovement[];
+  @Input() public products: Product[];
 }

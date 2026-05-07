@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Product } from '@class/index';
+import {
+  LOWER_STOCK_PRODUCT,
+  LOWER_STOCK_PRODUCT_PERCENT,
+} from '@constants/product-info.constant';
 import { Channel } from '@enums/channel.enum';
 
 @Component({
@@ -8,17 +12,20 @@ import { Channel } from '@enums/channel.enum';
   styleUrls: ['./product-header-info.component.css'],
 })
 export class ProductHeaderInfoComponent {
+  public lowerStockProductPercent: number = LOWER_STOCK_PRODUCT_PERCENT;
   @Input() products: Array<Product>;
 
   public get isLowStockProducts(): number {
-    return this.products.filter((product) => product.stock < 10).length;
+    return this.products.filter(
+      (product) => product.stock < LOWER_STOCK_PRODUCT,
+    ).length;
   }
 
   public get lowStockPercentage(): number {
     if (!this.products.length) return 0;
 
     const lowStockCount = this.products.filter(
-      (product) => product.stock < 10,
+      (product) => product.stock < LOWER_STOCK_PRODUCT,
     ).length;
 
     return Number(((lowStockCount / this.products.length) * 100).toFixed(2));

@@ -45,7 +45,7 @@
         </div>
       </div>
       <span class="text-green-500 font-medium">%52+ </span>
-      <span class="text-500">since last week</span>
+      <span class="text-500">en la ultima semana</span>
     </div>
   </div>
   <div class="col-12 md:col-6 lg:col-3">
@@ -55,17 +55,32 @@
           <span class="block text-500 font-medium mb-3"
             >Productos con Stock Bajo</span
           >
-          <div class="text-900 font-medium text-xl">28441</div>
+          <div class="text-900 font-medium text-xl">
+            {{ isLowStockProducts }}
+          </div>
         </div>
         <div
-          class="flex align-items-center justify-content-center bg-cyan-100 border-round"
+          class="flex align-items-center justify-content-center border-round"
           style="width: 2.5rem; height: 2.5rem"
+          [ngClass]="lowStockPercentage < lowerStockProductPercent ? 'bg-green-100' : 'bg-red-100'"
         >
-          <i class="pi pi-inbox text-cyan-500 text-xl"></i>
+          <i
+            class="pi text-xl"
+            [ngClass]="
+              lowStockPercentage < lowerStockProductPercent
+                ? 'pi-check text-green-500 '
+                : 'pi pi-exclamation-triangle text-red-500'
+            "
+          ></i>
         </div>
       </div>
-      <span class="text-green-500 font-medium">520 </span>
-      <span class="text-500">newly registered</span>
+      <span
+        class="font-medium"
+        [ngClass]="lowStockPercentage < lowerStockProductPercent ? 'text-green-500' : 'text-red-500'"
+      >
+        {{ lowStockPercentage }}%
+      </span>
+      <span class="text-500">Porcentaje de todo el stock</span>
     </div>
   </div>
   <div class="col-12 md:col-6 lg:col-3">
@@ -73,7 +88,7 @@
       <div class="flex justify-content-between mb-3">
         <div>
           <span class="block text-500 font-medium mb-3">Total ingresos</span>
-          <div class="text-900 font-medium text-xl">152 Unread</div>
+          <div class="text-900 font-medium text-xl">152 Unidades</div>
         </div>
         <div
           class="flex align-items-center justify-content-center bg-purple-100 border-round"

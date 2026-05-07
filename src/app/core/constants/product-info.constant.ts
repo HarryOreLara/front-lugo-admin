@@ -1,0 +1,3 @@
+export const LOWER_STOCK_PRODUCT = 10;
+
+export const LOWER_STOCK_PRODUCT_PERCENT = 50;

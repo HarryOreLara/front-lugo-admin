@@ -43,12 +43,12 @@
         <div
           class="flex align-items-center justify-content-center border-round"
           style="width: 2.5rem; height: 2.5rem"
-          [ngClass]="lowStockPercentage < 50 ? 'bg-green-100' : 'bg-red-100'"
+          [ngClass]="lowStockPercentage < lowerStockProductPercent ? 'bg-green-100' : 'bg-red-100'"
         >
           <i
             class="pi text-xl"
             [ngClass]="
-              lowStockPercentage < 50
+              lowStockPercentage < lowerStockProductPercent
                 ? 'pi-check text-green-500 '
                 : 'pi pi-exclamation-triangle text-red-500'
             "
@@ -57,7 +57,7 @@
       </div>
       <span
         class="font-medium"
-        [ngClass]="lowStockPercentage < 50 ? 'text-green-500' : 'text-red-500'"
+        [ngClass]="lowStockPercentage < lowerStockProductPercent ? 'text-green-500' : 'text-red-500'"
       >
         {{ lowStockPercentage }}%
       </span>
