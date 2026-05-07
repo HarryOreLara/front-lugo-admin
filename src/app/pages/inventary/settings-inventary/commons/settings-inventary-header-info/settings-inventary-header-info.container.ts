@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Product } from '@class/index';
+import { InventaryMovement } from '@class/inventary-movement/inventary-movement.class';
 
 @Component({
   selector: 'app-settings-inventary-header-info',
@@ -7,5 +8,7 @@ import { Product } from '@class/index';
 })
 export class SettingsInventaryHeaderInfoContainer {
     @Input() public products: Product[];
+
+      @Input() public inventaryMovements: InventaryMovement[];
   
 }

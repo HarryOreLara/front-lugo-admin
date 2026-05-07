@@ -1,9 +1,17 @@
 import { Component, Input } from '@angular/core';
 import { Product } from '@class/index';
-import {
-  LOWER_STOCK_PRODUCT,
-  LOWER_STOCK_PRODUCT_PERCENT,
-} from '@constants/product-info.constant';
+import { InventaryMovement } from '@class/inventary-movement/inventary-movement.class';
+import { LOWER_STOCK_PRODUCT_PERCENT } from '@constants/product-info.constant';
+import { InventaryMovementType } from '@enums/inventary-movement.enum';
+import { filter } from 'rxjs';
+
+export interface MovementStat {
+  totalCost: number;
+  quantity: number;
+  percentage: number;
+}
+
+export type MovementStatsMap = Record<InventaryMovementType, MovementStat>;
 
 @Component({
   selector: 'app-settings-inventary-header-info-ui',
@@ -14,19 +22,69 @@ export class SettingsInventaryHeaderInfoComponent {
   public lowerStockProductPercent: number = LOWER_STOCK_PRODUCT_PERCENT;
   @Input() products: Array<Product>;
 
-  public get isLowStockProducts(): number {
-    return this.products.filter(
-      (product) => product.stock < LOWER_STOCK_PRODUCT,
-    ).length;
+  private _inventaryMovements: InventaryMovement[] = [];
+
+  @Input()
+  set inventaryMovements(value: InventaryMovement[]) {
+    this._inventaryMovements = value;
+    this.movementStats = this.calculateMovementStats(value);
+  }
+  get inventaryMovements(): InventaryMovement[] {
+    return this._inventaryMovements;
   }
 
-  public get lowStockPercentage(): number {
-    if (!this.products.length) return 0;
+  MovementType = InventaryMovementType;
 
-    const lowStockCount = this.products.filter(
-      (product) => product.stock < LOWER_STOCK_PRODUCT,
-    ).length;
+  movementStats: MovementStatsMap = this.buildEmptyStats();
 
-    return Number(((lowStockCount / this.products.length) * 100).toFixed(2));
+  private calculateMovementStats(
+    movements: InventaryMovement[],
+  ): MovementStatsMap {
+    const stats = this.buildEmptyStats();
+
+    for (const mov of movements) {
+      const type = mov.typeInventary as InventaryMovementType;
+      stats[type].totalCost += mov.totalCost;
+      stats[type].quantity += mov.quantity;
+    }
+
+    const totalQuantity = Object.values(stats).reduce(
+      (sum, s) => sum + s.quantity,
+      0,
+    );
+
+    for (const type of Object.values(InventaryMovementType)) {
+      stats[type].percentage =
+        totalQuantity > 0
+          ? Math.round((stats[type].quantity / totalQuantity) * 100 * 10) / 10
+          : 0;
+    }
+
+    return stats;
+  }
+
+  private buildEmptyStats(): MovementStatsMap {
+    return {
+      [InventaryMovementType.INBOUND]: {
+        totalCost: 0,
+        quantity: 0,
+        percentage: 0,
+      },
+      [InventaryMovementType.OUTBOUND]: {
+        totalCost: 0,
+        quantity: 0,
+        percentage: 0,
+      },
+      [InventaryMovementType.ADJUSTMENT]: {
+        totalCost: 0,
+        quantity: 0,
+        percentage: 0,
+      },
+      [InventaryMovementType.RETURN]: {
+        totalCost: 0,
+        quantity: 0,
+        percentage: 0,
+      },
+    };
   }
 }
