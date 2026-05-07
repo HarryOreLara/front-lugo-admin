@@ -14,6 +14,17 @@
         <p class="header-title">Lista de empleados</p>
         <p class="header-subtitle">Gestión y seguimiento de empleados</p>
       </div>
+
+      <span class="p-input-icon-left w-20rem">
+        <i class="pi pi-search"></i>
+        <input
+          pInputText
+          type="text"
+          class="w-20rem"
+          (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+          placeholder="Buscar..."
+        />
+      </span>
     </div>
 
     <div class="flex gap-2 flex-wrap">
@@ -62,6 +73,7 @@
 
   <!-- Tabla -->
   <p-table
+    #dt1
     [value]="employees"
     responsiveLayout="stack"
     [breakpoint]="'768px'"
@@ -70,6 +82,8 @@
     [rowsPerPageOptions]="[30, 60, 90]"
     [loading]="isLoading"
     [paginator]="true"
+    [globalFilterFields]="['firstName', 'lastName', 'document']"
+    currentPageReportTemplate="Mostrando {last} empleados de {totalRecords}"
   >
     <ng-template pTemplate="header">
       <tr>
@@ -121,36 +135,39 @@
             [styleClass]="'text-white'"
           ></p-tag>
         </td>
-              <td>
-        <!-- action-menu.component.html -->
-        <div class="action-menu-container">
-          <button
-            #menuButton
-            pButton
-            pRipple
-            type="button"
-            icon="pi pi-ellipsis-v"
-            class="p-button-text p-button-rounded"
-            (click)="overlayPanel.toggle($event)"
-            aria-haspopup="true"
-            aria-label="Opciones"
-          ></button>
+        <td>
+          <!-- action-menu.component.html -->
+          <div class="action-menu-container">
+            <button
+              #menuButton
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-ellipsis-v"
+              class="p-button-text p-button-rounded"
+              (click)="overlayPanel.toggle($event)"
+              aria-haspopup="true"
+              aria-label="Opciones"
+            ></button>
 
-          <p-overlayPanel #overlayPanel [appendTo]="'body'">
-            <div class="custom-menu">
-              <button class="custom-menu-item" (click)="updateEmployee()">
-                <i class="pi pi-pen-to-square"></i>
-                <span>Actualizar</span>
-              </button>
+            <p-overlayPanel #overlayPanel [appendTo]="'body'">
+              <div class="custom-menu">
+                <button class="custom-menu-item" (click)="updateEmployee()">
+                  <i class="pi pi-pen-to-square"></i>
+                  <span>Actualizar</span>
+                </button>
 
-              <button class="custom-menu-item danger" (click)="deleteEmployee()">
-                <i class="pi pi-trash"></i>
-                <span>Eliminar</span>
-              </button>
-            </div>
-          </p-overlayPanel>
-        </div>
-      </td>
+                <button
+                  class="custom-menu-item danger"
+                  (click)="deleteEmployee()"
+                >
+                  <i class="pi pi-trash"></i>
+                  <span>Eliminar</span>
+                </button>
+              </div>
+            </p-overlayPanel>
+          </div>
+        </td>
       </tr>
     </ng-template>
 
