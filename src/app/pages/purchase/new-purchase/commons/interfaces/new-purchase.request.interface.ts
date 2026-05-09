@@ -6,7 +6,6 @@ import { InvoiceType } from '@enums/invoice-type.enum';
 
 export interface INewPurchaseRequest {
   customerId: number;
-  employeeId: number;
   invoiceType: InvoiceType;
   channel: Channel;
   subTotal: number;

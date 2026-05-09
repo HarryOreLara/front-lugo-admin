@@ -25,7 +25,6 @@ export const newPurchaseMapper = (
     currency: purchaseForm.currency,
     methodPayment: purchaseForm.methodPayment,
     customerId: client.id === 0 ? null : client.id,
-    employeeId: 2,
     voucher: purchaseForm.voucher,
   } as INewPurchaseRequest;
 };
