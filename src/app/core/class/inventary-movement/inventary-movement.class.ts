@@ -1,9 +1,9 @@
-import { Standar } from '@class/standar/standar.class';
+import { ProductResponseInventary } from '@class/product/product-inventary.class';
 import { InventaryMovementType } from '@enums/inventary-movement.enum';
 
 export class InventaryMovement {
   public id: number;
-  public product: Standar;
+  public product: ProductResponseInventary;
   public typeInventary: InventaryMovementType;
   public quantity: number;
   public stockBefore: number;
@@ -17,7 +17,7 @@ export class InventaryMovement {
 
   public constructor(inventaryMovement: Partial<InventaryMovement> = {}) {
     this.id = inventaryMovement.id ?? 0;
-    this.product = inventaryMovement.product ?? new Standar();
+    this.product = inventaryMovement.product ?? new ProductResponseInventary();
     this.typeInventary =
       inventaryMovement.typeInventary ?? InventaryMovementType.ADJUSTMENT;
     this.quantity = inventaryMovement.quantity ?? 0;
@@ -36,7 +36,7 @@ export class InventaryMovement {
 
     return new InventaryMovement({
       id: casted['id'] as number,
-      product: Standar.fromJson(casted['product']),
+      product: ProductResponseInventary.fromJson(casted['product']),
       typeInventary: casted['typeInventary'] as InventaryMovementType,
       quantity: casted['quantity'] as number,
       stockBefore: casted['stockBefore'] as number,

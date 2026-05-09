@@ -105,6 +105,13 @@
       </th>
       <th style="min-width: 12rem">
         <div class="flex align-items-center">
+          Stock Insertado
+          <p-columnFilter type="numeric" field="stockAfter" display="menu" />
+        </div>
+      </th>
+
+      <th style="min-width: 12rem">
+        <div class="flex align-items-center">
           Stock Actual
           <p-columnFilter type="numeric" field="stockAfter" display="menu" />
         </div>
@@ -188,6 +195,9 @@
       </td>
       <td>
         {{ inventary.stockAfter }}
+      </td>
+      <td>
+        {{ inventary.product.stock }}
       </td>
       <td>
         {{ inventary.unitCost | currencyLugo }}
