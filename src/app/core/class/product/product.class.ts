@@ -2,6 +2,7 @@ import { Category } from '@class/category/category.class';
 import { ProductPrice } from './product-prices.class';
 import { Brand } from '@class/brand/brand.class';
 import { Color } from '@class/color/color.class';
+import { Partner } from '@class/partner/partner.class';
 
 export class Product {
   public id: number;
@@ -19,6 +20,7 @@ export class Product {
   public imageMajor: string;
   public category: Category;
   public brand: Brand;
+  public partner: Partner;
   public color: Color;
   public status: string;
   public isActive: boolean;

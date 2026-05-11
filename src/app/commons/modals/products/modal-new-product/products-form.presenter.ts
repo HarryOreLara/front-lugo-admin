@@ -12,7 +12,6 @@ import { Product } from '@class/index';
 import { Subscription } from 'rxjs';
 import {
   noWhitespaceValidator,
-  onlyLettersValidator,
   onlyNumbersValidator,
 } from 'src/app/commons/validators';
 
@@ -32,6 +31,7 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
   prices: FormControl;
   status: FormControl;
   isActive: FormControl;
+  partner: FormControl;
 
   ///Cntroladores
   useSamePrice: FormControl;
@@ -70,6 +70,7 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
     this.prices = new FormControl(null);
     this.status = new FormControl(null);
     this.isActive = new FormControl(null);
+    this.partner = new FormControl(null);
 
     this.useSamePrice = new FormControl(null);
   }
@@ -89,6 +90,7 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
       ),
       status: this.status,
       isActive: this.isActive,
+      partner: this.partner,
       useSamePrice: [false],
     });
 
@@ -127,6 +129,7 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
     this.status = new FormControl(null);
     this.prices = new FormControl(null);
     this.sku = new FormControl(null);
+    this.partner = new FormControl(null);
     this.barCode = new FormControl(null);
   }
 
@@ -136,6 +139,7 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
       category: product.category.id,
       brand: product.brand.id,
       color: product.color.id,
+      partner: product.partner.id,
     });
   }
 

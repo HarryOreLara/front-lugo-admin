@@ -6,7 +6,7 @@ export interface IProductRequest {
   description: string;
   stock: number;
   barcode: string;
-  // quantityBox: number;
+  partnerId: number;
   descriptionFull: string;
   prices: Array<IProductPriceRequest>;
   status: string;

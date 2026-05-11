@@ -35,7 +35,19 @@
           <p-inputSwitch class="pt-5" formControlName="isActive" />
         </div>
 
-        <div class="field mb-4 col-12 md:col-6">
+        <div class="field mb-4 col-12 md:col-4">
+          <label for="partners" class="font-medium text-900">Socio</label>
+          <p-dropdown
+            inputId="category"
+            [options]="partners"
+            optionValue="id"
+            formControlName="partner"
+            optionLabel="description"
+            placeholder="Seleccióne un socio"
+          >
+          </p-dropdown>
+        </div>
+        <div class="field mb-4 col-12 md:col-4">
           <label for="sku" class="font-medium text-900">SKU</label>
           <input
             id="sku"
@@ -47,7 +59,7 @@
             pInputText
           />
         </div>
-        <div class="field mb-4 col-12 md:col-6">
+        <div class="field mb-4 col-12 md:col-4">
           <label for="barCode" class="font-medium text-900"
             >Codigo Barras</label
           >

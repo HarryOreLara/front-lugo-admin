@@ -3,6 +3,7 @@ export interface IProductForm {
   category: number;
   brand: number;
   color: number;
+  partner: number;
   description: string;
   stock: number;
   sku: string;

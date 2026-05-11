@@ -13,6 +13,7 @@ export const createProductMapper = (
     categoryId: productForm.category,
     brandId: productForm.brand,
     colorId: productForm.color,
+    partnerId: productForm.partner,
     description: productForm.description,
     stock: productForm.stock ? productForm.stock : 0,
     sku: productForm.sku,

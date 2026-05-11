@@ -16,6 +16,7 @@ export class ModalNewProductComponent {
   @Input() public categories: Array<Parameter>;
   @Input() public colors: Array<Parameter>;
   @Input() public units: Array<Parameter>;
+  @Input() public partners: Array<Parameter>;
   @Input() product: Product;
 
   @Output() saveProductEmit: EventEmitter<IProductForm> =

@@ -23,6 +23,7 @@ export class ModalNewProductContainer implements OnInit {
   public brands: Array<Parameter>;
   public colors: Array<Parameter>;
   public units: Array<Parameter>;
+  public partners: Array<Parameter>;
 
   public constructor(
     public readonly modalService: ModalService,
@@ -68,6 +69,11 @@ export class ModalNewProductContainer implements OnInit {
     this.units =
       this.lugoStateService.getSnapshot<Array<Parameter>>(
         ParameterNode.UNITS,
+      ) ?? [];
+
+    this.partners =
+      this.lugoStateService.getSnapshot<Array<Parameter>>(
+        ParameterNode.PARTNERS,
       ) ?? [];
   }
 
