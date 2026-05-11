@@ -123,11 +123,21 @@
             pInputText
           />
         </div>
-        <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
 
         <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
 
-        <div formArrayName="prices" class="col-12">
+        <div class="field mb-4 col-12 flex align-items-center">
+          <span class="mr-2 text-900"
+            >Usar el mismo precio para todos los canales?</span
+          >
+          <p-checkbox
+            value="true"
+            formControlName="useSamePrice"
+            [binary]="true"
+          ></p-checkbox>
+        </div>
+        <!-- 
+        <div formArrayName="prices" class="col-12 mt-4">
           <div
             *ngFor="
               let price of productFormPresenter.pricesArray.controls;
@@ -188,17 +198,79 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
-        <div class="field mb-4 mt-4 col-12 flex align-items-center">
-          <span class="mr-2 text-900"
-            >Usar el mismo precio para todos los canales?</span
+        <div formArrayName="prices" class="col-12 mt-4">
+          <ng-container
+            *ngFor="
+              let price of productFormPresenter.pricesArray.controls;
+              let i = index
+            "
           >
-          <p-checkbox
-            value="true"
-            formControlName="useSamePrice"
-            [binary]="true"
-          ></p-checkbox>
+            <div
+              *ngIf="
+                productFormPresenter.Form.get('useSamePrice')?.value
+                  ? i === 1
+                  : true
+              "
+              [formGroupName]="i"
+              class="grid align-items-end mb-3"
+            >
+              <div class="col-12 md:col-3">
+                <label class="font-medium text-900">Canal</label>
+                <input pInputText formControlName="channel" readonly />
+              </div>
+
+              <div class="col-12 md:col-3">
+                <label class="font-medium text-900">Precio Costo</label>
+
+                <div class="flex align-content-center">
+                  <p-inputNumber
+                    formControlName="costPrice"
+                    inputId="locale-us"
+                    mode="decimal"
+                    lugoReactiveForm
+                    lugoErrorBorder
+                    locale="en-US"
+                    [minFractionDigits]="2"
+                  />
+                </div>
+              </div>
+
+              <div class="col-12 md:col-3">
+                <label class="font-medium text-900">Precio Venta</label>
+
+                <div class="flex align-content-center">
+                  <p-inputNumber
+                    formControlName="salePrice"
+                    inputId="locale-us"
+                    lugoReactiveForm
+                    lugoErrorBorder
+                    mode="decimal"
+                    locale="en-US"
+                    [minFractionDigits]="2"
+                  />
+                </div>
+              </div>
+
+              <div class="col-12 md:col-3">
+                <label class="font-medium text-900">IGV (%)</label>
+
+                <div class="flex align-content-center">
+                  <p-inputNumber
+                    suffix="%"
+                    formControlName="taxRate"
+                    inputId="locale-us"
+                    mode="decimal"
+                    lugoReactiveForm
+                    lugoErrorBorder
+                    locale="en-US"
+                    [minFractionDigits]="2"
+                  />
+                </div>
+              </div>
+            </div>
+          </ng-container>
         </div>
 
         <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>

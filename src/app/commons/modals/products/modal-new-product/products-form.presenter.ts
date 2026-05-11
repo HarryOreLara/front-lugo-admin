@@ -14,6 +14,7 @@ import {
   noWhitespaceValidator,
   onlyNumbersValidator,
 } from 'src/app/commons/validators';
+import { CHANNEL_CONSTANT } from '@constants/channel.constant';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +34,7 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
   isActive: FormControl;
   partner: FormControl;
 
-  ///Cntroladores
+  // Controladores
   useSamePrice: FormControl;
 
   private firstPriceSub?: Subscription;
@@ -60,8 +61,9 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
     this.brand = new FormControl(null);
     this.color = new FormControl(null);
     this.stock = new FormControl(null);
-    this.sku = new FormControl(null);
+    this.sku = new FormControl(null, [Validators.required]);
     this.barCode = new FormControl(null, [
+      Validators.required,
       onlyNumbersValidator(),
       Validators.maxLength(30),
       Validators.minLength(5),
@@ -69,11 +71,12 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
     ]);
     this.prices = new FormControl(null);
     this.status = new FormControl(null);
-    this.isActive = new FormControl(null);
+    this.isActive = new FormControl(true);
     this.partner = new FormControl(null);
 
-    this.useSamePrice = new FormControl(null);
+    this.useSamePrice = new FormControl(true);
   }
+
   public createForm(): void {
     this.form = this.fb.group({
       name: this.name,
@@ -91,14 +94,12 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
       status: this.status,
       isActive: this.isActive,
       partner: this.partner,
-      useSamePrice: [false],
+      useSamePrice: [true],
     });
 
-    this.listenUseSamePrice();
-  }
+    this.applyUseSamePrice(true);
 
-  private getDefaultPrices() {
-    return [{ channel: 'WEB' }, { channel: 'PHYSICAL' }, { channel: 'MOBILE' }];
+    this.listenUseSamePrice();
   }
 
   private createPriceGroup(price?: any): FormGroup {
@@ -116,23 +117,6 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
     return this.form.get('prices') as FormArray;
   }
 
-  public createValidators() {
-    this.name = new FormControl(null, [Validators.required]);
-    this.description = new FormControl(null, [Validators.required]);
-    this.descriptionFull = new FormControl(null);
-    this.category = new FormControl(null);
-    this.color = new FormControl(null);
-    this.brand = new FormControl(null);
-    this.stock = new FormControl(null);
-    this.isActive = new FormControl(null);
-    this.useSamePrice = new FormControl(null);
-    this.status = new FormControl(null);
-    this.prices = new FormControl(null);
-    this.sku = new FormControl(null);
-    this.partner = new FormControl(null);
-    this.barCode = new FormControl(null);
-  }
-
   public updateForm(product: Product) {
     this.form.patchValue({
       ...product,
@@ -143,28 +127,42 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
     });
   }
 
-  private listenUseSamePrice() {
-    const useSamePriceControl = this.form.get('useSamePrice');
+  private listenUseSamePrice(): void {
+    this.form
+      .get('useSamePrice')
+      ?.valueChanges.subscribe((useSame: boolean) => {
+        this.applyUseSamePrice(useSame);
+      });
+  }
 
-    useSamePriceControl?.valueChanges.subscribe((useSame: boolean) => {
-      if (useSame) {
-        this.enableOnlyFirstPrice();
-        this.listenFirstPriceChanges();
+  private applyUseSamePrice(useSame: boolean): void {
+    if (useSame) {
+      this.lockNonPhysicalChannels();
+      this.listenPhysicalChanges();
+    } else {
+      this.stopListeningPhysical();
+      this.enableAllPrices();
+    }
+  }
+
+  private lockNonPhysicalChannels(): void {
+    this.pricesArray.controls.forEach((group, index) => {
+      if (index === 1) {
+        group.enable({ emitEvent: false });
       } else {
-        this.enableAllPrices();
+        group.disable({ emitEvent: false });
       }
     });
   }
-  private listenFirstPriceChanges() {
-    if (this.firstPriceSub) {
-      this.firstPriceSub.unsubscribe();
-    }
 
-    const firstGroup = this.pricesArray.at(0);
+  private listenPhysicalChanges(): void {
+    this.stopListeningPhysical();
 
-    this.firstPriceSub = firstGroup.valueChanges.subscribe((value) => {
+    const physicalGroup = this.pricesArray.at(1);
+
+    this.firstPriceSub = physicalGroup.valueChanges.subscribe((value) => {
       this.pricesArray.controls.forEach((group, index) => {
-        if (index > 0) {
+        if (index !== 1) {
           group.patchValue(
             {
               costPrice: value.costPrice,
@@ -177,17 +175,19 @@ export class ProductsFormPresenter extends StepPresenter<IProductForm> {
       });
     });
   }
-  private enableOnlyFirstPrice() {
-    this.pricesArray.controls.forEach((group, index) => {
-      if (index === 0) {
-        group.enable({ emitEvent: false });
-      } else {
-        group.disable({ emitEvent: false });
-      }
-    });
+
+  private stopListeningPhysical(): void {
+    if (this.firstPriceSub) {
+      this.firstPriceSub.unsubscribe();
+      this.firstPriceSub = undefined;
+    }
   }
 
-  private enableAllPrices() {
+  private getDefaultPrices() {
+    return [{ channel: 'WEB' }, { channel: 'PHYSICAL' }, { channel: 'MOBILE' }];
+  }
+
+  private enableAllPrices(): void {
     this.pricesArray.controls.forEach((group) => {
       group.enable({ emitEvent: false });
     });

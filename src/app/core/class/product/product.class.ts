@@ -44,6 +44,7 @@ export class Product {
     this.imageMajor = product.imageMajor ?? '';
     this.category = product.category ?? new Category();
     this.brand = product.brand ?? new Brand();
+    this.partner = product.partner ?? new Partner();
     this.color = product.color ?? new Color();
     this.status = product.status ?? '';
     this.isActive = product.isActive ?? true;
@@ -72,7 +73,8 @@ export class Product {
       category: casted['category']
         ? Category.fromJson(casted['category'])
         : new Category(),
-      brand: casted['category'] ? Brand.fromJson(casted['brand']) : new Brand(),
+      brand: casted['brand'] ? Brand.fromJson(casted['brand']) : new Brand(),
+      partner: casted['partner'] ? Partner.fromJson(casted['partner']) : new Partner(),
       color: casted['color'] ? Color.fromJson(casted['color']) : new Color(),
       status: casted['status'] as string,
       isActive: casted['isActive'] as boolean,
