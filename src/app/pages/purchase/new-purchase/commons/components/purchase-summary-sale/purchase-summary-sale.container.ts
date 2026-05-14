@@ -36,4 +36,8 @@ export class PurchaseSummarySaleContainer implements OnInit {
     const client = this.clientFacade.client$.value;
     this.purchaseFacade.createPurchase(purchaseForm, client);
   }
+
+  public clearPurchase() {
+    this.eventBussService.emit('lugo-purchase-reset', true);
+  }
 }

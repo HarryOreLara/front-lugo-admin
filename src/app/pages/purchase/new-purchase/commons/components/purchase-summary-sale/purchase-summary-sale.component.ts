@@ -46,6 +46,8 @@ export class PurchaseSummarySaleComponent implements OnInit {
   @Input() public methodPayments: IParameterEnum[] = [];
   @Output() public newPurchaseEmit: EventEmitter<IPurchaseForm> =
     new EventEmitter<IPurchaseForm>();
+  @Output() public clearPurchaseEmit: EventEmitter<void> =
+    new EventEmitter<void>();
 
   constructor(
     public readonly purchaseFormPresenter: PurchaseFormPresenter,
@@ -69,6 +71,10 @@ export class PurchaseSummarySaleComponent implements OnInit {
 
   public newPurchase() {
     this.newPurchaseEmit.emit(this.purchaseFormPresenter.Form.getRawValue());
+  }
+
+  public clearPurchase(): void {
+    this.clearPurchaseEmit.emit();
   }
 
   private createControls() {
