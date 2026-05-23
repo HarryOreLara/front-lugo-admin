@@ -1,3 +1,4 @@
 <app-login-ui
-(loginEmmiter)="login($event)"
+  (loginEmmiter)="login($event)"
+  [isLoading]="(isLoading$ | async)!"
 ></app-login-ui>

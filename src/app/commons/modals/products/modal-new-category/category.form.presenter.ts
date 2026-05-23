@@ -28,7 +28,7 @@ export class CategoryFormPresenter extends StepPresenter<Category> {
       noWhitespaceValidator(),
     ]);
     this.description = new FormControl(null, [
-      Validators.minLength(50),
+      Validators.maxLength(50),
       Validators.minLength(3),
     ]);
     this.code = new FormControl({ value: null, disabled: true });

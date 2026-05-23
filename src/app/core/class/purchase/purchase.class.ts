@@ -40,12 +40,20 @@ export class Purchase {
       total: casted['total'] as number,
       channel: casted['channel'] as Channel,
       status: casted['status'] as OrderStatus,
-      items: (casted['items'] as Array<PurchaseItem>).map((res) =>
-        PurchaseItem.fromJson(res),
-      ),
-      client: Client.fromJson(casted['customer'] as Client),
-      employee: Employee.fromJson(casted['employee'] as Employee),
-      payments: Payment.fromJson(casted['payments'] as Client),
+      items: casted['items']
+        ? (casted['items'] as Array<PurchaseItem>).map((res) =>
+            PurchaseItem.fromJson(res),
+          )
+        : [],
+      client: casted['customer']
+        ? Client.fromJson(casted['customer'] as Client)
+        : new Client(),
+      employee: casted['employee']
+        ? Employee.fromJson(casted['employee'] as Employee)
+        : new Employee(),
+      payments: casted['payments']
+        ? Payment.fromJson(casted['payments'] as Client)
+        : new Payment(),
     });
   }
 }
