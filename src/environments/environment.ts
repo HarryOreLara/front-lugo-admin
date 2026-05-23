@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   enterpriseNumber: 925485473,
   dashboard: '/dashboard',
-  API_URL: 'https://back-lugo-admin.onrender.com/api',
+  API_URL: 'http://localhost:3000/api',
 };
 
 /*
