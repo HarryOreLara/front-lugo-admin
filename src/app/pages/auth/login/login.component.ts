@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LoginPresenter } from './login.presenter';
 import { ILoginForm } from './models/login-form.model';
 
@@ -10,6 +10,8 @@ import { ILoginForm } from './models/login-form.model';
 export class LoginComponent {
   @Output() public loginEmmiter: EventEmitter<ILoginForm> =
     new EventEmitter<ILoginForm>();
+
+  @Input() public isLoading: boolean;
   constructor(public loginPresenter: LoginPresenter) {
     this.createControls();
   }
@@ -21,5 +23,9 @@ export class LoginComponent {
   private createControls() {
     this.loginPresenter.initForm();
     this.loginPresenter.createForm();
+  }
+
+  public get disabledLogin(): boolean {
+    return this.loginPresenter.Invalid || this.isLoading;
   }
 }

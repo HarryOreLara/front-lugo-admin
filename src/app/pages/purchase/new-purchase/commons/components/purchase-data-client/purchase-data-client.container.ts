@@ -30,7 +30,8 @@ export class PurchaseDataClientContainer implements OnDestroy, OnInit {
     this.eventBussService.on<boolean>('lugo-purchase-reset').subscribe({
       next: (value) => {
         if (!value) return;
-        this.client$ = new BehaviorSubject(new Client());
+
+        this.client$.next(new Client());
       },
     });
   }
