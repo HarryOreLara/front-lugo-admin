@@ -5,6 +5,10 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { NgModule } from '@angular/core';
+import { StyleClassModule } from 'primeng/styleclass';
+import { TableModule } from 'primeng/table';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   imports: [
@@ -14,6 +18,12 @@ import { NgModule } from '@angular/core';
     InputNumberModule,
     TagModule,
     ToastModule,
+    StyleClassModule,
+    TableModule,
+    ButtonModule,
+    OverlayPanelModule,
+    TagModule,
+    InputTextModule,
   ],
   exports: [
     CardModule,
@@ -22,6 +32,12 @@ import { NgModule } from '@angular/core';
     InputNumberModule,
     TagModule,
     ToastModule,
+    StyleClassModule,
+    TableModule,
+    ButtonModule,
+    TagModule,
+    OverlayPanelModule,
+    InputTextModule,
   ],
 })
 export class AutomationPrimengModule {}

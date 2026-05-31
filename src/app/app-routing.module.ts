@@ -61,6 +61,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'affiliated-stores',
+        loadChildren: () =>
+          import('./pages/automation/affiliated-stores/affiliated-stores.module').then(
+            (m) => m.AffiliatedStoresModule,
+          ),
+      },
+      {
         path: 'employee',
         loadChildren: () =>
           import('./pages/employee/employee.module').then(

@@ -44,7 +44,7 @@ import { ModalNewBrandModule } from './commons/modals/products/modal-new-brand/m
     ModalNewInventaryModule,
     ModalNewClientModule,
     ModalNewEmployeeModule,
-    ModalNewBrandModule
+    ModalNewBrandModule,
   ],
   providers: [
     PrimeNGConfig,

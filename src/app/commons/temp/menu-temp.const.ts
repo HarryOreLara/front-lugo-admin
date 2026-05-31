@@ -562,6 +562,16 @@ export const CONST_MENU: Array<IMenu> = [
         route: '/script-generator',
         children: [],
       },
+      {
+        id: 56,
+        icon: 'pi pi-chart-line',
+        name: 'Tiendas Afiliadas',
+        node: 'MENU_CHILD_PARAMS',
+        code: 'CHILD_STORES',
+        typeMenu: 'CHILD',
+        route: '/affiliated-stores',
+        children: [],
+      },
     ],
   },
 ];
