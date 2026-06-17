@@ -13,7 +13,6 @@ export class EmployeeTableListContainer {
   constructor(private readonly modalService: ModalService) {}
 
   public newEmployee() {
-    console.log("EMISION");
     this.modalService.openByName(MODELS_ENUM.MODAL_NEW_EMPLOYEE, {});
   }
 }

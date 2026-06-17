@@ -21,6 +21,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'automation',
+        loadChildren: () =>
+          import('./pages/automation/automation.module').then(
+            (m) => m.AutomationModule,
+          ),
+      },
+      {
         path: 'products',
         loadChildren: () =>
           import('./pages/products/products.module').then(
@@ -53,20 +60,21 @@ const routes: Routes = [
             (m) => m.UsersAndRolesModule,
           ),
       },
-      {
-        path: 'script-generator',
-        loadChildren: () =>
-          import('./pages/automation/script-generator/script-generator.module').then(
-            (m) => m.ScriptGeneratorModule,
-          ),
-      },
-      {
-        path: 'affiliated-stores',
-        loadChildren: () =>
-          import('./pages/automation/affiliated-stores/affiliated-stores.module').then(
-            (m) => m.AffiliatedStoresModule,
-          ),
-      },
+
+      // {
+      //   path: 'script-generator',
+      //   loadChildren: () =>
+      //     import('./pages/automation/script-generator/script-generator.module').then(
+      //       (m) => m.ScriptGeneratorModule,
+      //     ),
+      // },
+      // {
+      //   path: 'affiliated-stores',
+      //   loadChildren: () =>
+      //     import('./pages/automation/affiliated-stores/store-list/store-list.module').then(
+      //       (m) => m.AffiliatedStoresModule,
+      //     ),
+      // },
       {
         path: 'employee',
         loadChildren: () =>

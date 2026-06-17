@@ -1,0 +1,148 @@
+<p-dialog
+  [(visible)]="visibleModal"
+  appendTo="body"
+  [modal]="true"
+  [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="new-product-dialog"
+>
+  <ng-template pTemplate="header">
+    <div class="inline-flex align-items-center justify-content-center gap-2">
+      <span class="font-bold white-space-nowrap">
+        {{ store ? "Actualizar tienda" : "Nueva tienda" }}
+      </span>
+    </div>
+  </ng-template>
+  <form class="surface-ground" [formGroup]="storeFormPresenter.Form">
+    <div class="surface-card p-4 border-round p-fluid">
+      <div class="grid formgrid p-fluid">
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="name" class="font-medium text-900">Nombre</label>
+          <input
+            id="name"
+            formControlName="name"
+            autocomplete="off"
+            lugoReactiveForm
+            type="text"
+            pInputText
+          />
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="description" class="font-medium text-900"
+            >Descripcion</label
+          >
+          <input
+            id="description"
+            formControlName="description"
+            autocomplete="off"
+            lugoReactiveForm
+            type="text"
+            pInputText
+          />
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="code" class="font-medium text-900">Codigo</label>
+          <p-dropdown
+            inputId="code"
+            [options]="brands"
+            optionValue="id"
+            formControlName="code"
+            optionLabel="name"
+            placeholder="Seleccione"
+          >
+          </p-dropdown>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="address" class="font-medium text-900">Direccion</label>
+          <input
+            id="address"
+            formControlName="address"
+            lugoReactiveForm
+            autocomplete="off"
+            type="text"
+            pInputText
+          />
+        </div>
+
+        <div class="field mb-4 col-12 md:col-4">
+          <label for="phone" class="font-medium text-900">Telefono</label>
+          <p-dropdown
+            inputId="phone"
+            [options]="brands"
+            optionLabel="description"
+            optionValue="id"
+            formControlName="phone"
+            placeholder="Seleccióne un banco"
+          >
+          </p-dropdown>
+        </div>
+        <div class="field mb-4 col-12 md:col-4">
+          <label for="email" class="font-medium text-900">Email</label>
+          <p-dropdown
+            inputId="email"
+            [options]="brands"
+            optionValue="id"
+            formControlName="email"
+            optionLabel="description"
+            placeholder="Seleccione un distrito"
+          >
+          </p-dropdown>
+        </div>
+
+        <div class="field mb-4 col-12 md:col-4">
+          <label for="imageUrl" class="font-medium text-900">Imagen</label>
+          <input
+            id="imageUrl"
+            formControlName="imageUrl"
+            lugoReactiveForm
+            autocomplete="off"
+            type="text"
+            pInputText
+          />
+        </div>
+
+        <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
+
+        <div class="field mb-4 col-12 md:col-4">
+          <label for="address" class="font-medium text-900">Dirección</label>
+          <input
+            id="address"
+            formControlName="address"
+            type="text"
+            autocomplete="off"
+            lugoReactiveForm
+            pInputText
+          />
+        </div>
+
+        <div class="field mb-4 col-12 flex align-items-center">
+          <span class="mr-2 text-900">Tienda activa</span>
+          <p-checkbox
+            formControlName="isActive"
+            value="true"
+            [binary]="true"
+          ></p-checkbox>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      [disabled]="isLoading"
+      label="Cancelar"
+      class="bg-red-500 border-red-400 hover:bg-red-600"
+      (click)="close()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [label]="store ? 'Actualizar' : 'Guardar'"
+      [disabled]="storeFormPresenter.Invalid || isLoading"
+      type="button"
+      (click)="store ? updateStore() : saveStore()"
+    ></button>
+  </ng-template>
+</p-dialog>

@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-affiliated-stores-table-ui',
-  templateUrl: './affiliated-stores-table.component.html',
-  styleUrls: ['./affiliated-stores-table.component.css'],
+  selector: 'app-store-list-table-ui',
+  templateUrl: './store-list-table.component.html',
+  styleUrls: ['./store-list-table.component.css'],
 })
-export class AffiliatedStoresTableComponent {
+export class StoreListTableComponent {
   @Input() public isLoading: boolean;
   @Input() public stores: any[] = [];
 

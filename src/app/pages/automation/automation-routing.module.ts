@@ -1,12 +1,26 @@
-// import { NgModule } from '@angular/core';
-// import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
+import { RouterModule, Routes } from '@angular/router';
 
+const routes: Routes = [
+  {
+    path: 'script-generator',
+    loadChildren: () =>
+      import('./script-generator/script-generator.module').then(
+        (m) => m.ScriptGeneratorModule,
+      ),
+  },
+  {
+    path: 'affiliated-stores',
+    loadChildren: () =>
+      import('./affiliated-stores/affiliated-stores.module').then(
+        (m) => m.AffiliatedStoresModule,
+      ),
+  },
+];
 
-// @NgModule({
-//   declarations: [],
-//   imports: [
-//     CommonModule
-//   ]
-// })
-// export class AutomationModule { }
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class AutomationRoutingModule {}

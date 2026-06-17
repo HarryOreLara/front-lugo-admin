@@ -32,6 +32,9 @@ export class SidebarComponent implements OnInit {
       const routerChild = child.route;
       const routerNavigate = this.dashboardurl.concat(routerChild);
 
+      console.log({
+        routerNavigate,
+      });
       this.router.navigateByUrl(routerNavigate);
     }
   }
@@ -41,6 +44,9 @@ export class SidebarComponent implements OnInit {
     const routerChild = child.route;
     const routerNavigate = this.dashboardurl.concat(routeFather, routerChild);
 
+    console.log({
+      routerNavigate,
+    });
     return this.router.navigateByUrl(routerNavigate);
   }
 

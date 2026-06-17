@@ -9,6 +9,9 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { TableModule } from 'primeng/table';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputTextModule } from 'primeng/inputtext';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   imports: [
@@ -24,6 +27,10 @@ import { InputTextModule } from 'primeng/inputtext';
     OverlayPanelModule,
     TagModule,
     InputTextModule,
+    DialogModule,
+    DropdownModule,
+    CheckboxModule
+,
   ],
   exports: [
     CardModule,
@@ -37,7 +44,10 @@ import { InputTextModule } from 'primeng/inputtext';
     ButtonModule,
     TagModule,
     OverlayPanelModule,
+    DialogModule,
+    DropdownModule,
     InputTextModule,
+    CheckboxModule
   ],
 })
 export class AutomationPrimengModule {}
