@@ -5,4 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './owner-list.component.html',
   styleUrls: ['./owner-list.component.css'],
 })
-export class OwnerListComponent {}
+export class OwnerListComponent {
+  constructor() {
+    console.log(' EN LIST COMPONENT OWNER');
+  }
+}
