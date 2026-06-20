@@ -22,12 +22,12 @@ export class EmployeeService {
     return this.employeeRepository.findEmployeeById(id);
   }
 
-  createEmployee(product: IEmployeeRequest): Observable<Employee> {
-    return this.employeeRepository.createEmployee(product);
+  createEmployee(employee: IEmployeeRequest): Observable<Employee> {
+    return this.employeeRepository.createEmployee(employee);
   }
 
-  updateEmployee(id: number, product: IEmployeeRequest): Observable<Employee> {
-    return this.employeeRepository.updateEmployee(id, product);
+  updateEmployee(id: number, employee: IEmployeeRequest): Observable<Employee> {
+    return this.employeeRepository.updateEmployee(id, employee);
   }
 
   deleteEmployee(id: number): Observable<Employee> {

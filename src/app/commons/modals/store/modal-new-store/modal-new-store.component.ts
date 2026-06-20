@@ -3,6 +3,7 @@ import { IStoreForm } from './model/store-form.model';
 import { Parameter } from '@class/parameter/paramter.class';
 import { StoreFormPresenter } from './store-form.presenter';
 import { Store } from '@class/index';
+import { Owner } from '@class/owner/owner.class';
 
 @Component({
   selector: 'app-modal-new-store-ui',
@@ -18,6 +19,7 @@ export class ModalNewStoreComponent {
   @Input() public units: Array<Parameter>;
   @Input() public partners: Array<Parameter>;
   @Input() store: Store;
+  @Input() public owners: Owner[] = [];
 
   @Output() saveStoreEmit: EventEmitter<IStoreForm> =
     new EventEmitter<IStoreForm>();

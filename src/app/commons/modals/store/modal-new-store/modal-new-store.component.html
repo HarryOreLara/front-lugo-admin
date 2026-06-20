@@ -42,19 +42,18 @@
             pInputText
           />
         </div>
-        <div class="field mb-4 col-12 md:col-6">
+        <div class="field mb-4 col-12 md:col-4">
           <label for="code" class="font-medium text-900">Codigo</label>
-          <p-dropdown
-            inputId="code"
-            [options]="brands"
-            optionValue="id"
+          <input
+            id="code"
             formControlName="code"
-            optionLabel="name"
-            placeholder="Seleccione"
-          >
-          </p-dropdown>
+            lugoReactiveForm
+            autocomplete="off"
+            type="text"
+            pInputText
+          />
         </div>
-        <div class="field mb-4 col-12 md:col-6">
+        <div class="field mb-4 col-12 md:col-4">
           <label for="address" class="font-medium text-900">Direccion</label>
           <input
             id="address"
@@ -68,27 +67,26 @@
 
         <div class="field mb-4 col-12 md:col-4">
           <label for="phone" class="font-medium text-900">Telefono</label>
-          <p-dropdown
-            inputId="phone"
-            [options]="brands"
-            optionLabel="description"
-            optionValue="id"
+          <input
+            id="phone"
             formControlName="phone"
-            placeholder="Seleccióne un banco"
-          >
-          </p-dropdown>
+            lugoReactiveForm
+            autocomplete="off"
+            type="text"
+            pInputText
+          />
         </div>
+
         <div class="field mb-4 col-12 md:col-4">
           <label for="email" class="font-medium text-900">Email</label>
-          <p-dropdown
-            inputId="email"
-            [options]="brands"
-            optionValue="id"
+          <input
+            id="email"
             formControlName="email"
-            optionLabel="description"
-            placeholder="Seleccione un distrito"
-          >
-          </p-dropdown>
+            lugoReactiveForm
+            autocomplete="off"
+            type="text"
+            pInputText
+          />
         </div>
 
         <div class="field mb-4 col-12 md:col-4">
@@ -103,19 +101,20 @@
           />
         </div>
 
-        <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
-
         <div class="field mb-4 col-12 md:col-4">
-          <label for="address" class="font-medium text-900">Dirección</label>
-          <input
-            id="address"
-            formControlName="address"
-            type="text"
-            autocomplete="off"
-            lugoReactiveForm
-            pInputText
-          />
+          <label for="owner" class="font-medium text-900">Dueño</label>
+          <p-dropdown
+            inputId="owner"
+            [options]="owners"
+            optionLabel="firstName"
+            optionValue="id"
+            formControlName="owner"
+            placeholder="Seleccióne un dueño"
+          >
+          </p-dropdown>
         </div>
+
+        <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
 
         <div class="field mb-4 col-12 flex align-items-center">
           <span class="mr-2 text-900">Tienda activa</span>
