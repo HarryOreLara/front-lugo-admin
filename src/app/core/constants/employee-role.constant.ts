@@ -48,4 +48,26 @@ export const EMPLOYEE_ROLES: Array<IParameterEnum> = [
     description:
       'Encargado del control, organización y supervisión del inventario dentro del almacén, incluyendo el ingreso, salida, almacenamiento y verificación de productos. Su labor asegura el correcto abastecimiento y disponibilidad de mercadería.',
   },
+  {
+    id: EmployeeRole.SUPER_ADMIN,
+    name: 'Super Admin',
+    containerClass: 'col-12 md:col-6 border-bottom-1 surface-border',
+    iconWrapperClass:
+      'inline-flex border-circle align-items-center justify-content-center bg-yellow-50 w-3rem h-3rem mb-4',
+    icon: 'pi pi-wallet',
+    iconClass: 'text-xl text-yellow-500',
+    description:
+      'Encargado del control, organización y supervisión del inventario dentro del almacén, incluyendo el ingreso, salida, almacenamiento y verificación de productos. Su labor asegura el correcto abastecimiento y disponibilidad de mercadería.',
+  },
+  {
+    id: EmployeeRole.OWNER,
+    name: 'Dueño',
+    containerClass: 'col-12 md:col-6 border-bottom-1 surface-border',
+    iconWrapperClass:
+      'inline-flex border-circle align-items-center justify-content-center bg-yellow-50 w-3rem h-3rem mb-4',
+    icon: 'pi pi-wallet',
+    iconClass: 'text-xl text-yellow-500',
+    description:
+      'Encargado del control, organización y supervisión del inventario dentro del almacén, incluyendo el ingreso, salida, almacenamiento y verificación de productos. Su labor asegura el correcto abastecimiento y disponibilidad de mercadería.',
+  },
 ];

@@ -5,6 +5,7 @@ import { ModalNewBrandContainer } from 'src/app/commons/modals/products/modal-ne
 import { ModalNewCategoryContainer } from 'src/app/commons/modals/products/modal-new-category/modal-new-category.container';
 import { ModalNewInventaryContainer } from 'src/app/commons/modals/products/modal-new-inventary/modal-new-inventary.container';
 import { ModalNewProductContainer } from 'src/app/commons/modals/products/modal-new-product/modal-new-product.container';
+import { ModalNewOwnerContainer } from 'src/app/commons/modals/store/modal-new-owner/modal-new-owner.container';
 import { ModalNewStoreContainer } from 'src/app/commons/modals/store/modal-new-store/modal-new-store.container';
 
 export const MODAL_REGISTRY: Record<string, Type<object>> = {
@@ -17,4 +18,5 @@ export const MODAL_REGISTRY: Record<string, Type<object>> = {
   modalNewEmployee: ModalNewEmployeeContainer,
   modalNewBrand: ModalNewBrandContainer,
   modalNewStore: ModalNewStoreContainer,
+  modalNewOwner: ModalNewOwnerContainer,
 };

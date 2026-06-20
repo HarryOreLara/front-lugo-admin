@@ -6,4 +6,5 @@ export enum MODELS_ENUM {
   MODAL_NEW_EMPLOYEE = 'modalNewEmployee',
   MODAL_NEW_BRAND = 'modalNewBrand',
   MODAL_NEW_STORE = 'modalNewStore',
+  MODAL_NEW_OWNER = 'modalNewOwner',
 }

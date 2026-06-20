@@ -1,0 +1,211 @@
+<p-dialog
+  [(visible)]="visibleModal"
+  appendTo="body"
+  [modal]="true"
+  [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+  styleClass="new-product-dialog"
+>
+  <ng-template pTemplate="header">
+    <div class="inline-flex align-items-center justify-content-center gap-2">
+      <span class="font-bold white-space-nowrap">
+        {{ owner ? "Actualizar dueño" : "Nuevo dueño" }}
+      </span>
+    </div>
+  </ng-template>
+  <form class="surface-ground" [formGroup]="ownerFormPresenter.Form">
+    <div class="surface-card p-4 border-round p-fluid">
+      <div class="grid formgrid p-fluid">
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="firstName" class="font-medium text-900">Nombre</label>
+          <input
+            id="firstName"
+            formControlName="firstName"
+            autocomplete="off"
+            lugoReactiveForm
+            type="text"
+            pInputText
+          />
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="lastName" class="font-medium text-900">Apellido</label>
+          <input
+            id="lastName"
+            formControlName="lastName"
+            autocomplete="off"
+            lugoReactiveForm
+            type="text"
+            pInputText
+          />
+        </div>
+        <div class="field mb-4 col-12 md:col-4">
+          <label for="typeDocument" class="font-medium text-900"
+            >Tipo Documento</label
+          >
+          <p-dropdown
+            inputId="typeDocument"
+            [options]="documentsType"
+            optionValue="id"
+            formControlName="typeDocument"
+            optionLabel="name"
+            placeholder="Seleccione"
+          >
+          </p-dropdown>
+        </div>
+        <div class="field mb-4 col-12 md:col-4">
+          <label for="document" class="font-medium text-900">Document</label>
+          <input
+            id="document"
+            formControlName="document"
+            lugoReactiveForm
+            autocomplete="off"
+            type="text"
+            pInputText
+          />
+        </div>
+
+        <!-- <div class="field mb-4 col-12 md:col-4">
+          <label for="bank" class="font-medium text-900">Banco</label>
+          <p-dropdown
+            inputId="bank"
+            [options]="banks"
+            optionLabel="description"
+            optionValue="id"
+            formControlName="bank"
+            placeholder="Seleccióne un banco"
+          >
+          </p-dropdown>
+        </div> -->
+        <!-- <div class="field mb-4 col-12 md:col-4">
+          <label for="district" class="font-medium text-900">Distrito</label>
+          <p-dropdown
+            inputId="district"
+            [options]="districts"
+            optionValue="id"
+            formControlName="district"
+            optionLabel="description"
+            placeholder="Seleccione un distrito"
+          >
+          </p-dropdown>
+        </div> -->
+
+        <div class="field mb-4 col-12 md:col-4">
+          <label for="email" class="font-medium text-900">Email</label>
+          <input
+            id="email"
+            formControlName="email"
+            lugoReactiveForm
+            autocomplete="off"
+            type="text"
+            pInputText
+          />
+        </div>
+
+        <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div>
+
+        <div class="col-12 mb-2">
+          <label class="font-medium text-900 block mb-3">Rol</label>
+          <div class="flex flex-wrap gap-3">
+            <div
+              *ngFor="let tipo of employeeRoles"
+              class="flex-1 border-1 border-round-lg p-3 cursor-pointer"
+              style="min-width: 120px; background: var(--surface-card)"
+              [ngClass]="{
+                'border-blue-500 border-2 text-blue-500':
+                  ownerFormPresenter.role.value === tipo.id,
+                'hover:surface-100 border-200':
+                  ownerFormPresenter.role.value !== tipo.id,
+              }"
+              (click)="ownerFormPresenter.role.setValue(tipo.id)"
+            >
+              <div class="flex justify-content-between align-items-start mb-3">
+                <span
+                  class="inline-flex align-items-center justify-content-center border-round"
+                  style="
+                    width: 36px;
+                    height: 36px;
+                    background: var(--indigo-100);
+                  "
+                >
+                  <i
+                    class="pi pi-shield text-indigo-600"
+                    style="font-size: 1rem"
+                  ></i>
+                </span>
+                <span
+                  class="flex align-items-center justify-content-center border-circle border-1 border-300"
+                  style="width: 18px; height: 18px"
+                  [ngClass]="{
+                    'bg-blue-500 border-blue-500':
+                      ownerFormPresenter.role.value === tipo.id,
+                  }"
+                >
+                  <i
+                    *ngIf="ownerFormPresenter.role.value === tipo.id"
+                    class="pi pi-check text-white"
+                    style="font-size: 0.55rem"
+                  ></i>
+                </span>
+              </div>
+              <div class="text-900 font-medium text-sm">{{ tipo.name }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="surface-border border-top-1 opacity-50 my-4 col-12"></div>
+
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="address" class="font-medium text-900">Dirección</label>
+          <input
+            id="address"
+            formControlName="address"
+            type="text"
+            autocomplete="off"
+            lugoReactiveForm
+            pInputText
+          />
+        </div>
+
+        <div class="field mb-4 col-12 md:col-6">
+          <label for="phone" class="font-medium text-900">Telefono</label>
+          <input
+            id="phone"
+            formControlName="phone"
+            autocomplete="off"
+            type="text"
+            lugoReactiveForm
+            pInputText
+          />
+        </div>
+
+        <div class="field mb-4 col-12 flex align-items-center">
+          <span class="mr-2 text-900">Dueño activo</span>
+          <p-checkbox
+            formControlName="isActive"
+            value="true"
+            [binary]="true"
+          ></p-checkbox>
+        </div>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      [disabled]="isLoading"
+      label="Cancelar"
+      class="bg-red-500 border-red-400 hover:bg-red-600"
+      (click)="close()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      [label]="owner ? 'Actualizar' : 'Guardar'"
+      [disabled]="ownerFormPresenter.Invalid || isLoading"
+      type="button"
+      (click)="owner ? updateOwner() : saveOwner()"
+    ></button>
+  </ng-template>
+</p-dialog>

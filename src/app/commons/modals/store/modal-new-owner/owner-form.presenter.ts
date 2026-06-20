@@ -1,5 +1,3 @@
-import { StepPresenter } from '@states/forms/step.presenter';
-import { IEmployeeForm } from './models/employee-form.model';
 import { Injectable } from '@angular/core';
 import {
   FormBuilder,
@@ -7,12 +5,14 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { StepPresenter } from '@states/forms/step.presenter';
+import { IOwnerForm } from './model/owner-form.model';
 import { DocumentType } from '@enums/document-type.enum';
 
 @Injectable({
   providedIn: 'root',
 })
-export class EmployeeFormPresenter extends StepPresenter<IEmployeeForm> {
+export class OwnerFormPresenter extends StepPresenter<IOwnerForm> {
   firstName: FormControl;
   lastName: FormControl;
   email: FormControl;
@@ -35,10 +35,12 @@ export class EmployeeFormPresenter extends StepPresenter<IEmployeeForm> {
     this.firstName = new FormControl(null, [Validators.required]);
     this.lastName = new FormControl(null, [Validators.required]);
     this.email = new FormControl(null, [Validators.required, Validators.email]);
-    this.phone = new FormControl(null, []);
+    this.phone = new FormControl(null, [Validators.required]);
     this.role = new FormControl(null, []);
     this.isActive = new FormControl(null, []);
-    this.typeDocument = new FormControl(DocumentType.DNI, [Validators.required]);
+    this.typeDocument = new FormControl(DocumentType.DNI, [
+      Validators.required,
+    ]);
     this.document = new FormControl(null, [Validators.required]);
     this.address = new FormControl(null, []);
     this.postalCode = new FormControl(null, []);

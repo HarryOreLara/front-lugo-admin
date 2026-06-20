@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-owner-table-ui',
@@ -7,9 +7,14 @@ import { Component, Input } from '@angular/core';
 })
 export class OwnerTableComponent {
   @Input() isLoading = false;
+
+  @Output() public newOwnerEmit: EventEmitter<void> = new EventEmitter<void>();
+
   public owners = [];
 
-  public newOwner() {}
+  public newOwner() {
+    this.newOwnerEmit.emit();
+  }
   public updateOwner() {}
   public deleteOwner() {}
 }

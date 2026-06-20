@@ -3,4 +3,6 @@ export enum EmployeeRole {
   SELLER = 'SELLER',
   WAREHOUSE = 'WAREHOUSE',
   CASHIER = 'CASHIER',
+  SUPER_ADMIN = 'SUPER_ADMIN',
+  OWNER = 'OWNER',
 }

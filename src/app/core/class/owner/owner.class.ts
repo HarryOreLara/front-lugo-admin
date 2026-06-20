@@ -5,7 +5,7 @@ import { DocumentType } from '@enums/document-type.enum';
 import { EmployeeRole } from '@enums/employee-role.enum';
 import { Status } from '@enums/status.enum';
 
-export class Employee {
+export class Owner {
   public id: number;
   public firstName: string;
   public lastName: string;
@@ -24,30 +24,30 @@ export class Employee {
   public bank: Bank;
   public createdAt: Date;
 
-  public constructor(employee: Partial<Employee> = {}) {
-    this.id = employee.id ?? 0;
-    this.firstName = employee.firstName ?? '';
-    this.lastName = employee.lastName ?? '';
-    this.email = employee.email ?? '';
-    this.code = employee.code ?? '';
-    this.phone = employee.phone ?? '';
-    this.role = employee.role ?? EmployeeRole.CASHIER;
-    this.isActive = employee.isActive ?? true;
-    this.typeDocument = employee.typeDocument ?? DocumentType.DNI;
-    this.document = employee.document ?? '';
-    this.address = employee.address ?? '';
-    this.postalCode = employee.postalCode ?? '';
-    this.channel = employee.channel ?? Channel.PHYSICAL;
-    this.status = employee.status ?? Status.ACTIVE;
-    this.district = employee.district ?? new District();
-    this.bank = employee.bank ?? new Bank();
-    this.createdAt = employee.createdAt ?? new Date();
+  public constructor(owner: Partial<Owner> = {}) {
+    this.id = owner.id ?? 0;
+    this.firstName = owner.firstName ?? '';
+    this.lastName = owner.lastName ?? '';
+    this.email = owner.email ?? '';
+    this.code = owner.code ?? '';
+    this.phone = owner.phone ?? '';
+    this.role = owner.role ?? EmployeeRole.CASHIER;
+    this.isActive = owner.isActive ?? true;
+    this.typeDocument = owner.typeDocument ?? DocumentType.DNI;
+    this.document = owner.document ?? '';
+    this.address = owner.address ?? '';
+    this.postalCode = owner.postalCode ?? '';
+    this.channel = owner.channel ?? Channel.PHYSICAL;
+    this.status = owner.status ?? Status.ACTIVE;
+    this.district = owner.district ?? new District();
+    this.bank = owner.bank ?? new Bank();
+    this.createdAt = owner.createdAt ?? new Date();
   }
 
-  static fromJson(employee: unknown): Employee {
-    const casted = employee as Record<string, unknown>;
+  static fromJson(owner: unknown): Owner {
+    const casted = owner as Record<string, unknown>;
 
-    return new Employee({
+    return new Owner({
       id: casted['id'] as number,
       firstName: casted['firstName'] as string,
       lastName: casted['lastName'] as string,

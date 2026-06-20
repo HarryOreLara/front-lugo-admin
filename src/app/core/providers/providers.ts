@@ -7,6 +7,7 @@ import { PURCHASE_PROVIDER } from './purchase.provider';
 import { EMPLOYEE_PROVIDER } from './employee.provider';
 import { AUTH_PROVIDER } from './auth.provider';
 import { BRAND_PROVIDER } from './brand.provider';
+import { OWNER_PROVIDER } from './owner.provider';
 
 export const APP_PROVIDERS: Array<Provider> = [
   ...PRODUCT_PROVIDER,
@@ -16,5 +17,6 @@ export const APP_PROVIDERS: Array<Provider> = [
   ...PURCHASE_PROVIDER,
   ...EMPLOYEE_PROVIDER,
   ...AUTH_PROVIDER,
-  ...BRAND_PROVIDER
+  ...BRAND_PROVIDER,
+  ...OWNER_PROVIDER,
 ];

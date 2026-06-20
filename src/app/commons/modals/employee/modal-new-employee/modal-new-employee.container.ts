@@ -9,6 +9,7 @@ import { Parameter } from '@interfaces/parameter/parameter.interface';
 import { IParameterEnum } from '@interfaces/index';
 import { DOCUMENTS_TYPE } from '@constants/document-type.constant';
 import { EMPLOYEE_ROLES } from '@constants/employee-role.constant';
+import { EmployeeRole } from '@enums/employee-role.enum';
 
 @Component({
   selector: 'app-modal-new-employee',
@@ -21,7 +22,9 @@ export class ModalNewEmployeeContainer implements OnInit, OnDestroy {
   public districts: Array<Parameter>;
   public isLoading$: Subject<boolean> = new Subject<boolean>();
   public documentsType: IParameterEnum[] = DOCUMENTS_TYPE;
-  public employeeRoles: IParameterEnum[] = EMPLOYEE_ROLES;
+  public employeeRoles: IParameterEnum[] = EMPLOYEE_ROLES.filter(
+    (x) => x.id != EmployeeRole.SUPER_ADMIN && x.id != EmployeeRole.OWNER,
+  );
 
   public constructor(
     private readonly employeeFacade: EmployeeFacade,
@@ -43,7 +46,6 @@ export class ModalNewEmployeeContainer implements OnInit, OnDestroy {
       .subscribe(() => {
         this.close();
       });
-
   }
 
   public close() {
