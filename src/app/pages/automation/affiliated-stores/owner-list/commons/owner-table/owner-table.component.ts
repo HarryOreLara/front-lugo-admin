@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Owner } from '@class/owner/owner.class';
 
 @Component({
   selector: 'app-owner-table-ui',
@@ -6,11 +7,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./owner-table.component.css'],
 })
 export class OwnerTableComponent {
+  @Input() public owners: Owner[] = [];
   @Input() isLoading = false;
 
   @Output() public newOwnerEmit: EventEmitter<void> = new EventEmitter<void>();
-
-  public owners = [];
 
   public newOwner() {
     this.newOwnerEmit.emit();

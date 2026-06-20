@@ -9,6 +9,7 @@ import {
   IGeneric,
   IGenericArrays,
 } from '@interfaces/genericas/IGeneric.interface';
+import { RequestType } from '@enums/request-type.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,11 @@ export class EmployeeRepositoryImpl implements EmployeeRepository {
     const direction = `${this.apiUrl}/employee/getAllEmployee`;
 
     return this.http
-      .get<IGenericArrays<Employee[]>>(direction)
+      .get<IGenericArrays<Employee[]>>(direction, {
+        params: {
+          requestType: RequestType.ALL,
+        },
+      })
       .pipe(
         map((response: IGenericArrays<Employee[]>) =>
           response.data.map((employee) => Employee.fromJson(employee)),

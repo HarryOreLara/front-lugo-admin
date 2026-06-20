@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Owner } from '@class/owner/owner.class';
 
 @Component({
   selector: 'app-owner-list-ui',
@@ -6,7 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./owner-list.component.css'],
 })
 export class OwnerListComponent {
-  constructor() {
-    console.log(' EN LIST COMPONENT OWNER');
-  }
+  @Input() public owners: Owner[] = [];
 }

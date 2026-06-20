@@ -9,6 +9,8 @@ import {
   IGeneric,
   IGenericArrays,
 } from '@interfaces/genericas/IGeneric.interface';
+import { EmployeeRole } from '@enums/employee-role.enum';
+import { RequestType } from '@enums/request-type.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +24,11 @@ export class OwnerRepositoryImpl implements OwnerRepository {
     const direction = `${this.apiUrl}/employee/getAllEmployee`;
 
     return this.http
-      .get<IGenericArrays<Owner[]>>(direction)
+      .get<IGenericArrays<Owner[]>>(direction, {
+        params: {
+          requestType: RequestType.ONLY_OWNER,
+        },
+      })
       .pipe(
         map((response: IGenericArrays<Owner[]>) =>
           response.data.map((employee) => Owner.fromJson(employee)),
@@ -41,8 +47,6 @@ export class OwnerRepositoryImpl implements OwnerRepository {
 
     return this.http
       .post<IGeneric<Owner>>(direction, owner)
-      .pipe(
-        map((response: IGeneric<Owner>) => Owner.fromJson(response.data)),
-      );
+      .pipe(map((response: IGeneric<Owner>) => Owner.fromJson(response.data)));
   }
 }

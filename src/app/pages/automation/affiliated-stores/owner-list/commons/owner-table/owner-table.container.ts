@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Owner } from '@class/owner/owner.class';
 import { ModalService } from '@components//host/app-modal.service';
 import { MODELS_ENUM } from '@enums/models.enum';
 
@@ -7,6 +8,8 @@ import { MODELS_ENUM } from '@enums/models.enum';
   templateUrl: './owner-table.container.html',
 })
 export class OwnerTableContainer {
+  @Input() public owners: Owner[] = [];
+
   constructor(private readonly modalService: ModalService) {}
 
   public newOwner() {
